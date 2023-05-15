@@ -1,0 +1,34 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {t(".institutions") => fund_settings_institutions_path}, current_topic: setting.name}
+= render partial: "settings/institutions/shared/header", locals: {current_institution: setting}
+%hr
+  .grid-x.grid-padding-x
+    .cell.small-12.medium-12
+      .grid-x.grid-margin-x.mb10
+        .cell.medium-6.grid-x
+          %h2= setting.name
+          .institution-labels
+            - if setting.restructuring?
+              .label.alert.mb10.mr5{data: {element_purpose: "status_label"}}= t("activerecord.attributes.institution.restructuring")
+            - if setting.provision?
+              .label.dark.mb10.mr5{data: {element_purpose: "status_label"}}= t("activerecord.attributes.institution.provision")
+            - if setting.in_watchlist?
+              .label.warning.mb10.mr5{data: {element_purpose: "status_label"}}= t("activerecord.attributes.institution.watchlist")
+
+        .cell.medium-6.grid-x
+          .buttons
+            = link_to "Delete", "#", class: "cta cta_warning", id: "delete-setting"
+
+      .grid-x.grid-margin-x
+        .cell.small-12
+          %ul#institution_tabs.tabs{"data-tabs" => "", 'data-deep-link' => 'true'}
+            - %w(general financials portfolio_breakdown impact_and_esg upcoming_repayments covenant active_loans provisions summary pipeline).each do |tab_subject|
+              %li.tabs-title{"class" => tab_subject == (params["selected_tab"] || "general") ? "is-active" : nil}
+                %a{"class" => tab_subject == (params["selected_tab"] || "general") ? "aria-selected" : nil, :href => "##{tab_subject}_tab", "data-tabs-target" => "#{tab_subject}_tab", :data => {element_purpose: "#{tab_subject}_tab"}}
+                  = t("settings.institutions.tabs.#{tab_subject}")
+
+          .tabs-content{"data-tabs-content" => "institution_tabs"}
+            - %w(general financials portfolio_breakdown impact_and_esg upcoming_repayments covenant active_loans provisions summary pipeline).each do |tab_subject|
+              .tabs-panel{"id" => "#{tab_subject}_tab", class: tab_subject == (params["selected_tab"] || "general") ? "is-active table_height" : nil}
+                = render partial: "#{tab_subject}", locals: {institution: setting}
+
+= render partial: "settings/shared/delete", locals: {setting: setting, setting_name: resource_name}

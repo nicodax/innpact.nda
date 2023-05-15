@@ -1,0 +1,49 @@
+-# # TODO : TO BE DELETED AFTER REFACTORING
+
+-# .grid-x.grid-margin-x
+-#   .cell.small-12.medium-6.large-6.grid-x.align-middle
+-#     .cell.small-6.medium-6.large-6.grid-x.align-middle
+-#       %span= t('settings.distribution_by_sector.shared.form.as_of')
+-#     .cell.small-6.medium-6.large-6.grid-x.align-middle
+-#       = f.input :as_of, label: false, as: 'date_picker'
+-#   .cell.small-12.medium-6.large-6.grid-x.align-middle
+-#   .cell.small-12.medium-6.large-6.grid-x.align-middle
+-#     .cell.small-6.medium-6.large-6.grid-x.align-middle
+-#       %span= t('settings.distribution_by_sector.shared.form.trade_and_services')
+-#     .cell.small-6.medium-6.large-6.grid-x.align-middle
+-#       = f.input :trade_and_services, label: false, as: "string", input_html: { :class => "input-group-field cleave_format two_digits_percentage" }
+-#       .input-group-label= "%"
+-#   .cell.small-12.medium-6.large-6.grid-x.align-middle
+-#     .cell.small-6.medium-6.large-6.grid-x.align-middle
+-#       %span= t('settings.distribution_by_sector.shared.form.agriculture')
+-#     .cell.small-6.medium-6.large-6.grid-x.align-middle
+-#       = f.input :agriculture, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage", :title => t(".tooltip_agriculture") }
+-#       .input-group-label= "%"
+-#   .cell.small-12.medium-6.large-6.grid-x.align-middle
+-#     .cell.small-6.medium-6.large-6.grid-x.align-middle
+-#       %span= t('settings.distribution_by_sector.shared.form.production')
+-#     .cell.small-6.medium-6.large-6.grid-x.align-middle
+-#       = f.input :production, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage", :title => t(".tooltip_production") }
+-#       .input-group-label= "%"
+-#   .cell.small-12.medium-6.large-6.grid-x.align-middle
+-#     .cell.small-6.medium-6.large-6.grid-x.align-middle
+-#       %span= t('settings.distribution_by_sector.shared.form.consumption')
+-#     .cell.small-6.medium-6.large-6.grid-x.align-middle
+-#       = f.input :consumption, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage", :title => t(".tooltip_consumption") }
+-#       .input-group-label= "%"
+-#   .cell.small-12.medium-6.large-6.grid-x.align-middle
+-#     .cell.small-6.medium-6.large-6.grid-x.align-middle
+-#       %span= t('settings.distribution_by_sector.shared.form.other')
+-#     .cell.small-6.medium-6.large-6.grid-x.align-middle
+-#       = f.input :other, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage", :title => t(".tooltip_other") }
+-#       .input-group-label= "%"
+-#   .cell.small-12.medium-6.large-6.grid-x.align-middle
+-#     .cell.small-6.medium-6.large-6.grid-x.align-middle
+-#       %span= t('settings.distribution_by_sector.shared.form.total')
+-#     .cell.small-6.medium-6.large-6.grid-x.align-middle
+-#       %span#distribution_by_sector_total_sum
+-#   .cell.small-12.medium-12.large-12.grid-x.align-middle
+-# %hr
+-# .grid-x.grid-margin-x.text-center
+-#   .cell.auto.cta_center
+-#     = f.submit t('settings.shared.submit'), class: "cta"

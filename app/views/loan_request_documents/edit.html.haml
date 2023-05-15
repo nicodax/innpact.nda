@@ -1,0 +1,10 @@
+= render partial: "loan_request_documents/shared/breadcrumb", locals: {current_step: t(".edit_documents")}
+%hr
+  %h1.mb0= t(".edit_documents")
+  .grid-x.grid-padding-x
+    = render partial: "loan_request_documents/shared/index"
+    .cell.small-12.medium-8
+      .grid-x
+        %h2= t(".edit_document")+ " : " + loan_request_document.original_filename
+        = simple_form_for loan_request_document, url: fund_loan_request_document_path(fund_id: fund, loan_request_id: loan_request) do |f|
+          = render partial: "settings/pool_documents/shared/form", locals: {f: f}

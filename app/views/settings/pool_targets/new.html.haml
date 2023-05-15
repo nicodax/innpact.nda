@@ -1,0 +1,7 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {"Pools" => fund_settings_pools_path, pool.name => fund_settings_pool_path(id: pool.id)}, current_topic: "Add Target"}
+
+.grid-x
+  .cell.medium-6
+    %h1.mb0= t(".create_new_target")
+  = simple_form_for ([fund, :settings, pool, pool_target]) do |f|
+    = render partial: "settings/pool_targets/shared/form", locals: {f: f}

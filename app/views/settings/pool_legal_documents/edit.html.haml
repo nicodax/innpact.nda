@@ -1,0 +1,11 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {t("shared.menu_vertical.pools") => fund_settings_pools_path, pool.name => fund_settings_pool_path(id: pool.id),t("settings.pool_legal_documents.index.legal_document") => fund_settings_pool_pool_legal_documents_path(id: pool.id)}, current_topic: t(".edit_legal_document")}
+
+%hr
+  %h1.mb0= t("settings.pool_legal_documents.index.show_previous_versions")
+  .grid-x.grid-padding-x
+    = render partial: "settings/pool_legal_documents/shared/index"
+    .cell.small-12.medium-8
+      %h2= t(".edit_legal_document") + " : " + setting.original_filename
+      .grid-x
+        = simple_form_for ([fund, :settings, pool, setting]) do |f|
+          = render partial: "settings/pool_legal_documents/shared/form", locals: {f: f}

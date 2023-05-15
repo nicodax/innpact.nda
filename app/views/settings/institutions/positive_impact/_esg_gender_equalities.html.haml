@@ -1,0 +1,34 @@
+- institution_esg_gender_equalities = institution.last_institution_esg_gender_equality
+.grid-margin-x.small-12.medium-6.large-6
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-12.large-12
+        %h4= t('settings.institutions.show.gender_data')
+
+
+  - if true || institution_esg_gender_equalities.present?
+    .cell.small-12.medium-6.large-6
+      .grid-x
+        .cell.small-12.medium-6.large-6
+          %strong= t("settings.esg_gender_equality.shared.form.as_of") + ": "
+        .cell.auto.field_value
+          = institution_esg_gender_equalities.as_of.try(:strftime, "%d-%m-%Y")
+    .cell.small-12.medium-6.large-6
+    - institution_esg_gender_equalities.percentage_keys.each do |prop|
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-12.medium-6.large-6
+            %strong= t("settings.esg_gender_equality.shared.form.#{prop}") + ": "
+          .cell.auto.field_value
+            = number_to_percentage(institution_esg_gender_equalities[prop], precision: 2, delimiter: ',', separator: '.', format: "%n %")
+    - institution_esg_gender_equalities.boolean_keys.each do |prop|
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-12.medium-6.large-6
+            %strong= t("settings.esg_gender_equality.shared.form.#{prop}") + ": "
+          .cell.auto.field_value
+            = t(setting.dropdown_yes_no_list_display(institution_esg_gender_equalities[prop]))
+  - else
+    .cell.small-12.medium-12.large-12
+      = link_to t("settings.esg_gender_equality.new.esg_gender_equality_new_button"), new_fund_settings_institution_institution_esg_gender_equality_path(fund_id: fund.id,
+        institution_id: institution.id), class: "cta text-center mb5"

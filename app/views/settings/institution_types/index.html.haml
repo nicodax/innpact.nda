@@ -1,0 +1,11 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {}, current_topic: "Institution Types"}
+= render partial: "settings/institution_types/shared/header"
+
+%hr
+  .grid-x.grid-padding-x
+    = render partial: "settings/institution_types/shared/index"
+    .cell.small-12.medium-4
+      %h2= t("settings.country_groups.index.create")
+      = simple_form_for new_setting, url: fund_settings_institution_types_path do |f|
+        = render 'shared/form_error_messages', object: f.object
+        = render partial: "settings/institution_types/shared/form", locals: { f: f }

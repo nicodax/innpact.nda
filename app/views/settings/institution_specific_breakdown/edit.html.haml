@@ -1,0 +1,7 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {t(".institutions") => fund_settings_institutions_path, @institution.name => fund_settings_institution_path(fund_id: @institution.fund.id, id: @institution.id), t("settings.mef_specific_breakdown.new.breadcrumb_mef_specific_breakdown") => fund_settings_institution_path(fund_id: @institution.fund.id, id: @institution.id, anchor: 'portfolio_breakdown_tab')}, current_topic: t("settings.breadcrumb_edit")}
+= render partial: "settings/institutions/shared/header", locals: {current_institution: @institution, subtitle: {t("settings.mef_specific_breakdown.new.breadcrumb_mef_specific_breakdown") => fund_settings_institution_path(fund_id: @institution.fund.id, id: @institution.id, anchor: 'portfolio_breakdown_tab')}}
+
+= simple_form_for(@institution_specific_brekadown, method: :post, url: fund_settings_institution_institution_specific_breakdown_update_specific_breakdowns_path(fund_id: fund.id, institution_id: @institution.id), html: { class: "institution_specific_breakdown"}) do |f|
+  = render partial: 'settings/institution_specific_breakdown/shared/institution_specific_breakdown_form', locals: {f: f}
+
+= javascript_pack_tag 'cleave_form_format'

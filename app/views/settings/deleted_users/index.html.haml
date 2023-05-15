@@ -1,0 +1,33 @@
+= render partial: "settings/shared/user_breadcrumb", locals: {intermediate_topics: {"User management" => settings_users_path, "Deleted users" => settings_deleted_users_path}, current_topic: " "}
+
+.grid-x.warning
+  .cell.small-12.medium-9.large-6
+    %h1.mb0= t(".deleted_users")
+    .soustitre= t(".warning_title")
+%hr/
+.grid-x.grid-margin-x
+  .small-12.cell.medium-4
+    %h3= t('.admins')
+    - if @deleted_users.with_role(:administrator).empty?
+      %p= t(".no_users_found")
+    - @deleted_users.with_role(:administrator).each do |user|
+      = link_to settings_deleted_user_path(id: user.id) do
+        .cta_user=user.full_name
+    %h3= t('.gm')
+    - if @deleted_users.with_role(:general_manager).empty?
+      %p= t(".no_users_found")
+    - @deleted_users.with_role(:general_manager).each do |user|
+      = link_to settings_deleted_user_path(id: user.id) do
+        .cta_user=user.full_name
+    %h3= t('.im')
+    - if @deleted_users.with_role(:investment_manager).empty?
+      %p= t(".no_users_found")
+    - @deleted_users.with_role(:investment_manager).each do |user|
+      = link_to settings_deleted_user_path(id: user.id) do
+        .cta_user=user.full_name
+    %h3= t('.reader')
+    - if @deleted_users.with_role(:reader).empty?
+      %p= t(".no_users_found")
+    - @deleted_users.with_role(:reader).each do |user|
+      = link_to settings_deleted_user_path(id: user.id) do
+        .cta_user=user.full_name

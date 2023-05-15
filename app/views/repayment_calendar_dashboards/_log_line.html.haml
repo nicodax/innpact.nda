@@ -1,0 +1,41 @@
+%tr.text-center
+  %td
+  %td
+  %td.repayment_type_column
+    - if line[:repayment_type] == RepaymentCalendarLine::REPAYMENT_TYPE_PRINCIPAL
+      %i{class:"fi-page", data: {tooltip: true, position: "bottom"}, title: I18n.t(".activerecord.attributes.repayment_calendar_line.repayment_types.principal") }
+    - else
+      %i{class:"fi-page-multiple", data: {tooltip: true, position: "bottom"}, title: I18n.t(".activerecord.attributes.repayment_calendar_line.repayment_types.interest") }
+  %td
+    %table
+      - if line[:action] == CalendarLogLine::ACTION_CREATION
+        %tr.changed_attribute
+          %td
+            %i{class:"fi-plus new_version"}
+          %td= line[:new_repayment_line].formatted_date
+          %td= line[:new_repayment_line].original_amount_currency_value
+          %td= line[:new_repayment_line].received_amount_currency_value
+          %td= line[:new_repayment_line].formatted_status
+          %td= line[:new_repayment_line].provision_currency_value
+      - else
+        %tr
+          %td
+            %i{class:"fi-arrow-right new_version"}
+          - ["repayment_date", "original_amount", "received_amount", "status", "provision"].each do | attribute |
+            %td{"class" => line[:changed_attributes].include?(attribute) ? "changed_attribute" : nil }
+              - if ["original_amount", "received_amount", "provision"].include?(attribute)
+                = line[:new_repayment_line].send("#{attribute}_currency_value")
+              - elsif attribute == "repayment_date"
+                = line[:new_repayment_line].formatted_date
+              - elsif attribute == "status"
+                = line[:new_repayment_line].formatted_status
+
+      - if line[:original_repayment_line].present?
+        %tr
+          %td
+            %i{class:"fi-arrow-left old_version"}
+          %td= line[:original_repayment_line].formatted_date
+          %td= line[:original_repayment_line].original_amount_currency_value
+          %td= line[:original_repayment_line].received_amount_currency_value
+          %td= line[:original_repayment_line].formatted_status
+          %td= line[:original_repayment_line].provision_currency_value

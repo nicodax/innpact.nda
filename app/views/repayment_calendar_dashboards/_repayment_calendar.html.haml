@@ -1,0 +1,5 @@
+.grid-x.grid-padding-x
+  .cell.medium-12.large-6
+    = render partial: "repayment_calendar_dashboards/repayment_calendar_lines", locals: {type: RepaymentCalendarLine::REPAYMENT_TYPE_PRINCIPAL, lines: calendar.principals}
+  .cell.medium-12.large-6
+    = render partial: "repayment_calendar_dashboards/repayment_calendar_lines", locals: {type: RepaymentCalendarLine::REPAYMENT_TYPE_INTEREST, lines: calendar.interests}

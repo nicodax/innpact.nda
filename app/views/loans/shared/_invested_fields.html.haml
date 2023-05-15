@@ -1,0 +1,12 @@
+.grid-x.grid-margin-x
+  .cell.small-12.medium-4.large-4
+    .grid-x.grid-margin-x
+      .cell.small-12
+        = lvf.association :executed_bond, collection: fund.bonds, required: true, disabled: lock, input_html: { class: "status_input bond_input executed_bond_input", data: {element_purpose: "executed_bond_input"}}
+  .cell.small-12.medium-4.large-4
+    .grid-x.grid-margin-x
+      .cell.small-12
+        = lvf.input :invested_hedge_fx_rate, label: t(".invested_hedge_fx_rate"), disabled: lock, as: :string, input_html: { class: "status_input invested_hedge_fx_rate_input executed_hedge_fx_rate_format", value: number_with_precision(loan.invested_hedge_fx_rate_number(loan.currency.short_name), precision: 9) }, required: true
+
+.grid-x.grid-margin-x
+  %br

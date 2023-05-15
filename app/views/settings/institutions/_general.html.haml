@@ -1,0 +1,4 @@
+= link_to "Edit", fund_settings_institution_institution_general_edit_path(fund_id: fund.id, institution_id: institution.id), class: "cta text-center mb5"
+= render partial: "settings/institutions/general/profile", locals: {institution: setting}
+&nbsp
+= render partial: "settings/institutions/general/rating", locals: {institution: setting}

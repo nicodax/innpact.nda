@@ -1,0 +1,9 @@
+.grid-x
+  .cell.medium-12
+    %h1.mb0 Users
+    .soustitre= t("referentials.description.users")
+  .cell.medium-12
+    .see_funds
+      = link_to "See deleted users (#{@deleted_users_count})", settings_deleted_users_path
+
+%hr

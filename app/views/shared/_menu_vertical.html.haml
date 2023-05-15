@@ -1,0 +1,43 @@
+-# Active class : is-active
+%ul.menu.vertical
+  %li
+    %a{class: ("is-active" if params[:controller].include?("user_dashboard")), :href => root_path}
+      %span.app-dashboard-sidebar-text= t('.dashboard')
+  - if current_user.administrator? || current_user.general_manager?
+    %li
+      %a{class: ("is-active" if params[:controller].include?("users")), :href => settings_users_path}
+        %span.app-dashboard-sidebar-text= t('.users')
+  %li
+    %a{class: ("is-active" if params[:controller].include?("funds") && params[:action].include?("index")), :href => funds_path, data: {element_purpose: "menu_funds_link"}}
+      %span.app-dashboard-sidebar-text= t('.funds')
+  - if params[:fund_id]
+    %li
+      %a{class: ("is-active" if params[:controller].include?("settings") || params[:controller].include?("funds")), :href => fund_path(params[:fund_id])}
+        %span.app-dashboard-sidebar-text= t('.funds') + " : #{Fund.find(params[:fund_id])&.name}"
+    %ul
+      %li
+        %a{ :href => "#"}
+          %span.app-dashboard-sidebar-text Settings
+        %ul.nested.vertical.menu
+          - vertical_menu.each do |menu_item|
+            -if menu_item[:section_name] != "readers"
+              - if policy(menu_item[:model]).index?
+                %li
+                  %a{class: ("is-active" if params[:controller].include?(menu_item[:section_name])), :href => url_for(controller: "settings/#{menu_item[:section_name]}"), data: {element_purpose: "menu_#{menu_item[:section_name]}_link"}}
+                    %span.app-dashboard-sidebar-text= t(".#{menu_item[:section_name]}")
+                  - if menu_item.has_key?(:children)
+                    %ul
+                      - menu_item[:children].each do |child|
+                        %li
+                          %a{id: "institution_covenant_upload", :href => url_for(controller: "settings/covenants")}
+                            %span.app-dashboard-sidebar-text= t(".#{child[:section_name]}")
+            -else
+              -if policy(:funds_user).show?
+                %li
+                  %a{class: ("is-active" if params[:controller].include?("funds_users")), :href => fund_settings_funds_users_path}
+                    %span.app-dashboard-sidebar-text= t(".funds_users")
+
+          - if policy(:deleted_item).index?
+            %li
+              %a{class: ("is-active" if params[:controller].include?("deleted_items")), :href => url_for(controller: "settings/deleted_items")}
+                %span.app-dashboard-sidebar-text= t(".deleted_items")

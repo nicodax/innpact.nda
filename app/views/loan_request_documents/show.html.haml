@@ -1,0 +1,17 @@
+= render partial: "loan_request_documents/shared/breadcrumb", locals: {current_step: loan_request_document.original_filename}
+%hr
+  %h1.mb0= t("settings.loan_request_documents.index.specific_reporting_documents")
+  .grid-x.grid-padding-x
+    = render partial: "loan_request_documents/shared/index"
+    .cell.small-12.medium-8
+      %h2= t(".show_document")
+      .grid-x
+        .cell.small-6
+          = link_to loan_request_document.original_filename,  fund_loan_request_document_preview_path(fund_id: fund, loan_request_id: loan_request, document_slug: loan_request_document), target: :_blank
+        .cell.small-6
+          = loan_request.created_at
+        .cell.small-12
+          = link_to "Edit", edit_fund_loan_request_document_path(fund_id: fund, loan_request_id: loan_request), class: "cta ml5 mb5"
+          = link_to "Delete", fund_loan_request_document_path(fund_id: fund, loan_request_id: loan_request, slug: loan_request_document), class: "cta cta_right cta_warning ml5", method: :delete
+
+-#= render partial: "settings/shared/delete", locals: {setting: setting, setting_name: resource_name}

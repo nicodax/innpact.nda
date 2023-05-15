@@ -1,0 +1,20 @@
+%html{xmlns: "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:content => "text/html; charset=utf-8", :http_equiv => "Content-Type"}
+    %meta{content: "width=device-width", name:"viewport"}
+    %link{href: "http://fonts.googleapis.com/css?family=Roboto", rel:"stylesheet", type:"text/css"}
+  %body{style: "width: 100% !important; min-width: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-family: 'Roboto', Helvetica, sans-serif; font-size: 14px; line-height: 19px; background: #EEF2F4; margin: 0; padding: 0;", bgcolor: "#EEF2F4"}
+    %table{class: "body", style: "border-spacing: 0; border-collapse: collapse; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0 auto; padding: 0;"}
+      %tbody
+        %tr{style: "vertical-align: top; text-align: left; padding: 0;", align: "left"}
+          %td{align: "center", class: "center", valign: "top", style: "word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: center; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 0;"}
+            %img{height: "75", src: "#{root_url(locale: nil)}/logo.png", style: "text-align: center; float: none; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; width: auto; max-width: 100%; clear: both; display: block; margin: 0 auto;"}
+        %tr{style: "vertical-align: top; text-align: left; padding: 0;", align: "left"}
+          %td{align: "center", class: "center", valign: "top", style: "background-color: #fff; word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 20;"}
+            = yield
+        %tr{style: "vertical-align: top; text-align: left; padding: 0;", align: "left"}
+          %td{align: "center", class: "center", valign: "top", style: "background-color: #fff; word-break: break-word; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto; border-collapse: collapse !important; vertical-align: top; text-align: left; color: #222222; font-family: 'Helvetica', 'Arial', sans-serif; font-weight: normal; line-height: 19px; font-size: 14px; margin: 0; padding: 20;"}
+            %p
+              = t("mailers.shared.best")
+              %br
+              = t("mailers.shared.signature")

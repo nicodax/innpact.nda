@@ -1,0 +1,54 @@
+- content_for :breadcrumbs do
+  %nav{"aria-label" => t("breadcrumbs.you_are_here"), :role => "navigation"}
+    %ul.breadcrumbs
+      %li
+        %a{:href => root_path}= t('.breadcrumb.welcome')
+      %li
+        %a{:href => funds_path}= t('.breadcrumb.funds')
+      %li
+        %a{:href => fund_path(id: fund.id)}= fund.try(:name)
+      %li
+        %a{:href => fund_loan_path(fund_id: fund.id, id: loan.id)}= loan.try(:name)
+      %li
+        %span.show-for-sr t("current")
+        = t('activerecord.models.repayment_calendar.one')
+
+.grid-x
+  .cell.medium-6
+    %h1.mb0= t('activerecord.models.repayment_calendar.one')
+    - if dashboard.active_repayment_calendar.temporary?
+      .label.warning{data: {element_purpose: "temporary_label", tooltip: true, position: "bottom"}, title: t(".temporary_repayment_calendar_info") }= t(".temporary_repayment_calendar_alert")
+  .cell.medium-6.cta_bottom
+    = link_to t('general.edit'), edit_fund_loan_repayment_calendar_path, class: "cta cta_right" if policy(loan).edit?
+  - if loan.active_loan_version.temporary? && policy(loan).validate_or_reject?
+    .cell.medium-12
+      = link_to t('.validate_this_version'), fund_loan_version_validation_path(fund_id: fund, loan_id: loan, version_id: loan.active_loan_version, validated: true), class: "cta cta_right ", method: :post
+      = link_to t('.reject_this_version'), fund_loan_version_validation_path(fund_id: fund, loan_id: loan, version_id: loan.active_loan_version, validated: false), class: "cta cta_right cta_warning ", method: :post
+
+%hr/
+
+%ul#repayment-calendars-tabs.tabs{"data-tabs" => ""}
+  %li.tabs-title.is-active
+    %a{"aria-selected" => "true", :href => "#latest"}
+      = t(".latest")
+  %li.tabs-title
+    %a{"data-tabs-target" => "original-version", :href => "#original-version"}
+      = t(".original")
+
+.tabs-content{"data-tabs-content" => "repayment-calendars-tabs"}
+  #original-version.tabs-panel
+    = render partial: "repayment_calendar_dashboards/repayment_calendar", locals: {calendar: dashboard.first_repayment_calendar}
+  #latest.tabs-panel.is-active
+    = render partial: "repayment_calendar_dashboards/repayment_calendar", locals: {calendar: dashboard.active_repayment_calendar}
+
+%br/
+
+%ul.accordion{"data-accordion" => "true", "data-multi-expand" => "true", "data-allow-all-closed" => "true"}
+  %li.accordion-item{"data-accordion-item" => "true"}
+    %a.accordion-title{"href" => "#"}= t('.logs')
+    .accordion-content{"data-tab-content" => "true"}
+      = render partial: "logs", locals: {dashboard: dashboard}
+  %li.accordion-item{"data-accordion-item" => "true"}
+    %a.accordion-title{"href" => "#"}= t('.provision_history')
+    .accordion-content{"data-tab-content" => "true"}
+      = render partial: "provision_history", locals: {dashboard: dashboard}

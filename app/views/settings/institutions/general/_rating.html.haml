@@ -1,0 +1,36 @@
+.grid-margin-x.small-12.medium-6.large-6
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-12.large-12
+        %h4= t('settings.institutions.show.rating')
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.esg_safeguard.shared.form.as_of") + ": "
+      .cell.auto.field_value
+        = institution.general_rating_as_of_date.try(:strftime, "%d-%m-%Y")
+  .cell.small-12.medium-6.large-6
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.external_rating")
+      .cell.auto.field_value
+        = institution.external_rating
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.external_rating_agency")
+      .cell.auto.field_value
+        = InstitutionRating.rating_agencies_map[setting.external_rating_agency]
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.internal_credit_risk_rating")
+      .cell.auto.field_value
+        = institution.internal_credit_risk_rating
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.probability_of_default")
+      .cell.auto.field_value
+        = institution.probability_of_default_percent_value

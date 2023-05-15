@@ -1,0 +1,33 @@
+{
+  "name": "innpact",
+  "private": true,
+  "scripts": {
+    "lint": "yarn run eslint --ext .js app/javascript"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.0",
+    "@nathanvda/cocoon": "^1.2.14",
+    "@rails/actioncable": "^6.1.0",
+    "@rails/activestorage": "^6.1.0",
+    "@rails/ujs": "^6.1.0",
+    "@rails/webpacker": "<6",
+    "cleave.js": "^1.6.0",
+    "flag-icon-css": "^3.5.0",
+    "foundation-sites": "^6.6.3",
+    "jquery": "^3.5.1",
+    "jquery-mask-plugin": "^1.14.16",
+    "motion-ui": "^2.0.3",
+    "select2": "^4.1.0-rc.0",
+    "turbolinks": "^5.2.0"
+  },
+  "version": "0.1.0",
+  "devDependencies": {
+    "@webpack-cli/serve": "^2.0.1",
+    "acorn": "^6",
+    "eslint": "^7",
+    "eslint-config-airbnb-base": "^15",
+    "eslint-plugin-import": "^2",
+    "webpack-dev-server": "^4",
+    "webpack-cli": "^4"
+  }
+}

@@ -1,0 +1,47 @@
+.grid-margin-x.small-12.medium-6.large-6
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-12.large-12
+        %h4= t('settings.institutions.show.distribution_by_loan_purpose')
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.microenterprise")
+      .cell.auto.field_value
+        = institution.microenterprise_percent_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong=t("settings.institutions.show.sme")
+      .cell.auto.field_value
+        = institution.sme_percent_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.corporate")
+      .cell.auto.field_value
+        = institution.corporate_percent_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong=t("settings.institutions.show.housing")
+      .cell.auto.field_value
+        = institution.housing_percent_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.personal")
+      .cell.auto.field_value
+        = institution.personal_percent_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong=t("settings.institutions.show.other")
+      .cell.auto.field_value
+        = institution.by_loan_purpose_other_percent_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong=t("settings.institutions.show.total")
+      .cell.auto.field_value
+        = institution.distribution_by_loan_purpose_total_percent_value

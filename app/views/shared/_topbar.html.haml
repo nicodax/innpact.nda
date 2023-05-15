@@ -1,0 +1,17 @@
+.row.expanded.app-dashboard-top-nav-bar
+  %button.menu-picto.hide-for-medium{"data-toggle" => "app-dashboard-sidebar"}
+    %img{:alt => "picto menu", :src => image_url("menu.svg")}/
+  .columns.medium-2.small-1
+    %a.app-dashboard-logo{href: root_path}
+      %img{:alt => "Logo innpact", :src => image_url("logo.png")}/
+  -# .columns.medium-4.show-for-medium
+  -#   .app-dashboard-search-bar-container
+  -#     %input.app-dashboard-search{:placeholder => "Search", :type => "search"}/
+  -#     %i.app-dashboard-search-icon.fa.fa-search
+  .columns.shrink.app-dashboard-top-bar-actions
+    .settings{:href => "#"}
+      %p= current_user.email
+      %img{:alt => "picto settings", :src => image_url("settings.png")}/
+    - unless current_user.administrator?
+      %a{:alt => "", :height => "30", :href => "#", :width => "30"}
+        %i.fa.fa-info-circle

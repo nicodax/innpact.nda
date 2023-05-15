@@ -1,0 +1,66 @@
+- content_for :breadcrumbs do
+  %nav{"aria-label" => t("breadcrumbs.you_are_here"), :role => "navigation"}
+    %ul.breadcrumbs
+      %li
+        %a{:href => root_path} Welcome
+      %li
+        %a{:href => profile_path} My profile
+      %li
+        %span.show-for-sr t("current")
+        Edit my profile
+- unless current_user.valid?
+  .callout.alert
+    %ul
+      = pluralize(current_user.errors.count, "error")
+      - current_user.errors.full_messages.each do |message|
+        %li= message
+.grid-x
+  .cell.medium-6
+    %h1.mb0 Edit my profile
+%hr/
+.grid-x.grid-margin-x
+  .cell.small-12.medium-8
+    = simple_form_for current_user, url: profile_path(id: current_user.id), id: "edit-user-form" do |f|
+      = f.input :email
+      .grid-x.grid-margin-x
+        .cell.small-6
+          = f.input :firstname
+        .cell.small-6
+          = f.input :lastname
+        .cell.small-6
+          = f.input :phone_number
+        - if current_user.allowed_to_unsubscribe_validation?
+          %div.cell
+          = f.simple_fields_for :user_setting do |ff|
+            = ff.hidden_field :id
+            .cell.small-6
+              = ff.input :loans_crud, as: :boolean
+            .cell.small-6
+              = ff.input :loans_validation, as: :boolean
+            .cell.small-6
+              = ff.input :provisions_crud, as: :boolean
+            .cell.small-6
+              = ff.input :provisions_validation, as: :boolean
+            .cell.small-6
+              = ff.input :repayments_crud, as: :boolean
+            .cell.small-6
+              = ff.input :repayments_validation, as: :boolean
+        - else
+          %div.cell
+          = f.simple_fields_for :user_setting do |ff|
+            = ff.hidden_field :id
+            .cell.small-6
+              = ff.input :loans_crud, as: :boolean
+            .cell.small-6
+              = ff.input :loans_validation, as: :boolean, disabled: true
+            .cell.small-6
+              = ff.input :provisions_crud, as: :boolean
+            .cell.small-6
+              = ff.input :provisions_validation, as: :boolean, disabled: true
+            .cell.small-6
+              = ff.input :repayments_crud, as: :boolean
+            .cell.small-6
+              = ff.input :repayments_validation, as: :boolean, disabled: true
+
+      .cell.small-12
+        = f.submit "Save", class: "cta ml5"

@@ -1,0 +1,23 @@
+ID_STATUS;STATUS_NAME;CREATION_DATE;CREATED_BY;MODIFICATION_DATE;MODIFIED_BY
+1;Appetite inquiry;;;;
+2;Assigned;;;;
+3;Ratified;;;;
+4;Pending Ratification;;;;
+5;Not Validated;;;;
+6;Pending Approval;;;;
+7;Approved;;;;
+8;Not Approved;;;;
+9;Approval Expired;;;;
+10;Released before approval;;;;
+11;Approved change request;;;;
+12;Released after approval;;;;
+13;Invested;;;;
+14;Not Ratified;;;;
+15;Assignement expired;;;;
+16;Released before approval;;;;
+17;Matured;;;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;
+;;;;;

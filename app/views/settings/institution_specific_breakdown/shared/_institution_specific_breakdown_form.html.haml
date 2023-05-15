@@ -1,0 +1,123 @@
+.grid-x.grid-margin-x.institution_subentity
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    %h4.section_header= t('.mef_specific_breakdown')
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .small-6
+      = f.label :as_of, label: t('.as_of')
+    .small-6.input-group
+      = f.input :as_of, label: false, as: 'date_picker'
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .small-6
+      = f.label :microfinance_portfolio_size, label: t("settings.mef_specific_breakdown.shared.form.micro_finance_portfolio_size")
+    .small-6.input-group
+      = f.input :microfinance_portfolio_size, label: false, as: "string", input_html: { :class => "input-group-field thousand_currencies_formats" }
+      .input-group-label= "$"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6
+      = f.label :sme_portfolio_size_under_35k, label: t("settings.mef_specific_breakdown.shared.form.sme_portfolio_size_under_35k")
+    .cell.small-6.input-group
+      = f.input :sme_portfolio_size_under_35k, label: false, as: "string", input_html: { :class => "input-group-field thousand_currencies_formats" }
+      .input-group-label= "$"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6
+      = f.label :sme_portfolio_size_under_50k, label: t("settings.mef_specific_breakdown.shared.form.sme_portfolio_size_under_50k")
+    .cell.small-6.input-group
+      = f.input :sme_portfolio_size_under_50k, label: false, as: "string", input_html: { :class => "input-group-field thousand_currencies_formats" }
+      .input-group-label= "$"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6
+      = f.label :percentage_loans_to_rural_borrowers_per_glp, label: t("settings.mef_specific_breakdown.shared.form.percentage_rural_ptf")
+    .cell.small-6.input-group
+      = f.input :percentage_loans_to_rural_borrowers_per_glp, label: false, as: "string", input_html: { :class => "input-group-field cleave_format two_digits_percentage" }
+      .input-group-label= "%"
+      &nbsp;
+.grid-x.grid-margin-x.institution_subentity
+  .cell.small-12.medium-12.large-12
+    %h3.section_header= t('settings.distribution_by_sector.new.distribution_by_sector_title')
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6
+      %span= t('settings.distribution_by_sector.shared.form.trade_and_services')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :trade_and_services, label: false, as: "string", input_html: { :class => "input-group-field cleave_format two_digits_percentage" }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.distribution_by_sector.shared.form.agriculture')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :agriculture, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage", :title => t(".tooltip_agriculture") }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.distribution_by_sector.shared.form.production')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :production, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage", :title => t(".tooltip_production") }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.distribution_by_sector.shared.form.consumption')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :consumption, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage", :title => t(".tooltip_consumption") }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.distribution_by_sector.shared.form.other')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :by_sector_other, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage", :title => t(".tooltip_other") }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.distribution_by_sector.shared.form.total')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span#distribution_by_sector_total_sum
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    &nbsp;
+.grid-x.grid-margin-x.institution_subentity
+  .cell.small-12.medium-12.large-12
+    %h3.section_header= t('settings.distribution_by_loan_purpose.new.distribution_by_loan_purpose_title')
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.distribution_by_sector.shared.form.microenterprise')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :microenterprise, label: false, as: "string", input_html: { :class => "input-group-field cleave_format two_digits_percentage" }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.distribution_by_sector.shared.form.sme')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :sme, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage", :title => t(".tooltip_sme") }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.distribution_by_sector.shared.form.corporate')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :corporate, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage", :title => t(".tooltip_corporate") }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.distribution_by_sector.shared.form.housing')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :housing, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage", :title => t(".tooltip_housing") }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.distribution_by_sector.shared.form.personal')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :personal, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage", :title => t(".tooltip_personal") }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.distribution_by_sector.shared.form.other')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :by_loan_purpose_other, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage", :title => t(".tooltip_other") }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.distribution_by_sector.shared.form.total')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span#distribution_by_loan_purpose_total_sum
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    &nbsp;
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.auto.cta_center
+      = f.submit t('settings.shared.submit'), class: "cta"
+= javascript_pack_tag 'institution_form'

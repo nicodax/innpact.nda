@@ -1,0 +1,22 @@
+.cell.small-12.medium-4.section_3
+  .mb20
+  = link_to t("settings.pool_documents.add_new_document"), new_fund_settings_pool_pool_document_path(pool_id: pool.id), class: "cta ml5 mb5"
+
+  %h2= t(".uploaded_documents")
+  .app-dashboard-search-bar-container
+    - if !pool_documents.empty?
+      - pool_documents.each do |filename, files|
+        = files.first.original_filename
+        %table{:border => 1}
+          %tbody
+            %tr
+              %td Version:
+              %td Filename:
+              %td Last update:
+              - files.each_with_index do |file, index|
+                %tr
+                  %td= files.length - index
+                  %td= link_to file.original_filename,  fund_settings_pool_pool_document_path(pool_id: pool.id, slug: file.slug)
+                  %td= file.updated_at
+    - else
+      %p= t(".no_specific_reporting")

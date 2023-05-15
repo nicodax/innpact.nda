@@ -1,0 +1,46 @@
+- content_for :breadcrumbs do
+  %nav{"aria-label" => t("breadcrumbs.you_are_here"), :role => "navigation"}
+    %ul.breadcrumbs
+      %li
+        %a{:href => root_path}= t('.breadcrumb.welcome')
+      %li
+        %a{:href => funds_path}= t('.breadcrumb.funds')
+      %li
+        %a{:href => fund_path(id: fund.id)}= fund.try(:name)
+      %li
+        %span.show-for-sr t("current")
+        = t("breadcrumbs.loan_deleted")
+.grid-x.warning
+  .cell.small-12.medium-9.large-6
+    %h1.mb0= t(".deleted_loans")
+    .soustitre= t(".warning_title")
+%hr
+
+= form_for :loan_batch, url: fund_loan_batches_path(fund: fund), method: :put, html: {id: :restore_form} do |f|
+  - if deleted_loans.count == 0
+    %p= t(".no_deleted_loans")
+  - else
+    .grid-x.grid-padding-y
+      .cell.medium-2.large-1
+        %a.cta.cta_primary#select_all_loans= t(".select_all")
+      .cell.medium-2.large-2
+        %a.cta.cta_primary#deselect_all_loans= t(".deselect_all")
+      .cell.medium-2.large-2
+        = f.submit t(".restore_selected"), data: {element_purpose: "restore_loan_button"}, class: "cta"
+
+    .grid-x.grid-margin-x
+      %table
+        %tr.text-center
+          %th
+          %th= t(".innpact_id")
+          %th= t(".im_group")
+          %th= t(".status")
+        - deleted_loans.each do |deleted_loan|
+          %tr.text-center
+            %td= check_box_tag "loan_ids[]", deleted_loan.id, false, data: {element_purpose: "loan_select_box"}
+            %td= deleted_loan.innpact_loan_id
+            %td= deleted_loan.im_group_name
+            %td= deleted_loan.status
+            -#%td= link_to "Restore", fund_deleted_loan_path(fund_id: fund.id, id: deleted_loan.id), method: :put , class: "button tiny success"
+
+=javascript_pack_tag 'deleted_loans'

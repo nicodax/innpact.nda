@@ -1,0 +1,16 @@
+.cell.small-12.align-self-middle
+  %a.app-dashboard-logo.logo_login{href: '/users/sign_in'}
+    %img{:alt => "Logo innpact", :src => image_url("logo.png")}/
+  %h2
+    %b Reset your password
+  = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+    = f.error_notification
+    = f.input :reset_password_token, as: :hidden
+    = f.full_error :reset_password_token
+    .form-inputs
+      = f.input :password,label: "New password", required: true,autofocus: true,hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: { autocomplete: "new-password" }
+      = f.input :password_confirmation,label: "Confirm your new password",required: true, input_html: { autocomplete: "new-password" }
+    .form-actions
+      = f.button :submit, "Change my password"
+.lost_password.cell.small-12.grid-x.grid-padding-x.align-self-stretch.mt20
+  = link_to "Login", '/users/sign_in', class: "align-self-bottom text-center"

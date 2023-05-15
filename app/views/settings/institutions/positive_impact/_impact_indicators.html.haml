@@ -1,0 +1,61 @@
+.grid-margin-x.small-12.medium-6.large-6
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-12.large-12
+        %h4= t('settings.institutions.show.impact_indicators')
+
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.as_of")
+      .cell.auto.field_value
+        = setting.impact_indicator_as_of_date.try(:strftime, "%d-%m-%Y")
+  .cell.small-12.medium-6.large-6
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.internal_impact_score")
+      .cell.auto.field_value
+        = setting.internal_impact_score
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong=t("settings.institutions.show.average_loan_size_to_end_borrowers")
+      .cell.auto.field_value
+        = setting.avg_loan_size_usd_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.number_of_clients")
+      .cell.auto.field_value
+        = setting.number_of_clients_integer_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.number_of_active_borrowers")
+      .cell.auto.field_value
+        = setting.borrowers_count_integer_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.number_of_female_borrowers")
+      .cell.auto.field_value
+        = setting.female_borrowers_count_integer_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.number_of_rural_borrowers")
+      .cell.auto.field_value
+        = setting.rural_borrowers_count_integer_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.number_of_sme_borrowers")
+      .cell.auto.field_value
+        = setting.number_of_sme_borrowers_integer_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.number_of_micro_borrowers")
+      .cell.auto.field_value
+        = setting.number_of_micro_borrowers_integer_value

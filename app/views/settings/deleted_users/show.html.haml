@@ -1,0 +1,16 @@
+= render partial: "settings/shared/user_breadcrumb", locals: {intermediate_topics: {"User management" => settings_users_path, "Deleted users" => settings_deleted_users_path}, current_topic: @user.full_name}
+
+.grid-x
+  .cell.medium-6
+    %h1.mb0= @user.full_name
+  .cell.medium-6
+    = link_to "Permanently delete user", settings_deleted_user_path(id: @user.id), class: "cta cta_right cta_warning ml5", method: :delete
+    = link_to "Restore user", restore_settings_deleted_user_path(id: @user.id), class: "cta cta_right", method: :put
+%hr/
+.grid-x.grid-margin-x
+  .cell.small-12.medium-8
+    %h2 Details
+    %p Name :
+    %p= @user.full_name
+    %p Email
+    %p= @user.email

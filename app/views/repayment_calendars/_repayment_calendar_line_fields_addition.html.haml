@@ -1,0 +1,21 @@
+%tr.nested-fields.modified{data: {element_purpose: "repayment_row"}}
+  %td.repayment_date_column
+    = f.input :repayment_date, label: false, as: 'date_picker', input_html: { data: {element_purpose: "repayment_date_input"}, class: "repayment_date_input"}
+  %td
+    = f.input :original_amount, label: false, as: "string", input_html: { data: {element_purpose: "original_amount_input"}, min: 0, class: "thousand_currencies_formats"}
+  %td
+    = f.input :received_amount, label: false, as: "string", input_html: { data: {element_purpose: "received_amount_input"}, min: 0, class: "thousand_currencies_formats"}
+  %td
+    = f.input :status, label: false, as: :select, collection: RepaymentCalendarLine::STATUSES, include_blank: false, input_html: { data: {element_purpose: "status_input"}}
+  - if repayment_type == RepaymentCalendarLine::REPAYMENT_TYPE_PRINCIPAL
+    %td
+      = f.input :provision, label: false, as: "string", input_html: { data: {element_purpose: "provision_amount_input"}, min: 0, class: "thousand_currencies_formats"}
+  %td
+    = f.input :repayment_type, as: :hidden, input_html: {value: repayment_type}
+    - if repayment_type == RepaymentCalendarLine::REPAYMENT_TYPE_INTEREST
+      = f.input :provision, as: :hidden, as: "string", input_html: { value: 0, class: "thousand_currencies_formats"}
+    = link_to_remove_association f, class: "alert button" do
+      %i{class:"fi-x"}
+
+= javascript_pack_tag 'clear_cleave_library'
+= javascript_pack_tag 'cleave_form_format'

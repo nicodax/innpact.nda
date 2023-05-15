@@ -1,0 +1,11 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {t("shared.menu_vertical.institutions") => fund_settings_institutions_path, institution.name => fund_settings_institution_path(id: institution.id)}, current_topic: t("settings.institution_covenants.see_covenants")}
+= render partial: "settings/institution_covenants/shared/header"
+%hr
+  .grid-x.grid-padding-x
+    = render partial: "settings/institution_covenants/shared/index"
+    .cell.small-12.medium-8
+      %h1.mb0= t(".create_new_covenant")
+      .grid-x
+        .cell.small-12
+          = simple_form_for ([fund, :settings, institution, institution_covenant]) do |f|
+            = render partial: "settings/institution_covenants/shared/form", locals: {f: f}

@@ -1,0 +1,31 @@
+= f.simple_fields_for(loan.presentation_compliance_check || loan.presentation_compliance_checks.build) do |s|
+  .grid-x.grid-margin-x
+    .cell.small-12.medium-6.large-4
+      = s.input :proposed_investment_complies_with_mef_guidelines,
+                label: t('.proposed_investment_complies_with_mef_guidelines'),
+                collection: ['yes', 'no']
+    .cell.small-12.medium-6.large-4
+      = s.input :investee_microfinance_portfolio_greater_than_two_times_mef_loan,
+                label: t('.investee_microfinance_portfolio_greater_than_two_times_mef_loan'),
+                collection: ['yes', 'no']
+    .cell.small-12.medium-6.large-4
+      = s.input :kyc_check,
+                label: t('.kyc_check'),
+                collection: PresentationComplianceCheck.kyc_check_values,
+                label_method: ->(value) { t(value, scope: [:presentation_compliance_check, :kyc_check_values]) }
+  .grid-x.grid-margin-x
+    .cell.small-12.medium-6.large-4
+      = s.input :aml_risk_rate,
+                label: t('.aml_risk_rate'),
+                collection: PresentationComplianceCheck.aml_risk_rate_values,
+                label_method: ->(value) { t(value, scope: [:presentation_compliance_check, :aml_risk_rate_values]) }
+    .cell.small-12.medium-6.large-4
+      = s.input :aml_country_risk_assessment,
+                label: t('.aml_country_risk_assessment'),
+                collection: PresentationComplianceCheck.aml_country_risk_assessment_values,
+                label_method: ->(value) { t(value, scope: [:presentation_compliance_check, :aml_country_risk_assessment_values]) }
+    .cell.small-12.medium-6.large-4
+      = s.input :tax_report_assessment,
+                label: t('.tax_report_assessment'),
+                collection: PresentationComplianceCheck.tax_report_assessment_values,
+                label_method: ->(value) { t(value, scope: [:presentation_compliance_check, :tax_report_assessment_values]) }

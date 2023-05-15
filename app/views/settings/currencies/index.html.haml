@@ -1,0 +1,10 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {}, current_topic: t("settings.currencies.breadcrumb_currencies")}
+= render partial: "settings/currencies/shared/header"
+%hr
+  .grid-x.grid-padding-x
+    .cell.small-12.medium-12.large-12
+      .mb20
+        -if !current_user.reader?
+          %a.cta{href: new_fund_settings_currency_path}= t("settings.shared.create")
+          %a.cta{href: upload_fund_settings_currencies_path}= t(".update_currency_rates")
+      = render partial: "settings/currencies/shared/index"

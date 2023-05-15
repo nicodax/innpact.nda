@@ -1,0 +1,91 @@
+.grid-margin-x.small-12.medium-6.large-6
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.financial.shared.form.as_of")
+      .cell.auto.field_value
+        = institution.financials_as_of_date.try(:strftime, "%d-%m-%Y")
+  .cell.small-12.medium-6.large-6
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.financial.shared.form.total_assets")
+      .cell.auto.field_value
+        = institution.total_assets_usd_value
+
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.financial.shared.form.gross_loan_portfolio")
+      .cell.auto.field_value
+        = institution.gross_loan_portfolio_usd_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.financial.shared.form.provision_for_loss")
+      .cell.auto.field_value
+        = institution.provision_for_loss_usd_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.financial.shared.form.international_liabilities")
+      .cell.auto.field_value
+        = institution.international_liabilities_usd_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.financial.shared.form.domestic_liabilities")
+      .cell.auto.field_value
+        = institution.domestic_liabilities_usd_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.financial.shared.form.deposit_amount")
+      .cell.auto.field_value
+        = institution.deposit_amount_usd_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.financial.shared.form.liabilities")
+      .cell.auto.field_value
+        = institution.liabilities_usd_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.financial.shared.form.equity")
+      .cell.auto.field_value
+        = institution.equity_usd_value
+  .cell.small-12.medium-6.large-6
+    %p= ""
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.financial.shared.form.revenues")
+      .cell.auto.field_value
+        = institution.revenues_usd_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.financial.shared.form.net_income")
+      .cell.auto.field_value
+        = institution.net_income_usd_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.financial.shared.form.net_income_distributed_as_dividends")
+      .cell.auto.field_value
+        = institution.net_income_distributed_as_dividends_usd_value
+  .cell.small-12.medium-6.large-6
+    %p= ""
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.financial.shared.form.npls")
+      .cell.auto.field_value
+        = institution.npls_usd_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.financial.shared.form.write_off")
+      .cell.auto.field_value
+        = institution.write_off_usd_value

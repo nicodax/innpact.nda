@@ -1,0 +1,15 @@
+-#= form_tag search_path, id: 'current_search_form' do
+-#  = hidden_field_tag 'loan_search', dashboard.initial_params
+-#  = hidden_field_tag 'page'
+
+= simple_form_for dashboard.loan_search, url: search_path, html: {id: 'current_search_form'} do |f|
+  = f.input :page, as: :hidden, html: {value: dashboard.page || 1}
+  - dashboard.initial_params.each do |k,v|
+    - if v.is_a?(Hash)
+      = f.simple_fields_for k.to_sym do |ff|
+        = ff.input :begin, as: :hidden, input_html: {value: v["begin"]}
+        = ff.input :end, as: :hidden, input_html: {value: v["end"]}
+    - else
+      = f.input k.to_sym, as: :hidden
+
+

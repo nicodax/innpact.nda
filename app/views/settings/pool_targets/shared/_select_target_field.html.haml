@@ -1,0 +1,4 @@
+= f.input :is_target_in_usd_or_percent, as: :select, collection: ["USD", "Percent"] , label: t('settings.pools.shared._form.is_target_in_usd_or_percent'), input_html: { class: 'target_unit_select'}
+= f.input :amount_in_usd, label: t("activerecord.attributes.pool.target_in_usd"), as: "String", input_html: { data: {:target => 'usd'}, class: "thousand_currencies_formats"}, required: true
+= f.input :amount_in_percent, label: t("activerecord.attributes.pool.target_in_percent"), as: "String", input_html: { data: {:target => 'percent'}, class: "thousand_currencies_formats" }
+

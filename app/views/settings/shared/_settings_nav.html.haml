@@ -1,0 +1,63 @@
+.small-12.cell.medium-12
+  .grid-x.grid-margin-x
+    %a.cell.small-6.medium-3.large-2.tiles_home
+      .grid-x.grid-margin-x
+        .cell.small-12
+          .text-center IM
+    %a.cell.small-6.medium-3.large-2.tiles_home
+      .grid-x.grid-margin-x
+        .cell.small-12
+          .text-center POOL
+    %a.cell.small-6.medium-3.large-2.tiles_home{href: fund_settings_statuses_path, class: ("active" if params[:controller].include?("statuses"))}
+      .grid-x.grid-margin-x
+        .cell.small-12
+          .text-center STATUS
+    %a.cell.small-6.medium-3.large-2.tiles_home{href: fund_settings_repayment_types_path, class: ("active" if params[:controller].include?("repayment_types"))}
+      .grid-x.grid-margin-x
+        .cell.small-12
+          .text-center REPAYMENT TYPES
+    %a.cell.small-6.medium-3.large-2.tiles_home
+      .grid-x.grid-margin-x
+        .cell.small-12
+          .text-center INTEREST RATE TYPE
+    %a.cell.small-6.medium-3.large-2.tiles_home
+      .grid-x.grid-margin-x
+        .cell.small-12
+          .text-center REFERENCE RATE
+    %a.cell.small-6.medium-3.large-2.tiles_home{href: fund_settings_loan_types_path, class: ("active" if params[:controller].include?("loan_types"))}
+      .grid-x.grid-margin-x
+        .cell.small-12
+          .text-center TYPE OF LOAN
+    %a.cell.small-6.medium-3.large-2.tiles_home{href: fund_settings_countries_path, class: ("active" if params[:controller].include?("countries"))}
+      .grid-x.grid-margin-x
+        .cell.small-12
+          .text-center COUNTRIES
+    %a.cell.small-6.medium-3.large-2.tiles_home{href: fund_settings_country_groups_path, class: ("active" if params[:controller].include?("country_groups"))}
+      .grid-x.grid-margin-x
+        .cell.small-12
+          .text-center COUNTRY GROUPS
+    %a.cell.small-6.medium-3.large-2.tiles_home{href: fund_settings_institutions_path, class: ("active" if params[:controller].include?("institutions"))}
+      .grid-x.grid-margin-x
+        .cell.small-12
+          .text-center INSTITUTIONS
+    %a.cell.small-6.medium-3.large-2.tiles_home{href: fund_settings_institution_groups_path, class: ("active" if params[:controller].include?("institution_groups"))}
+      .grid-x.grid-margin-x
+        .cell.small-12
+          .text-center GROUP
+    %a.cell.small-6.medium-3.large-2.tiles_home{href: fund_settings_limits_path, class: ("active" if params[:controller].include?("limits"))}
+      .grid-x.grid-margin-x
+        .cell.small-12
+          .text-center LIMITS
+    %a.cell.small-6.medium-3.large-2.tiles_home{href: fund_settings_currency_rates_path, class: ("active" if params[:controller].include?("currency_rates"))}
+      .grid-x.grid-margin-x
+        .cell.small-12
+          .text-center CCY RATES
+    %a.cell.small-6.medium-3.large-2.tiles_home
+      .grid-x.grid-margin-x
+        .cell.small-12
+          .text-center USD AMOUNT
+.cell.small-12.pb15
+  %hr/
+
+-# .small-12.cell.medium-4
+  

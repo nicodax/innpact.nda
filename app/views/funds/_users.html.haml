@@ -1,0 +1,28 @@
+.grid-x.grid-margin-x
+  .small-12.cell.medium-12.large-12
+    %h3= t("roles.administrator")
+    - administrators.each do |user|
+      - if current_user.investment_manager? || current_user.reader?
+        .button.hollow= user.full_name
+      - else
+        = link_to user.full_name, settings_user_path(id: user), class: "button hollow"
+
+    %h3= t("roles.general_manager")
+    - general_managers.each do |user|
+      - if current_user.investment_manager? || current_user.reader?
+        .button.hollow= user.full_name
+      - else
+        = link_to user.full_name, settings_user_path(id: user), class: "button hollow"
+
+    %h3= t("roles.investment_manager")
+    - investment_managers.each do |user|
+      - if current_user.investment_manager? || current_user.reader?
+        .button.hollow= user.full_name
+      - else
+        = link_to user.full_name, settings_user_path(id: user), class: "button hollow"
+    %h3= t("roles.reader")
+    - readers.each do |user|
+      - if current_user.investment_manager? || current_user.reader?
+        .button.hollow= user.full_name
+      - else
+        = link_to user.full_name, settings_user_path(id: user), class: "button hollow"

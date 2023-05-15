@@ -1,0 +1,21 @@
+%p= t("mailers.shared.dear_team")
+%p= t("mailers.repayment_calendar_update.intro")
+
+%table.repayment_calendar_update_table
+  %tr
+    %th= t("mailers.repayment_calendar_update.noval")
+    %th= t("mailers.investment_manager_repayment_calendar_update.im")
+    %th= t("mailers.repayment_calendar_update.mfi_name")
+  %tr
+    %td= link_to @noval, fund_loan_repayment_calendar_dashboards_url(fund_id: @fund_id, loan_id: @loan_id), target: "_blank"
+    %td= @creation_user_name
+    %td= @mfi_name
+
+%p
+  = t("mailers.loan_update_with_validation_link.to_accept_change")
+  = link_to t("mailers.loan_update_with_validation_link.this_link"), fund_loan_version_validation_url(fund_id: @fund_id, loan_id: @loan_id, version_id: @loan_version_id, validated: true, validation_object: "calendar"), target: "_blank"
+%p
+  = t("mailers.loan_update_with_validation_link.to_reject_change")
+  = link_to t("mailers.loan_update_with_validation_link.this_link"), fund_loan_version_validation_url(fund_id: @fund_id, loan_id: @loan_id, version_id: @loan_version_id, validated: false, validation_object: "calendar"), target: "_blank"
+
+%p= t("mailers.investment_manager_repayment_calendar_update.question_comment")

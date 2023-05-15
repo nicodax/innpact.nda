@@ -1,0 +1,61 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "ie=edge", "http-equiv" => "x-ua-compatible"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %link{:href => image_url("icons/apple-touch-icon.png"), :rel => "apple-touch-icon", :sizes => "180x180"}/
+    %link{:href => image_url("icons/favicon-32x32.png"), :rel => "icon", :sizes => "32x32", :type => "image/png"}/
+    %link{:href => image_url("icons/favicon-16x16.png"), :rel => "icon", :sizes => "16x16", :type => "image/png"}/
+    %link{:href => image_url("icons/site.webmanifest"), :rel => "manifest"}/
+    %link{:color => "#5bbad5", :href => image_url("icons/safari-pinned-tab.svg"), :rel => "mask-icon"}/
+    %meta{:content => "#00aba9", :name => "msapplication-TileColor"}/
+    %meta{:content => "#ffffff", :name => "theme-color"}/
+    %title Innpact
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = render partial: 'layouts/qguard'
+
+  %body
+    = render partial: "shared/menu_settings"
+    .app-dashboard.shrink-medium
+      = render partial: "shared/topbar"
+      .app-dashboard-body.off-canvas-wrapper
+        #app-dashboard-sidebar.app-dashboard-sidebar.position-left.off-canvas.off-canvas-absolute.reveal-for-medium{"data-off-canvas" => ""}
+          .app-dashboard-sidebar-title-area
+            .app-dashboard-open-sidebar
+              %button#open-sidebar.app-dashboard-open-sidebar-button.show-for-medium{"aria-label" => "open menu", "data-app-dashboard-toggle-shrink" => "", :type => "button"}
+                %span{"aria-hidden" => "true"}
+                  %a{:href => "#"}
+                    %i.large.fa.fa-angle-double-right
+          .app-dashboard-sidebar-inner
+            = render partial: "shared/menu_vertical"
+        .app-dashboard-body-content.off-canvas-content{"data-off-canvas-content" => ""}
+          = yield :breadcrumbs
+          - if notice
+            - if notice.is_a? Enumerable
+              .notice_info{data: {element_purpose: "flash_notice"}}
+                %span= pluralize(notice.count, "problem")
+                %ul
+                  - notice.each do |detail|
+                    %li= detail
+            - else
+              .notice_info{data: {element_purpose: "flash_notice"}}= notice
+          - if alert
+            - if alert.is_a? Enumerable
+              .alert_info{data: {element_purpose: "flash_alert"}}
+                %span= pluralize(alert.count, "error")
+                %ul
+                  - alert.each do |detail|
+                    %li= detail
+            - else
+              .alert_info{data: {element_purpose: "flash_alert"}}= alert
+          = yield
+      = render partial: "shared/footer"
+
+
+

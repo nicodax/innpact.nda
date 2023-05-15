@@ -1,0 +1,208 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {"Pools" => fund_settings_pools_path}, current_topic: setting.name}
+= render partial: "settings/pools/shared/header"
+
+%hr
+  .grid-x.grid-padding-x
+
+    = render partial: "settings/pools/shared/index"
+    .cell.small-12.medium-8
+      %h1.mt0= setting.name
+      %ul.ml0
+        %li
+          .grid-x
+            .cell.small-4
+              %strong= "#{t('settings.pools.show.name')} :"
+            .cell.small-8
+              = setting.name
+        %li
+          .grid-x
+            .cell.small-4
+              %strong= "#{t('settings.pools.show.subscription_date')} :"
+            .cell.small-8
+              = setting.subscription_date
+        - if setting.has_maturity_date
+          %li
+            .grid-x
+              .cell.small-4
+                %strong= "#{t('settings.pools.show.maturity_date')} :"
+              .cell.small-4
+                = "Yes"
+              .cell.small-4
+                = setting.maturity_date
+        - else
+          %li
+            .grid-x
+              .cell.small-4
+                %strong= "#{t('settings.pools.show.maturity_date')} :"
+              .cell.small-4
+                = "No"
+        %li
+          .grid-x
+            .cell.small-4
+              %strong= "#{t('settings.pools.show.amount')} :"
+            .cell.small-4
+              = number_to_currency(setting.amount, format: "%n %u", unit: setting.currency.short_name)
+        - if setting.currency != "USD"
+          %li
+            .grid-x
+              .cell.small-4
+                %strong= "#{t('settings.pools.show.amount_in_usd')} :"
+              .cell.small-4
+                = number_to_currency(setting.amount_in_usd, format: "%n %u")
+        %li
+          .grid-x
+            .cell.small-4
+              %strong= "#{t('settings.pools.show.required_specific_reporting')} :"
+            .cell.small-8
+              - if setting.required_specific_reporting
+                = "Yes"
+              - else
+                = "No"
+              -# = setting.required_specific_reporting_yes_no
+        %li
+          .grid-x
+            .cell.small-4
+              %strong= "#{t('settings.pools.show.restrictions')} :"
+            .cell.small-8
+              - if !setting.is_targeted
+                = t(".global_account")
+
+          - if !setting.countries.empty?
+            %li
+              .grid-x
+                .cell.small-4
+                  %strong= "#{t('.countries')} :"
+                .cell.small-8
+                  - setting.countries.order('name ASC').each do |country|
+                    %p= "#{country.name}"
+          - if !setting.country_groups.empty?
+            %li
+              .grid-x
+                .cell.small-4
+                  %strong= "#{t(".country_groups")} :"
+                .cell.small-8
+                  - setting.country_groups.order('name ASC').each do |country_group|
+                    %p= "#{country_group.name}"
+          - if !setting.institutions.empty?
+            %li
+              .grid-x
+                .cell.small-4
+                  %strong= "#{t(".institutions")} :"
+                .cell.small-8
+                  - setting.institutions.order('name ASC').each do |institution|
+                    %p= "#{institution.name}"
+          - if !setting.institution_groups.empty?
+            %li
+              .grid-x
+                .cell.small-4
+                  %strong= "#{t(".institution_groups")} :"
+                .cell.small-8
+                  - setting.institution_groups.order('name ASC').each do |institution_group|
+                    %p= "#{institution_group.name}"
+          - if !setting.institution_types.empty?
+            %li
+              .grid-x
+                .cell.small-4
+                  %strong= "#{t(".institution_types")} :"
+                .cell.small-8
+                  - setting.institution_types.order('name ASC').each do |institution_type|
+                    %p= "#{institution_type.name}"
+          - if !setting.currencies.empty?
+            %li
+              .grid-x
+                .cell.small-4
+                  %strong= "#{t(".currencies")} :"
+                .cell.small-8
+                  - setting.currencies.order('short_name ASC').each do |currency|
+                    %p= "#{currency.short_name}"
+          - if !setting.loan_types.empty?
+            %li
+              .grid-x
+                .cell.small-4
+                  %strong= "#{t(".loan_types")} :"
+                .cell.small-8
+                  - setting.loan_types.order('name ASC').each do |loan_type|
+                    %p= "#{loan_type.name}"
+
+      .grid-x.mb20
+        .cell.small-6.medium-4.large-2
+          = link_to "Delete", "#", class: "cta cta_warning", id: "delete-setting"
+        .cell.small-6.medium-4.large-2
+          = link_to "Edit", edit_fund_settings_pool_path(id: setting.id), class: "cta ml5 mb5"
+      .grid-x
+        .small-12.cell
+          %h2= t(".target")
+          - if setting.current_target
+            - if setting.current_target.amount_in_usd
+              .grid-x
+                .cell.small-4
+                  %h3= number_to_currency(setting.current_target.amount_in_usd, format: "%n %u")
+                .cell.small-8
+                  %p= setting.current_target.created_at
+            - else
+              .grid-x
+                .cell.small-4
+                  %h3= "#{setting.current_target.amount_in_percent} %"
+                .cell.small-8
+                  %p= setting.current_target.created_at
+          - else
+            %p= t(".no_target")
+
+          - if setting.previous_targets.any?
+            %p= t(".target_history")
+            - setting.previous_targets.each do |previous_target|
+              - if previous_target.amount_in_usd
+                .grid-x
+                  .cell.small-4
+                    = number_to_currency(previous_target.amount_in_usd, format: "%n %u")
+                  .cell.small-8
+                    = previous_target.created_at
+              - else
+                .grid-x
+                  .cell.small-4
+                    = "#{previous_target.amount_in_percent} %"
+                  .cell.small-8
+                    = previous_target.created_at
+        .cell.small-12
+          = link_to t(".add_target"), new_fund_settings_pool_pool_target_path(pool_id: setting.id), class: "cta cta_primary cta_small"
+
+        .small-12.cell.medium-12.mt30
+          %h2= t(".documents")
+
+        .small-12.cell.medium-12.mt10
+          %h3= t(".legal_document")
+          - if setting.pool_legal_documents.empty?
+            = t(".no_legal_document")
+          - else
+            .grid-x
+              .cell.small-4
+                = link_to t(".legal_document"),  fund_settings_pool_pool_legal_document_preview_path(pool_id: setting, pool_legal_document_slug: setting.pool_legal_documents.last), target: :_blank
+              .cell.small-4
+                = "#{t('.number_of_version')} : #{setting.pool_legal_documents.length}"
+              .cell.small-4
+                = setting.pool_legal_documents.last.updated_at
+            .grid-x.mt20
+              = link_to t(".edit_document"), fund_settings_pool_pool_legal_documents_path(pool_id: setting.id), class: "cta cta_primary cta_small"
+
+        .small-12.cell.medium-12.mt20
+          %h3= t(".specific_reporting")
+          - if setting.required_specific_reporting
+            - if setting.pool_documents.empty?
+              = t(".no_documents")
+            - else
+              - setting.pool_documents_by_name.each do |filename, files|
+                .grid-x
+                  .cell.small-4
+                    = link_to files.first.original_filename,  fund_settings_pool_pool_document_preview_path(pool_id: setting, pool_document_slug: files.first), target: :_blank
+                  .cell.small-4
+                    = "#{t('.number_of_version')} : #{files.length}"
+                  .cell.small-4
+                    = files.first.created_at
+
+            .grid-x.mt20
+              = link_to t('.add_document'), new_fund_settings_pool_pool_document_path(pool_id: setting.id), class: "cta cta_primary cta_small"
+              = link_to t(".edit_documents"), fund_settings_pool_pool_documents_path(pool_id: setting.id), class: "cta cta_primary cta_small"
+          - else
+            = t(".no_required_specific_reporting")
+
+= render partial: "settings/shared/delete", locals: {setting: setting, setting_name: resource_name}

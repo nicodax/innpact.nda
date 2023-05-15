@@ -1,0 +1,9 @@
+= render partial: "loan_request_documents/shared/breadcrumb", locals: {current_step: t(".all_documents")}
+
+%hr
+  %h1.mb0= t("loan_request_documents.index.specific_reporting_documents")
+  .grid-x.grid-padding-x
+    = render partial: "loan_request_documents/shared/index"
+    .cell.small-12.medium-8
+      .grid-x
+

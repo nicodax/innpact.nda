@@ -1,0 +1,12 @@
+.grid-x
+  .cell.medium-12
+    %h1.mb0<
+      =t(".institutions")
+      - if current_institution.present?
+        = " - "
+        =link_to current_institution.name, fund_settings_institution_path(fund_id: current_institution.fund.id, id: current_institution.id)
+      - if defined?(subtitle) != nil && subtitle.present?
+        - subtitle.each do |subtitle, path_redirection|
+          = " - "
+          =link_to subtitle, path_redirection
+    .soustitre= t("referentials.description.institutions")

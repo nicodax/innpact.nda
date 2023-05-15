@@ -1,0 +1,36 @@
+.grid-margin-x.small-12.medium-6.large-6
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.as_of")
+      .cell.auto.field_value
+        = institution.specific_breakdown_as_of
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-12.large-12
+        %h4= t('settings.institutions.show.mef_specific')
+  .cell.small-12.medium-6.large-6
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.microfinance_portfolio_size")
+      .cell.auto.field_value
+        = institution.microfinance_portfolio_size_usd_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong=t("settings.institutions.show.sme_portfolio_size_under_35k")
+      .cell.auto.field_value
+        = institution.sme_portfolio_size_under_35k_usd_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong=t("settings.institutions.show.sme_portfolio_size_under_50k")
+      .cell.auto.field_value
+        = institution.sme_portfolio_size_under_50k_usd_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong=t("settings.institutions.show.percentage_rural_ptf")
+      .cell.auto.field_value
+        = institution.percentage_rural_ptf_percent_value

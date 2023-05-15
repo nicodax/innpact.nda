@@ -1,0 +1,27 @@
+- list_pai_environment = institution.try(:last_additional_pais_environment)
+
+.grid-x
+  .cell.small-12.medium-12.large-12
+    %h2= t("settings.additional_pais_environments.shared.header.additional_pais_environments_main_title")
+  - list_pai_environment.each do |pai_environment|
+    .cell.small-12.medium-12.large-12
+      .grid-x
+        .cell.small-12.medium-12.large-12
+          .grid-x
+            .cell.small-12.medium-6.large-6
+              %strong= t("settings.additional_pais_environments.shared.form.as_of")
+            .cell.auto.field_value
+              = pai_environment.try(:as_of).try(:strftime, "%d/%m/%Y")
+        .cell.small-12.medium-12.large-12
+          .grid-x
+            .cell.small-12.medium-6.large-6
+              %strong= t("settings.additional_pais_environments.shared.form.environment_pai_reported")
+            .cell.auto.field_value
+              = AdditionalPaisEnvironment.additional_pais_environment_map[pai_environment.try(:environment_pai_reported)]
+        .cell.small-12.medium-12.large-12
+          .grid-x
+            .cell.small-12.medium-6.large-6
+              %strong= t("settings.additional_pais_environments.shared.form.environment_pai_value")
+            .cell.auto.field_value
+              = format_pai_with_unit(pai_environment.try(:environment_pai_value), AdditionalPaisEnvironment.additional_pai_environment_units_map[pai_environment.try(:environment_pai_reported)])
+        &nbsp

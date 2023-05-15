@@ -1,0 +1,41 @@
+.grid-margin-x.small-12.medium-6.large-6
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-12.large-12
+        %h4= t('settings.institutions.show.distribution_by_sector')
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.trade_and_services")
+      .cell.auto.field_value
+        = setting.trade_and_services_percent_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.agriculture")
+      .cell.auto.field_value
+        = setting.agriculture_percent_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.production")
+      .cell.auto.field_value
+        = setting.production_percent_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.consumption")
+      .cell.auto.field_value
+        = setting.consumption_percent_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.other")
+      .cell.auto.field_value
+        = setting.by_sector_other_percent_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.total")
+      .cell.auto.field_value
+        = setting.distribution_by_sector_total

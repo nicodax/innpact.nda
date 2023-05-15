@@ -1,0 +1,18 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {t("shared.menu_vertical.pools") => fund_settings_pools_path, pool.name => fund_settings_pool_path(id: pool.id),t("settings.pool_documents.index.specific_reporting_documents") => fund_settings_pool_pool_documents_path(id: pool.id)}, current_topic: t(".show_document")}
+
+%hr
+  %h1.mb0= t("settings.pool_documents.index.specific_reporting_documents")
+  .grid-x.grid-padding-x
+    = render partial: "settings/pool_documents/shared/index"
+    .cell.small-12.medium-8
+      %h2= t(".show_document")
+      .grid-x
+        .cell.small-6
+          = link_to setting.original_filename,  fund_settings_pool_pool_document_preview_path(pool_id: pool, pool_document_slug: setting), target: :_blank
+        .cell.small-6
+          = setting.created_at
+        .cell.small-12
+          = link_to "Edit", edit_fund_settings_pool_pool_document_path(pool_id: setting.pool_id), class: "cta ml5 mb5"
+          = link_to "Delete", "fund_settings_pools", class: "cta cta_right cta_warning ml5", id: "delete-setting"
+
+= render partial: "settings/shared/delete", locals: {setting: setting, setting_name: resource_name}

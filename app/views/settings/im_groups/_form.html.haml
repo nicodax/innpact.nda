@@ -1,0 +1,33 @@
+= simple_form_for setting, url: url do |f|
+  .grid-x.grid-margin-x
+    .cell.small-12.medium-4
+      = f.input :name
+    .cell.small-12.medium-4
+      = f.input :description
+  .grid-x.grid-margin-x
+    .cell.small-12.medium-4.large-4
+      = f.label :investment_managers, 'Assign Investment Managers'
+      .grid-x.grid-margin-x.im_list_item
+        .cell.small-8.medium-8.large-10
+          = select_tag "investment_managers", options_from_collection_for_select(available_managers, :id, :full_name)
+        .cell.small-4.medium-4.large-2.ml5
+          %a.im_buttons{id: "add_im"}
+            +
+        .cell.small-12.medium-12.large-12.mt20
+          %a.cta.cta_grey#reset-im-form Cancel
+          = f.submit "Save", class: "cta ml5", id: "save-im-form"
+    .cell.small-12.medium-4.large-4.section_4.pl20.im_group_list
+      = f.label :investment_managers, 'Selected Investment Managers', class: "mb10"
+      %ul.mb10.ml0.mb0{id: 'im_list'}
+        =hidden_field_tag 'im_group[user_ids][]'
+        - assigned_managers.each do |manager|
+          .grid-x.im_list_item{"data-user-id" => 'user_'+manager.id.to_s}
+            .cell.large-10
+              %li{"data-id" => manager.id}
+                =hidden_field_tag 'im_group[user_ids][]', manager.id
+                =manager.full_name
+            .cell.large-2
+              %a{class: "im_buttons remove_im", "delete-data-id" => manager.id, "data-name" => manager.full_name, id: "remove_im"}
+                &#8722
+
+=javascript_pack_tag "im_groups"

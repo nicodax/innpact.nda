@@ -1,0 +1,8 @@
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6
+    = f.input :name, input_html: { "data-tooltip" => true, :class => "has-tip", :title => t(".tooltip_name") }
+  .cell.small-12.medium-6
+    = f.input :description, input_html: { "data-tooltip" => true, :class => "has-tip", :title => t(".tooltip_description") }
+  .cell.small-12
+    %a.cta.cta_grey#reset-form Cancel
+    = f.submit t("settings.shared.save"), class: "cta ml5"

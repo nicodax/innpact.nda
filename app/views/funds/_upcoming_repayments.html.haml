@@ -1,0 +1,16 @@
+.grid-x.grid-margin-x
+  .small-12.cell.medium-12.large-12
+    %table
+      %tr.text-center
+        %th= t("activerecord.models.loan.one")
+        %th= t("activerecord.models.institution.one")
+        %th= t("activerecord.attributes.repayment_calendar_line.repayment_date")
+        %th= t("activerecord.attributes.repayment_calendar_line.repayment_type")
+        %th= t("activerecord.attributes.repayment_calendar_line.original_usd_amount")
+      - fund.upcoming_repayment_lines.each do |line|
+        %tr.text-center
+          %td= link_to line.loan.innpact_loan_id, fund_loan_path(fund_id: fund.id, id: line.loan.id)
+          %td= link_to line.loan.institution.name, fund_settings_institution_path(fund_id: fund.id, id: line.loan.institution.id)
+          %td= line.formatted_date
+          %td= line.formatted_repayment_type
+          %td= line.original_amount_usd_value

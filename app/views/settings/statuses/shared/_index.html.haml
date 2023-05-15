@@ -1,0 +1,14 @@
+.cell.small-12.medium-4.section_3
+  .mb20
+    %a.cta{href: fund_settings_statuses_path} Create
+  %h2 Statuses
+  .app-dashboard-search-bar-container
+    -# %input.app-dashboard-search.ml0{:placeholder => "Search", :type => "search"}
+    -#   %i.app-dashboard-search-icon.fa.fa-search.pr30
+    - if !setting_collection.empty?
+      - setting_collection.each do |status|
+        .mt10.mb10
+          %span.top{status.description ? { data: {tooltip: ""}} : {}, title: status.description}
+            %a{href: fund_settings_status_path(id: status.id), class: ("bold" if setting&.id == status.id)}= status.name
+    - else
+      %p No statuses registered yet.

@@ -1,0 +1,29 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {}, current_topic: "Limits"}
+= render partial: "settings/limits/shared/header"
+%hr
+  .grid-x.grid-padding-x
+
+    = render partial: "settings/limits/shared/index"
+    .cell.small-12.medium-8
+      %h2= t('.exception_limit')
+      %ul.ml0
+        %li
+          %strong= t('.model')
+          = setting.model
+        %li
+          %strong= t('.associated_record')
+          = setting.associated_record_name
+        %li
+          %strong= t('.value')
+          = number_to_currency(setting.value, unit: "$", format: "%n %u")
+        %li
+          %strong= t('.description')
+          = setting.description
+
+      .grid-x
+        .cell.small-6.medium-4.large-2
+          = link_to t("general.delete"), "#", class: "cta cta_warning", id: "delete-setting"
+        .cell.small-6.medium-4.large-2
+          = link_to t("general.edit"), edit_fund_settings_exception_limit_path(id: setting.id), class: "cta ml5 mb5"
+
+= render partial: "settings/shared/delete", locals: {setting: setting, setting_name: resource_name}

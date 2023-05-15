@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+files=$(git diff --cached --name-only --diff-filter=ACMR)
+rubocop_config=$(echo "$files" | grep -E '^.rubocop')
+rb_files=$(echo "$files" | grep -E '(Gemfile|Capifile|.rb)$' | grep -v 'db/schema.rb')
+eslint_config=$(echo "$files" | grep -E '^.eslint')
+js_files=$(echo "$files" | grep -E '(.jsx?)$')
+#spec_files=$(echo "$files" | grep -E '^spec/')
+gemfile=$(echo "$files" | grep -E 'Gemfile')
+files_count=$(echo "$files" | wc -l)
+
+[[ -z "$RUBOCOP_COMPLETE" ]] && rubocop_config=".rubocop.ci.yml" || rubocop_config=".rubocop.yml"
+
+if [ ! -z "$rb_files" ] || [ ! -z "$rubocop_config" ]; then
+ echo "Running rubocop" && exec bundle exec rubocop -c "$rubocop_config" $rb_files
+fi
+
+if [ ! -z "$gemfile" ]; then
+ echo "Running bundle-audit" && exec bundle exec bundle-audit check --update
+fi
+
+if [ ! -z "$js_files" ] || [ ! -z "$eslint_config" ]; then
+ echo "Running eslint" && exec ./node_modules/.bin/eslint $js_files
+fi
+
+if [ $files_count -ge ${CI_TEST_FILES:-20} ]; then
+ echo "Running Brakeman" && exec bundle exec brakeman -q -w2
+ echo "Running RSpec" && exec bundle exec rspec
+fi

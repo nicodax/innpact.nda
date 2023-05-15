@@ -1,0 +1,11 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {"Statuses" => fund_settings_statuses_path}, current_topic: setting.name}
+= render partial: "settings/statuses/shared/header"
+%hr
+  .grid-x.grid-padding-x
+    
+    = render partial: "settings/statuses/shared/index"
+    .cell.small-12.medium-4
+      %h2 EDIT
+      = simple_form_for setting, url: fund_settings_status_path(id: setting.id) do |f|
+        = render 'shared/form_error_messages', object: f.object
+        = render partial: "settings/statuses/shared/form", locals: {f: f}

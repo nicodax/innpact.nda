@@ -1,0 +1,11 @@
+%h2
+  - if type == RepaymentCalendarLine::REPAYMENT_TYPE_PRINCIPAL
+    %i{class:"fi-page"}
+  - else
+    %i{class:"fi-page-multiple"}
+  = t(".#{type}")
+
+%table.unstriped
+  = render partial: "repayment_calendar_dashboards/repayment_calendar_headers", locals: {type: type}
+  - lines.each do | line |
+    = render partial: "repayment_calendar_dashboards/repayment_calendar_line", locals: {line: line, type: type}

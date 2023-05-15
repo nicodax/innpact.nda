@@ -1,0 +1,47 @@
+- content_for :breadcrumbs do
+  %nav{"aria-label" => t("breadcrumbs.you_are_here"), :role => "navigation"}
+    %ul.breadcrumbs
+      %li
+        %a{:href => root_path} Welcome
+      %li
+        %a{:href => deleted_funds_path} Deleted funds
+      %li
+        %span.show-for-sr t("current")
+        = @fund.name
+.grid-x
+  .cell.large-6
+    %h1.mb0= @fund.name
+    .soustitre.primary= @fund.status.capitalize
+  .cell.large-6.cta_bottom
+    = link_to "Restore fund", restore_deleted_funds_path(id: @fund.id), class: "cta mr10", method: :put
+    = link_to "Permanently delete fund", "#", class: "cta cta_warning", id: "delete-fund"
+%hr/
+.grid-x.grid-margin-x
+  .cell.large-12
+    %h2 Details
+    %p= @fund.details
+
+.grid-x.grid-margin-x
+  .cell.small-12.medium-12
+    %h2 Users
+    %h3= t("roles.administrator")
+    - @administrators.each do |user|
+      = link_to user.full_name, settings_user_path(id: user), class: "button hollow"
+
+    %h3= t("roles.general_manager")
+    - @general_managers.each do |user|
+      = link_to user.full_name, settings_user_path(id: user), class: "button hollow"
+
+    %h3= t("roles.investment_manager")
+    - @investment_managers.each do |user|
+      = link_to user.full_name, settings_user_path(id: user), class: "button hollow"
+
+#confirmation-modal.reveal.pt10.pb20{"data-reveal" => ''}
+  %p Are you sure you want to permanently delete that fund ?
+  .cell.small-12
+    = link_to "Delete", destroy_deleted_funds_path(id: @fund.id), class: "cta cta_warning", id: "delete-user", method: :delete
+    = link_to "Cancel", "#", class: "cta cta_grey ml5 cta_right", id: "cancel-delete"
+  %button.close-button{"aria-label" => "Close modal", "data-close" => "", :type => "button"}
+    %span{"aria-hidden" => "true"} ×
+
+=javascript_pack_tag 'deleted_funds'

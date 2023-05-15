@@ -1,0 +1,30 @@
+.reader_group_list {
+	margin: 0 !important;
+	li {
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+}
+.reader_buttons {
+	background-color: $primary;
+	border-radius: 6px;
+	color: snow;
+	padding: 3px 8px;
+	&:hover {
+		background-color: $secondary;
+		color: snow;
+	}
+}
+
+.reader_list_item {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.remove_reader {
+	&:hover {
+		background-color: $warning;
+		color: snow;
+	}
+}

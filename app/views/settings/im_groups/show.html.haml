@@ -1,0 +1,49 @@
+- content_for :breadcrumbs do
+  %nav{"aria-label": t("breadcrumbs.you_are_here"), role: "navigation"}
+    %ul.breadcrumbs
+      %li
+        %a{href: root_path} Welcome
+        %li
+          %a{href: root_path} Funds
+        %li
+          %a{href: root_path} Settings
+        %li
+          %span IM Groups
+.grid-x
+  .cell.medium-12
+    %h1.mb0 IM Groups
+    .soustitre.primary Define and manage IM group(s) that will be available to this Fund.
+
+%hr/
+
+.grid-x.grid-padding-x
+  .cell.small-12.medium-4.section_3
+    .mb20
+      = link_to "Create", new_fund_settings_im_group_path(fund_id: fund.id), class: "cta mb20"
+      %h2 IM Groups
+      .app-dashboard-search-bar-container
+        - @im_groups.each do |im_group|
+          .mt10.mb10= link_to im_group.name, fund_settings_im_group_path(fund_id: fund.id, id: im_group.id)
+
+  .cell.small-12.medium-8.section_3
+    %h2 Group Name
+    %ul.im_group_list
+      %li
+        %strong= t("activerecord.attributes.im_group.name")
+        = @setting.name
+      %li
+        %strong= t("activerecord.attributes.im_group.description")
+        = @setting.description
+      %li
+        %strong Investment Managers
+        %ul.ml0 
+          - @setting.users.each do |user|
+            %li= user.full_name
+
+    .grid-x
+      .cell.small-6.medium-2.large-2
+        = link_to "Delete", fund_settings_im_group_path(fund_id: fund.id, id: @setting.id),
+          class: "cta cta_warning", method: :delete
+      .cell.small-6.medium-2.large-2
+        = link_to "Edit", edit_fund_settings_im_group_path(fund_id: fund.id, id: @setting.id),
+          class: "cta ml5"

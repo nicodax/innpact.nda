@@ -1,0 +1,115 @@
+- institution_esg_pai_indicator = institution.last_institution_esg_pai_indicator
+.grid-x
+  .cell.small-12.medium-12.large-12
+    %h2= t("settings.esg_pai_indicator.new.esg_pai_indicator_title")
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.esg_pai_indicator.shared.form.as_of")
+      .cell.auto.field_value
+        = institution_esg_pai_indicator.try(:as_of).try(:strftime, "%d/%m/%Y")
+  .cell.small-12.medium-12.large-12
+    %strong= t("settings.esg_pai_indicator.shared.form.ghg_emissions")
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-12.large-12
+        .grid-x
+          .cell.small-12.medium-6.large-6
+            %strong= t("settings.esg_pai_indicator.shared.form.scope_1_emissions")
+          .cell.auto.field_value
+            = institution_esg_pai_indicator.try(:scope_1_emissions_t_co_per_million_usd)
+      .cell.small-12.medium-12.large-12
+        .grid-x
+          .cell.small-12.medium-6.large-6
+            %strong= t("settings.esg_pai_indicator.shared.form.scope_2_emissions")
+          .cell.auto.field_value
+            = institution_esg_pai_indicator.try(:scope_2_emissions_t_co_per_million_usd)
+      .cell.small-12.medium-12.large-12
+        .grid-x
+          .cell.small-12.medium-6.large-6
+            %strong= t("settings.esg_pai_indicator.shared.form.scope_3_emissions")
+          .cell.auto.field_value
+            = institution_esg_pai_indicator.try(:scope_3_emissions_t_co_per_million_usd)
+      .cell.small-12.medium-12.large-12
+        .grid-x
+          .cell.small-12.medium-6.large-6
+            %strong= t("settings.esg_pai_indicator.shared.form.total_ghg_emissions")
+          .cell.auto.field_value
+            = institution_esg_pai_indicator.try(:sum_ghg_scope_emissions_t_co_per_million_usd)
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.esg_pai_indicator.shared.form.carbon_footprint")
+      .cell.auto.field_value
+        = institution_esg_pai_indicator.try(:carbon_footprint_t_co_per_million_usd)
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.esg_pai_indicator.shared.form.ghg_intensity_investee_companies")
+      .cell.auto.field_value
+        = institution_esg_pai_indicator.try(:ghg_intensity_investee_companies_t_co_per_million_usd)
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.esg_pai_indicator.shared.form.exposure_companies_active_in_fossil_fuel_sector")
+      .cell.auto.field_value
+        = institution_esg_pai_indicator.try(:exposure_companies_active_in_fossil_fuel_sector_percent)
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.esg_pai_indicator.shared.form.share_of_non_renewable_energy_consumption_and_production")
+      .cell.auto.field_value
+        = institution_esg_pai_indicator.try(:share_of_non_renewable_energy_consumption_and_production_percent)
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.esg_pai_indicator.shared.form.energy_consumption_intensity_per_high_impact_climate_sector")
+      .cell.auto.field_value
+        = institution_esg_pai_indicator.try(:energy_consumption_intensity_per_high_impact_climate_sector_gwh_per_million_usd)
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.esg_pai_indicator.shared.form.activities_negatively_affecting_biodiversity_sensitive_areas")
+      .cell.auto.field_value
+        = institution_esg_pai_indicator.try(:activities_negatively_affecting_biodiversity_sensitive_areas_percent)
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.esg_pai_indicator.shared.form.emissions_to_water")
+      .cell.auto.field_value
+        = institution_esg_pai_indicator.try(:emissions_to_water_t_co_per_million_usd)   
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.esg_pai_indicator.shared.form.hazardous_waste_ratio")
+      .cell.auto.field_value
+        = institution_esg_pai_indicator.try(:hazardous_waste_ratio_t_per_million_usd)    
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.esg_pai_indicator.shared.form.violations_of_un_global_compact_principles_and_oecd_guidelines_for_multinational_enterprises")
+      .cell.auto.field_value
+        = institution_esg_pai_indicator.try(:violations_of_un_global_compact_principles_and_oecd_guidelines_for_multinational_enterprises_percent)
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.esg_pai_indicator.shared.form.lack_of_processes_and_compliance_mechanisms_to_monitor_compliance_with_un_global_compact_principles")
+      .cell.auto.field_value
+        = institution_esg_pai_indicator.try(:lack_of_processes_and_compliance_mechanisms_to_monitor_compliance_with_un_global_compact_principles_percent)
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.esg_pai_indicator.shared.form.unadjusted_gender_pay_gap")
+      .cell.auto.field_value
+        = institution_esg_pai_indicator.try(:unadjusted_gender_pay_gap_percent)
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.esg_pai_indicator.shared.form.board_gender_diversity")
+      .cell.auto.field_value
+        = institution_esg_pai_indicator.try(:board_gender_diversity_percent)
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.esg_pai_indicator.shared.form.exposure_to_controversial_weapons")
+      .cell.auto.field_value
+        = institution_esg_pai_indicator.try(:exposure_to_controversial_weapons_percent)

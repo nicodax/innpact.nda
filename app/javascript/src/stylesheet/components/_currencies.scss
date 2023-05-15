@@ -1,0 +1,34 @@
+.btn_load_currency_file {
+	overflow: hidden;
+	position: relative;
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.btn_import_currency {
+	background: white;
+	cursor: pointer;
+	display: block;
+	filter: alpha(opacity=0);
+	opacity: 0;
+	outline: none;
+	position: absolute;
+	right: 0;
+	text-align: left;
+	top: 0;
+	padding: 20px;
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.cta_submit_currency {
+	background: none !important;
+	color: inherit !important;
+	border: none !important;
+	padding: 0 !important;
+	font: inherit !important;
+	cursor: pointer !important;
+	outline: inherit !important;
+}

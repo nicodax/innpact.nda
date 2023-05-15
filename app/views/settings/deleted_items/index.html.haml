@@ -1,0 +1,47 @@
+- content_for :breadcrumbs do
+  %nav{"aria-label" => t("breadcrumbs.you_are_here"), :role => "navigation"}
+    %ul.breadcrumbs
+      %li
+        %a{:href => root_path} Welcome
+      %li
+        %a{:href => settings_path} Settings
+      %li
+        %span.show-for-sr t("current")
+        Recycle Bin
+.grid-x
+  .cell.medium-12
+    %h1.mb0 Recycle Bin
+    .soustitre.mb20= t('.warning_title')
+  .cell.medium-12
+    %a.cta.cta#confirm-restore-items Restore selected
+    %a.cta.cta_warning#confirm-destroy-items Delete selected
+
+%hr
+  .mb3
+    %a.cta.cta_primary#select_all_items Select All
+    %a.cta.cta_primary#deselect_all_items Deselect All
+  .grid-x{id: 'recycle_bin'}
+    = render partial: "settings/deleted_items/shared/index"
+
+#restore-confirmation-modal.reveal{"data-reveal" => ''}
+  %p.text-center Are you sure you want to restore these records ?
+  .grid-x.grid-margin-x
+    .cell.small-12.medium-2.large-2
+    .cell.small-12.medium-6.large-5
+      = link_to "Cancel", "#", class: "cta cta_grey ml5", id: "cancel-restore"
+    .cell.small-12.medium-6.large-5
+      = link_to "Restore", '#', class: "cta", id: "restore-items"
+    %button.close-button{"aria-label" => "Close modal", "data-close" => "", :type => "button"}
+      %span{"aria-hidden" => "true"} ×
+#destroy-confirmation-modal.reveal{"data-reveal" => ''}
+  %p.text-center Are you sure you want to permanently delete these records ?
+  .grid-x.grid-margin-x
+    .cell.small-12.medium-2.large-2
+    .cell.small-12.medium-6.large-5
+      = link_to "Cancel", "#", class: "cta cta_grey ml5", id: "cancel-destroy"
+    .cell.small-12.medium-6.large-5
+      = link_to "Delete", '#', class: "cta cta_warning", id: "destroy-items"
+    %button.close-button{"aria-label" => "Close modal", "data-close" => "", :type => "button"}
+      %span{"aria-hidden" => "true"} ×
+
+=javascript_pack_tag 'recyclebin'

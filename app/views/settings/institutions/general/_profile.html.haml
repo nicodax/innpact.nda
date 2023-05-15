@@ -1,0 +1,66 @@
+.grid-margin-x.small-12.medium-6.large-6
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-12.large-12
+        %h4= t('settings.institutions.show.institution_profile')
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.assigned_im_group")
+      .cell.auto.field_value
+        = link_to setting.im_group.name, fund_settings_im_group_path(fund_id: setting.fund_id, id: setting.im_group_id)
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.country")
+      .cell.auto.field_value
+        = institution.country.name
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.institution_group")
+      .cell.auto.field_value
+        = institution.institution_group.name
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.institution_type")
+      .cell.auto.field_value
+        = institution.institution_type.name
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.tier")
+      .cell.auto.field_value
+        = InstitutionProfile.tier_map[institution.tier]
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.regulatory_status")
+      .cell.auto.field_value
+        = setting.regulatory_status
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.cpps_adoption")
+      .cell.auto.field_value
+        = InstitutionProfile.cpps_adoption_map[setting.cpps_adoption]
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.use_of_standard_reporting_tools")
+      .cell.auto.field_value
+        = InstitutionProfile.use_of_standard_reporting_tools_map[setting.use_of_standard_reporting_tools]
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.shared.form.in_watchlist")
+      .cell.auto.field_value
+        = Institution.dropdown_yes_no_map[setting.in_watchlist]
+  - if setting.in_watchlist
+    .cell.small-12.medium-6.large-6
+      .grid-x
+        .cell.small-12.medium-6.large-6
+          %strong= t("settings.institutions.show.watchlist_reason")
+        .cell.auto.field_value
+          = setting.watchlist_reason

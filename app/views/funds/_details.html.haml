@@ -1,0 +1,30 @@
+.grid-x.grid-margin-x
+  .small-12.cell.medium-12.large-12
+    %p= fund.details
+
+    .grid-x
+      .small-12.cell
+        %h2= t(".usd_amount")
+        - if fund.current_amount
+          .grid-x
+            .cell.small-6
+              %h3= number_to_currency(fund.current_amount.amount, format: "%n %u")
+            .cell.small-6
+              %p= fund.current_amount.created_at
+        - else
+          %p= t(".no_usd_amount")
+      .small-12.cell
+        %h2= "#{t(".amount_history")} :"
+        - if fund.previous_amounts.empty?
+          = t(".no_amount_history")
+        - else
+          - fund.previous_amounts.each do |previous_amount|
+            .grid-x
+              .cell.small-6
+                = number_to_currency(previous_amount.amount, format: "%n %u")
+              .cell.small-6
+                = previous_amount.created_at
+
+      .small-12.cell.mt10
+        - if policy(FundUsdAmount).new?
+          = link_to t(".add"), new_fund_fund_usd_amount_path(fund_id: fund.id), class: "cta"

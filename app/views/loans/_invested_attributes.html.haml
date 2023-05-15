@@ -1,0 +1,95 @@
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag "disbursement_date"
+    = loan.send "disbursement_date"
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag "maturity_date"
+    = loan.send "maturity_date"
+.grid-x.grid-margin-x
+  .cell.small-12.medium-4.large-4
+    .strong_title= label_tag :loan_spread
+    = loan.formatted_loan_spread
+  - unless loan.hedge_spread.nil?
+    .cell.small-12.medium-4.large-4
+      .strong_title= label_tag :hedge_spread
+      = loan.formatted_hedge_spread
+  .cell.small-12.medium-4.large-4
+    .strong_title= label_tag :executed_spread
+    = loan.formatted_executed_spread
+.grid-x.grid-margin-x
+  .cell.small-12.medium-4.large-4
+    .strong_title= label_tag :loan_interest_rate_type
+    = loan.loan_interest_rate_type_name
+  - unless loan.hedge_interest_rate_type.nil?
+    .cell.small-12.medium-4.large-4
+      .strong_title= label_tag :hedge_interest_rate_type
+      = loan.hedge_interest_rate_type_name
+  .cell.small-12.medium-4.large-4
+    .strong_title= label_tag :executed_interest_rate_type
+    = loan.executed_rate_type_name
+
+.grid-x.grid-margin-x
+  .cell.small-12.medium-4.large-4
+    .strong_title= label_tag :executed_bond
+    = loan.executed_bond.name
+  .cell.small-12.medium-4.large-4
+    .strong_title= label_tag :nav_usd
+    = loan.formatted_nav_usd || "/"
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag :provision_value
+    = loan.formatted_provision_value || "/"
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag t('loans.shared.invested_fields.invested_hedge_fx_rate')
+    = number_with_delimiter(loan.invested_hedge_fx_rate) || "/"
+
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag :gross_position_value
+    = loan.formatted_gross_position_value || "/"
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag :net_position_value
+    = loan.formatted_net_position_value || "/"
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag :provision_value_usd
+    = loan.formatted_provision_value_usd || "/"
+
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag :gross_position_value_usd
+    = loan.formatted_gross_position_value_usd || "/"
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag :net_position_value_usd
+    = loan.formatted_net_position_value_usd || "/"
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag :provision_date
+    = loan.provision_date || "/"
+
+- if current_user.investment_manager? && @draft_loan_provision
+  %hr
+
+  %h3= t('loans.show.drafted_provision_value')
+  .grid-x.grid-margin-x
+    .cell.small-12.medium-6.large-4
+      .strong_title= label_tag :gross_position_value
+      = loan.formatted_gross_position_value || "/"
+    .cell.small-12.medium-6.large-4
+      .strong_title= label_tag :draft_net_position_value
+      = number_to_currency(@draft_loan_provision.net_provision_value,
+        unit: @draft_loan_provision.currency.short_name,
+        format: "%n %u") || "/"
+    .cell.small-12.medium-6.large-4
+      .strong_title= label_tag :draft_provision_value
+      = number_to_currency(@draft_loan_provision.provision_value,
+        unit: @draft_loan_provision.currency.short_name,
+        format: "%n %u") || "/"
+
+  .grid-x.grid-margin-x.grid-padding-y
+    .cell.small-12.medium-6.large-4
+      .strong_title= label_tag :gross_position_value_usd
+      = loan.formatted_gross_position_value_usd || "/"
+    .cell.small-12.medium-6.large-4
+      .strong_title= label_tag :draft_gross_position_value_usd
+      = number_to_currency(@draft_loan_provision.net_provision_value_usd, unit: "$", format: "%n %u") || "/"
+    .cell.small-12.medium-6.large-4
+      .strong_title= label_tag :draft_net_position_value_usd
+      = number_to_currency(@draft_loan_provision.provision_value_usd, unit: "$", format: "%n %u") || "/"

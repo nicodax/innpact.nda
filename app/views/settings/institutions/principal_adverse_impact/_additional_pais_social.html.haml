@@ -1,0 +1,26 @@
+- list_pai_social = institution.try(:last_additional_pais_social)
+.grid-x
+  .cell.small-12.medium-12.large-12
+    %h2= t("settings.additional_pais_socials.shared.header.additional_pais_socials_main_title")
+  - list_pai_social.each do |pai_social|
+    .cell.small-12.medium-12.large-12
+      .grid-x
+        .cell.small-12.medium-12.large-12
+          .grid-x
+            .cell.small-12.medium-6.large-6
+              %strong= t("settings.additional_pais_socials.shared.form.as_of")
+            .cell.auto.field_value
+              = pai_social.try(:as_of).try(:strftime, "%d/%m/%Y")
+        .cell.small-12.medium-12.large-12
+          .grid-x
+            .cell.small-12.medium-6.large-6
+              %strong= t("settings.additional_pais_socials.shared.form.social_pai_reported")
+            .cell.auto.field_value
+              = AdditionalPaisSocial.additional_pais_social_map[pai_social.try(:social_pai_reported)]
+        .cell.small-12.medium-12.large-12
+          .grid-x
+            .cell.small-12.medium-6.large-6
+              %strong= t("settings.additional_pais_socials.shared.form.social_pai_value")
+            .cell.auto.field_value
+              = format_pai_with_unit(pai_social.try(:social_pai_value), AdditionalPaisSocial.additional_pai_social_units_map[pai_social.try(:social_pai_reported)])
+        &nbsp

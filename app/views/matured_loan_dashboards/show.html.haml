@@ -1,0 +1,66 @@
+- content_for :breadcrumbs do
+  %nav{"aria-label" => t("breadcrumbs.you_are_here"), :role => "navigation"}
+    %ul.breadcrumbs
+      %li
+        %a{:href => root_path}= t('breacrumb.welcome')
+      %li
+        %a{:href => root_path}= t('breacrumb.funds')
+      %li
+        %a{:href => fund_path(id: fund.id)}= fund.name
+      %li
+        %span.show-for-sr t("current")
+        = t('breadcrumbs.loan_matured')
+
+.grid-x
+  .cell.medium-6
+    %h1.mb0= t(".breadcrumbs.loan_matured")
+  .cell.medium-6
+    - if dashboard.deleted_loans_policy.destroy?
+      = link_to t('general.delete_selected'), "#", class: "cta cta_right cta_warning ml5 mr5", id: "delete-loans", data: {element_purpose: "delete_button"}
+    = simple_form_for :loan_export, url: fund_loan_exports_path(fund_id: fund, loan_category: :matured) do |f|
+      = f.input :loan_search, as: :hidden, input_html: {value: dashboard.loan_search.to_json}
+      = f.input :mode, as: :hidden, input_html: {value: :attachment}
+      = f.button :submit, t('general.download'), class: "cta cta_right"
+
+%hr/
+
+.grid-x
+  .cell.medium-12
+    - if dashboard.deleted_loans_policy.index?
+      = link_to t(".show_deleted_loans", deleted_loans_count: dashboard.deleted_loans_count), fund_deleted_loans_path(fund_id: fund.id), class: "cta_right", data: {element_purpose: "deleted_loans_link"}
+
+= render partial: "accepted_loan_dashboards/search", locals: {dashboard: dashboard}
+
+= form_for :loan_batch, url: fund_loan_batches_path(fund: fund, loan_category: :accepted), method: :delete, html: {id: :confirm_delete_form} do |f|
+  %table{class: "stack unstriped scroll"}
+    %thead
+      %tr
+        %td
+        %td
+        - LoanDecorator.accepted_loans_columns_titles.each do |title|
+          %td.tab-align= title
+    %tbody
+      - dashboard.dashboard_loans.each do |loan|
+        %tr.text-center
+          %td
+            = check_box_tag "loan_ids[]", loan.id, false, data: {element_purpose: "loan_select_box"}
+          %td
+            %ul
+              %li= link_to t('.show'), fund_loan_path(fund_id: fund, id: loan)
+          - loan.accepted_loans_columns_values.each do |column|
+            -if column == loan.original_innpact_loan_id && loan.original_innpact_loan_deleted?
+              %td
+            -else
+              %td= column
+
+= render partial: "accepted_loan_dashboards/pagination", locals: {dashboard: dashboard}
+
+.reveal{"data-reveal" => '', "id" => "confirmation-modal"}
+  %p= t(".deletion_are_you_sure")
+  .cell.small-12
+    = link_to t("general.cancel"), "#", class: "cta cta_grey ml5 cancel-delete"
+    = link_to t("general.delete"), "#", class: "cta cta_warning cta_right confirm-delete", data: {element_purpose: "delete_confirmation_button"}
+  %button.close-button{"aria-label" => "Close modal", "data-close" => "", :type => "button"}
+    %span{"aria-hidden" => "true"} ×
+
+= javascript_pack_tag 'accepted_loan_dashboard'

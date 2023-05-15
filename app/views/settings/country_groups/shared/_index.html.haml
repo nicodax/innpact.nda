@@ -1,0 +1,14 @@
+.cell.small-12.medium-4.section_3
+  .mb20
+    %a.cta{href: fund_settings_country_groups_path}= t("settings.shared.create")
+  %h2= t("settings.country_groups._index.country_groups")
+  .app-dashboard-search-bar-container
+    -# %input.app-dashboard-search.ml0{:placeholder => "Search", :type => "search"}
+    -#   %i.app-dashboard-search-icon.fa.fa-search.pr30
+    - if !setting_collection.empty?
+      - setting_collection.each do |country_group|
+        .mt10.mb10
+          %span.top{country_group.description ? { data: {tooltip: ""}} : {}, title: country_group.description}
+            %a{href: fund_settings_country_group_path(id: country_group.id), class: ("bold" if setting&.id == country_group.id)}= country_group.name
+    - else
+      %p No country_groups registered yet.

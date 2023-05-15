@@ -1,0 +1,11 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {t("settings.countries.countries")=> fund_settings_countries_path}, current_topic: t(".new_country")}
+= render partial: "settings/countries/shared/header"
+%hr
+  .grid-x.grid-padding-x
+
+    = render partial: "settings/countries/shared/index"
+    .cell.small-12.medium-8.large-5
+      %h2= t("settings.shared.create").upcase
+      = simple_form_for new_setting, url: fund_settings_countries_path do |f|
+        = render 'shared/form_error_messages', object: f.object
+        = render partial: "settings/countries/shared/form", locals: { f: f, country_groups: @country_groups, country_iso_codes: @country_iso_codes }

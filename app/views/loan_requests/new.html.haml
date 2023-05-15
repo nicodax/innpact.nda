@@ -1,0 +1,19 @@
+- content_for :breadcrumbs do
+  %nav{"aria-label" => t("breadcrumbs.you_are_here"), :role => "navigation"}
+    %ul.breadcrumbs
+      %li
+        %a{:href => root_path}= t('.breadcrumb.welcome')
+      %li
+        %a{:href => funds_path}= t('.breadcrumb.funds')
+      %li
+        %a{:href => fund_path(id: fund.id)}= fund.try(:name)
+      %li
+        %a{:href => fund_loan_dashboards_path(id: fund.id)}= t('.breadcrumb.loans')
+      %li
+        %span.show-for-sr t("current")
+        = t('.breadcrumb.new_loan')
+.grid-x
+  .cell.medium-12
+    %h1.mb0= t(".new_loan")
+  = simple_form_for [fund, loan_request] do |f|
+    = render partial: "loan_requests/shared/form", locals: {f: f, fund_investment_managers: loan_request.fund_investment_managers}

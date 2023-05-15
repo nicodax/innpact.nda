@@ -1,0 +1,16 @@
+%p= t("mailers.shared.dear_ia", recipient_name: @investment_manager_name)
+%p= t("mailers.loan_update.intro")
+
+%table.loan_update_table
+  %tr
+    %th= t("mailers.loan_update.noval")
+    %th= t("mailers.loan_update.mfi_name")
+    %th= t("mailers.loan_update.previous_status")
+    %th= t("mailers.loan_update.current_status")
+  %tr
+    %td= link_to @noval, fund_loan_url(fund_id: @loan.fund.id, id: @loan.id), target: "_blank"
+    %td= @mfi_name
+    %td= @last_loan_version_status
+    %td= @loan_version_status
+
+%p= t("mailers.loan_update_without_validation_link.question_comment")

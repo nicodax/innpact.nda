@@ -1,0 +1,40 @@
+.btn_initial_loan_import_file {
+	overflow: hidden;
+	position: relative;
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.btn_initial_loan_import_file input[type='file'] {
+	background: white;
+	cursor: pointer;
+	display: block;
+	filter: alpha(opacity=0);
+	opacity: 0;
+	outline: none;
+	position: absolute;
+	right: 0;
+	text-align: left;
+	top: 0;
+	padding: 30px;
+	z-index: 1;
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.input_file_button {
+	display: none;
+}
+
+.copy_status_data_button {
+	padding: 13px !important;
+	margin-left: 75px;
+}
+
+.strong_title {
+	label {
+		font-weight: bold;
+	}
+}

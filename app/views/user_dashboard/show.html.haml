@@ -1,0 +1,50 @@
+- content_for :breadcrumbs do
+  %nav{"aria-label" => t("breadcrumbs.you_are_here"), :role => "navigation"}
+    %ul.breadcrumbs
+      %li
+        %a{:href => root_path} Welcome
+
+.grid-x.grid-margin-x
+  .cell.medium-6
+    %h1.mb0= t(".notifications")
+%hr/
+.grid-x.grid-margin-x
+  .cell.medium-12
+    - if dashboard.notifications.empty?
+      = t(".no_new_notification")
+    - else
+      .grid-x.grid-margin-x
+        - dashboard.notifications.each do |notification|
+          = render partial: "user_dashboard/dashboard_notification", locals: {notification: notification}
+
+.grid-x
+  .cell.large-12
+    %h1.mb0= t(".funds")
+  .cell.large-12.mt10
+    .grid-x
+      .cell.large-2
+        = link_to t(".create_new_fund"), new_fund_path, class: "cta cta_left mt10 mb10" if current_user.administrator?
+      .cell.auto.mt5
+        - if current_user.administrator?
+          - if dashboard.archived_funds_count > 0
+            .see_funds
+              = link_to "See inactive funds (#{dashboard.archived_funds_count})", inactive_funds_path
+          - if dashboard.deleted_funds_count > 0
+            .see_funds
+              = link_to "See deleted funds (#{dashboard.deleted_funds_count})", deleted_funds_path
+%hr/
+.grid-x.grid-margin-x
+  - @funds.each do |fund|
+    %a.cell.medium-6.large-3.tiles_home{href: fund_path(fund_id: fund.id)}
+      .grid-x.grid-margin-x
+        .cell.medium-6.large-3
+          %img{:alt => "picto bank", :src => image_url("bank.png")}/
+        .cell.medium-6.large-9
+          %h3.mb0.pb0= fund.name
+          %p.primary= fund.status.capitalize
+        .cell.small-12
+          %hr/
+          - if @users[fund.id]
+            %div Investment Managers allowed on this fund
+            .tiles_name
+              = @users[fund.id].map(&:firstname).join(" - ")

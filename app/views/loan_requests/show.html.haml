@@ -1,0 +1,171 @@
+- content_for :breadcrumbs do
+  %nav{"aria-label" => t("breadcrumbs.you_are_here"), :role => "navigation"}
+    %ul.breadcrumbs
+      %li
+        %a{:href => root_path}= t('.breadcrumb.welcome')
+      %li
+        %a{:href => funds_path}= t('.breadcrumb.funds')
+      %li
+        %a{:href => fund_path(id: fund.id)}= fund.try(:name)
+      %li
+        %a{:href => fund_loan_dashboards_path(id: fund.id)}= t('.breadcrumb.loans')
+      %li
+        %span.show-for-sr t("current")
+        = loan_request.try(:name)
+
+= render partial: "shared/actions_header",
+  locals: { title: loan_request.try(:name),
+subtitle: nil,
+links: loan_request.submitted_at.nil? ? [{label: t('.edit'), path: edit_fund_loan_request_path(fund_id: fund.id, id: loan_request)},
+{label: t('general.delete'), path: "#", class: "cta_warning", id: "delete-loan_request"}] : []}
+
+.grid-x
+  .small-12.cell.medium-6.large-6
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.user')
+      .cell.small-6
+        = loan_request.user.full_name
+    .grid-x
+      .cell.small-6
+        %strong= t('activerecord.attributes.loan_request.assigned_investment_manager_id')
+      .cell.small-6
+        = loan_request.assigned_investment_manager.try(:full_name)
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.institution')
+      .cell.small-6
+        = loan_request.institution.try(:name)
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.spread')
+      .cell.small-6
+        = loan_request.spread
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.upfront_fees')
+      .cell.small-6
+        = loan_request.upfront_fees
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.fixed_rate')
+      .cell.small-6
+        = loan_request.fixed_rate
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.nominal_amount_usd')
+      .cell.small-6
+        = loan_request.nominal_amount_usd
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.nominal_amount')
+      .cell.small-6
+        = loan_request.nominal_amount
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.currency')
+      .cell.small-6
+        = loan_request.currency.try(:name)
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.tenor')
+      .cell.small-6
+        = loan_request.tenor
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.execution_probability')
+      .cell.small-6
+        = loan_request.execution_probability
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.repayment_type')
+      .cell.small-6
+        = loan_request.repayment_type.try(:name)
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.mfi_pays')
+      .cell.small-6
+        = loan_request.mfi_pays
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.interest_payment_frequency')
+      .cell.small-6
+        = loan_request.interest_payment_frequency
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.loan_type')
+      .cell.small-6
+        = loan_request.loan_type.try(:name)
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.tranche')
+      .cell.small-6
+        = loan_request.tranche
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.intermediary')
+      .cell.small-6
+        = loan_request.intermediary
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.syndication_amount')
+      .cell.small-6
+        = loan_request.syndication_amount
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.hedge_structure')
+      .cell.small-6
+        = loan_request.hedge_structure
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.assignement_date')
+      .cell.small-6
+        = loan_request.assignement_date
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.expected_dibursement_date')
+      .cell.small-6
+        = loan_request.expected_dibursement_date
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.sme_window')
+      .cell.small-6
+        = loan_request.sme_window
+    .grid-x
+      .cell.small-6
+        %strong= t('active_record.attributes.loan_request.waiting_list')
+      .cell.small-6
+        = loan_request.waiting_list
+    .small-12.cell.medium-12{style: "padding: 20px 0px 0px 0px;"}
+      %h3= t(".documents")
+      - if loan_request.loan_request_documents.empty?
+        = t(".no_documents")
+      - else
+        - loan_request.loan_request_documents_by_name.each do |filename, files|
+          .grid-x
+            .cell.small-4
+              = link_to files.first.original_filename,  fund_loan_request_document_preview_path(fund_id: loan_request.fund, loan_request_id: loan_request, document_slug: files.first), target: :_blank
+            .cell.small-4
+              = "#{t('.number_of_version')} : #{files.length}"
+            .cell.small-4
+              = files.first.created_at
+      - if loan_request.submitted_at.nil?
+        .grid-x{style: "padding: 20px 0px 0px 0px;"}
+          = link_to t('.add_document'), new_fund_loan_request_document_path(fund_id: loan_request.fund, loan_request_id: loan_request.id), class: "cta cta_primary cta_small"
+          = link_to t(".edit_documents"), fund_loan_request_documents_path(fund_id: loan_request.fund, loan_request_id: loan_request.id), class: "cta cta_primary cta_small"
+
+  .small-12.cell.medium-6.large-6
+    - if loan_request.submitted_at.present?
+      = render partial: "loan_requests/shared/submitted", locals: {loan_request: loan_request}
+    - else
+      = render partial: "loan_requests/shared/validation", locals: {loan_request: loan_request}
+
+#confirmation-modal.reveal{"data-reveal" => ''}
+  %p= t(".deletion_are_you_sure")
+  .cell.small-12
+    = link_to t("general.cancel"), "#", class: "cta cta_grey ml5", id: "cancel-delete"
+    = link_to t("general.delete"), fund_loan_request_path(fund_id: fund.id, id: loan_request), class: "cta cta_warning cta_right", id: "delete-user", method: :delete
+  %button.close-button{"aria-label" => "Close modal", "data-close" => "", :type => "button"}
+    %span{"aria-hidden" => "true"} ×
+
+=javascript_pack_tag 'loan_requests'

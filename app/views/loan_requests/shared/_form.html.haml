@@ -1,0 +1,83 @@
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    = f.association :institution
+  .cell.small-12.medium-6.large-4
+    = f.input :assigned_investment_manager_id, collection: fund_investment_managers, value_method: :id, label_method: :full_name
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    .grid-x.grid-margin-x
+      .cell.small-12
+        = f.label :spread
+      .cell.small-12.input-group
+        = f.input :spread, label: false, as: "string", input_html: { class: "has-tip input-group-field thousand_currencies_formats"}
+        .input-group-label= "%"
+  .cell.small-12.medium-6.large-4
+    .grid-x.grid-margin-x
+      .cell.small-12
+        = f.label :upfront_fees
+      .cell.small-12.input-group
+        = f.input :upfront_fees, label: false, as: "string", input_html: { class: "has-tip input-group-field thousand_currencies_formats"}
+        .input-group-label= "%"
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    .grid-x.grid-margin-x
+      .cell.small-12
+        = f.label :fixed_rate
+      .cell.small-12.input-group
+        = f.input :fixed_rate, label: false, as: "string", input_html: { class: "has-tip input-group-field thousand_currencies_formats"}
+        .input-group-label= "%"
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    = f.input :nominal_amount, as: "string", input_html: { class: "thousand_currencies_formats" }
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    = f.association :currency, label_method: :short_name
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    = f.input :tenor, as: "string", input_html: { class: "thousand_currencies_formats" }
+  .cell.small-12.medium-6.large-4
+    .grid-x.grid-margin-x
+      .cell.small-12
+        = f.label :execution_probability
+      .cell.small-12.input-group
+        = f.input :execution_probability, label: false, as: "string", input_html: { class: "has-tip input-group-field thousand_currencies_formats"}
+        .input-group-label= "%"
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    = f.association :repayment_type
+  .cell.small-12.medium-6.large-4
+    = f.input :mfi_pays, collection: loan_request.mfi_pays_options
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    = f.input :interest_payment_frequency
+  .cell.small-12.medium-6.large-4
+    = f.association :loan_type
+  .cell.small-12.medium-6.large-4
+    = f.input :tranche
+  .cell.small-12.medium-6.large-4
+    = f.input :intermediary, collection: loan_request.intermediary_options
+  .cell.small-12.medium-6.large-4
+    = f.input :syndication_amount
+  .cell.small-12.medium-6.large-4
+    = f.input :hedge_structure, collection: loan_request.hedge_structure_options
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    = f.input :assignement_date, as: 'date_picker', input_html: { min: Date.today}
+  .cell.small-12.medium-6.large-4
+    = f.input :expected_dibursement_date, as: 'date_picker', input_html: { min: Date.today}
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    = f.input :sme_window
+- if policy(f.object).waiting_list_change?
+  .grid-x.grid-margin-x
+    .cell.small-12.medium-6.large-4
+      = f.input :waiting_list, as: :boolean
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    = t(".documents")
+    = f.simple_fields_for :loan_request_documents, f.object.loan_request_documents.build do |ft|
+      = ft.file_field :document, required: false
+.grid-x.grid-margin-x
+  = f.submit t("save"), class: "cta ml5"
+
+= javascript_pack_tag 'cleave_form_format'

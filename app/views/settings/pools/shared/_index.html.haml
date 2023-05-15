@@ -1,0 +1,14 @@
+.cell.small-12.medium-4.section_3
+  .mb20
+    %a.cta{href: fund_settings_pools_path} Create
+  %h2 Pools
+  .app-dashboard-search-bar-container
+    -# %input.app-dashboard-search.ml0{:placeholder => "Search", :type => "search"}
+    -#   %i.app-dashboard-search-icon.fa.fa-search.pr30
+    - if !setting_collection.empty?
+      - setting_collection.each do |pool|
+        .mt10.mb10
+          %span.top{pool.name ? { data: {tooltip: ""}} : {}, title: pool.name}
+            %a{href: fund_settings_pool_path(id: pool.id)}= pool.name
+    - else
+      %p No pools registered yet.

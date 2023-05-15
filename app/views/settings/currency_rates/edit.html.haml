@@ -1,0 +1,12 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {t("settings.currencies.breadcrumb_currencies") => fund_settings_currencies_path}, current_topic: setting.display_name}
+= render partial: "settings/currency_rates/shared/header"
+%hr
+  .grid-x.grid-padding-x
+
+    -# = render partial: "settings/currency_rates/shared/index"
+    .cell.small-12.medium-4
+      %h2 EDIT
+      = simple_form_for setting, url: fund_settings_currency_currency_rate_path(id: setting.id) do |f|
+        = render 'shared/form_error_messages', object: f.object
+        = render partial: "settings/currency_rates/shared/form", locals: {f: f}
+

@@ -1,0 +1,38 @@
+.grid-x.grid-margin-x
+  .small-12.cell.medium-12.large-12
+    .grid-x.grid-margin-x
+      .small-12.cell.medium-3.large-3
+        = link_to fund_loan_request_dashboard_path(fund_id: fund.id), data: {element_purpose: "loan_request_list_link"}, class: "button hollow" do
+          %i{class:"fi-pencil"}
+          = t(".loan_request_size", size: fund.loan_request_count)
+      .small-12.cell.medium-3.large-3
+        = link_to fund_accepted_loan_dashboard_path(fund_id: fund.id), data: {element_purpose: "accepted_request_list_link"}, class: "button hollow" do
+          %i{class:"fi-check"}
+          = t(".loan_accepted_size", size: fund.accepted_loan_count)
+
+      .small-12.cell.medium-3.large-3
+        = link_to fund_matured_loan_dashboard_path(fund_id: fund.id), data: {element_purpose: "matured_request_list_link"}, class: "button hollow" do
+          %i{class:"fi-check"}
+          = t(".loan_matured_size", size: fund.matured_loan_count)
+
+      - if policy(fund.loans.new).destroy?
+        .small-12.cell.medium-3.large-3
+          = link_to fund_deleted_loans_path(fund_id: fund.id), class: "button alert hollow" do
+            %i{class:"fi-trash"}
+            = t(".loan_deleted_size", size: fund.deleted_loan_count)
+
+    -if !current_user.reader?
+      %h2= t(".create_loan")
+
+      %p= t(".select_institution_to_create_loan")
+      .grid-x
+        .cell.small-6.mb10
+          = select_tag :loan_institution, options_from_collection_for_select(@institutions, :id, :name),
+            class:"mb5 institutions_list js-states form-control", data: {element_purpose: "creation_institution_select"}
+
+      %p= t(".not_existing_institution_message")
+      = link_to t('.create_loan'), "#", class: "cta mb10", id: "create_loan_button", data: {element_purpose: "loan_creation_button", fund_id: fund.id}
+    %h2= t(".critical_case_dashboard")
+    %p= link_to t(".critical_case_dashboard"), fund_critical_case_dashboard_path(fund_id: fund.id)
+
+=javascript_pack_tag 'funds'

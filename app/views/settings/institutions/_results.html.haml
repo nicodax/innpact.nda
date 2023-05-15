@@ -1,0 +1,68 @@
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.as_of")
+      .cell.auto
+        = institution.aptf_alinus_results_as_of_date.present? ? institution.aptf_alinus_results_as_of_date.strftime("%d-%m-%Y") : ""
+  .cell.small-12.medium-6.large-6
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.has_sptf_alinus_reporting_using_alinus")
+      .cell.auto
+        = t(setting.dropdown_yes_no_list_display(setting.has_sptf_alinus_reporting_using_alinus))
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong=t("settings.institutions.show.sptf_alinus_reporting_using_alinus")
+      .cell.auto
+        = setting.sptf_alinus_reporting_using_alinus
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong=t("settings.institutions.show.overall_sptf_alinus_score")
+      .cell.auto
+        = setting.overall_sptf_alinus_score_percent_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong=t("settings.institutions.show.define_and_monitor_social_goals")
+      .cell.auto
+        = setting.define_and_monitor_social_goals_percent_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong=t("settings.institutions.show.ensure_commitment_to_social_goals")
+      .cell.auto
+        = setting.ensure_commitment_to_social_goals_percent_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong=t("settings.institutions.show.product_design_to_meet_clients_need")
+      .cell.auto
+        = setting.product_design_to_meet_clients_need_percent_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong=t("settings.institutions.show.treat_clients_responsibly")
+      .cell.auto
+        = setting.treat_clients_responsibly_percent_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong=t("settings.institutions.show.treat_employees_responsibly")
+      .cell.auto
+        = setting.treat_employees_responsibly_percent_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong=t("settings.institutions.show.balance_financial_and_performance")
+      .cell.auto
+        = setting.balance_financial_and_performance_percent_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong=t("settings.institutions.show.promote_environmental_protection")
+      .cell.auto
+        = setting.promote_environmental_protection_percent_value

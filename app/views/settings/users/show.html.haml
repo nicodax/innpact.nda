@@ -1,0 +1,107 @@
+= render partial: "settings/shared/user_breadcrumb", locals: {intermediate_topics: {}, current_topic: "User management"}
+= render partial: "settings/users/shared/header"
+
+.grid-x.grid-margin-x
+  .cell.small-12.medium-4.section_3
+    = render partial: "settings/users/shared/index"
+  .cell.small-12.medium-8
+    .cell.small-12.medium-8
+      %h1.mt0= user.full_name
+      %ul.ml0
+        %li
+          .grid-x
+            .cell.small-3
+              %strong= t('activerecord.attributes.user.email')
+            .cell.auto
+              = user.email
+        %li
+          .grid-x
+            .cell.small-3
+              %strong= t('activerecord.attributes.user.firstname')
+            .cell.auto
+              = user.firstname
+        %li
+          .grid-x
+            .cell.small-3
+              %strong= t('activerecord.attributes.user.lastname')
+            .cell.auto
+              = user.lastname
+        %li
+          .grid-x
+            .cell.small-3
+              %strong= t('activerecord.attributes.user.phone_number')
+            .cell.auto
+              = user.phone_number
+        %li
+          .grid-x
+            .cell.small-3
+              %strong= t('activerecord.attributes.user.role')
+            .cell.auto
+              = t("roles.#{user.role.name}")
+        %li
+          .grid-x
+            .cell.small-3
+              %strong= t('activerecord.attributes.user_setting.loans_crud')
+            .cell.auto
+              = t(user.user_setting.allows_loans_crud_mail? ? 'yes' : 'no')
+
+        %li
+          .grid-x
+            .cell.small-3
+              %strong= t('activerecord.attributes.user_setting.loans_validation')
+            .cell.auto
+              = t(user.user_setting.allows_loans_validation_mail? ? 'yes': 'no')
+
+        %li
+          .grid-x
+            .cell.small-3
+              %strong= t('activerecord.attributes.user_setting.provisions_crud')
+            .cell.auto
+              = t(user.user_setting.allows_provisions_crud_mail? ? 'yes': 'no')
+        %li
+          .grid-x
+            .cell.small-3
+              %strong= t('activerecord.attributes.user_setting.provisions_validation')
+            .cell.auto
+              = t(user.user_setting.allows_provisions_validation_mail? ? 'yes': 'no')
+
+        %li
+          .grid-x
+            .cell.small-3
+              %strong= t('activerecord.attributes.user_setting.repayments_crud')
+            .cell.auto
+              = t(user.user_setting.allows_repayments_crud_mail? ? 'yes': 'no')
+        %li
+          .grid-x
+            .cell.small-3
+              %strong= t('activerecord.attributes.user_setting.repayments_validation')
+            .cell.auto
+              = t(user.user_setting.allows_repayments_validation_mail? ? 'yes': 'no')
+
+        - if user.investment_manager?
+          %li
+            .grid-x
+              .cell.small-3
+                %strong= t('activerecord.attributes.user.assigned_funds')
+              .cell.auto
+                %ul.ml0
+                  - @funds.each do |fund|
+                    %li= link_to fund.name, fund_path(fund.id)
+
+                    %ul.ml0
+                      %li
+                        .grid-x
+                          .cell
+                            %strong= t('activerecord.attributes.user.assigned_im_groups')
+                            - user.im_groups.each do |im_group|
+                              - next if im_group.fund_id != fund.id
+                              = link_to im_group.name, fund_settings_im_group_path(fund_id: im_group.fund_id, id: im_group.id)
+
+    - if policy(@user).update?
+      .cell.large-12
+        .grid-x
+          .cell.small-2
+            %button.cta.cta_warning.cta_warning_button{"data-open" => "delete_user_modal", "type" => "button"}= t('.delete')
+          .cell.small-2
+            = link_to "Edit", edit_settings_user_path(id: user.id), class: "cta ml5 mb5"
+  = render partial: "settings/users/shared/delete_modal", locals: {user: user}

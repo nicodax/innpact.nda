@@ -1,0 +1,18 @@
+.cell.small-12.medium-2.section_3
+  -if !current_user.reader?
+    .mb20
+      %a.cta{href: fund_settings_institutions_path} Create
+  %h2= t(".institutions")
+  .grid-x
+    .cell
+      - if !setting_collection.empty?
+        -#This is why I am adding an empty element to my array
+        -#For single selects only, in order for the placeholder value to appear, you must have a blank <option> as the first option in your <select> control.
+        -#This is because the browser tries to select the first option by default.
+        -#If your first option were non-empty, the browser would display this instead of the placeholder.
+        = select_tag :institution, options_for_select(@setting_collection.map { |institution| [institution.name, fund_settings_institution_path(id: institution.id)]}.prepend([nil,nil])),
+              class:"institutions_list", data: {element_purpose: "creation_institution_select"}
+      - else
+        %p No Institutions registered yet.
+
+=javascript_pack_tag 'institutions'

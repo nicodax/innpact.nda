@@ -1,0 +1,10 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {t(".institutions") => fund_settings_institutions_path, @institution.name => fund_settings_institution_path(fund_id: @institution.fund.id, id: @institution.id), t("settings.general.new.breadcrumb_general") => fund_settings_institution_path(fund_id: @institution.fund.id, id: @institution.id, anchor: 'general_tab')}, current_topic: t("settings.breadcrumb_edit")}
+= render partial: "settings/institutions/shared/header", locals: {current_institution: @institution, subtitle: {t("settings.general.new.breadcrumb_general") => fund_settings_institution_path(fund_id: @institution.fund.id, id: @institution.id, anchor: 'general_tab')}}
+= simple_form_for(@institution, method: :post, url: fund_settings_institution_institution_general_update_profile_path(fund_id: fund.id, institution_id: @institution.id), html: { class: "institution_general"}) do |f|
+  = render partial: 'settings/institution_general/shared/institution_form', locals: {f: f}
+
+= simple_form_for(@institution_rating, method: :post, url: fund_settings_institution_institution_general_update_rating_path(fund_id: fund.id, institution_id: @institution.id)) do |f|
+  = render partial: "settings/institution_general/shared/institution_rating_form", locals: {f: f}
+
+= javascript_pack_tag 'cleave_form_format'
+= javascript_pack_tag 'institution_form'

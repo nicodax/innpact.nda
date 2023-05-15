@@ -1,0 +1,13 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {t("settings.countries.breadcrumb_countries")=> fund_settings_countries_path}, current_topic: t("settings.countries.breadcrumb_update_all_countries")}
+= render partial: "settings/countries/shared/header"
+%hr
+  .grid-x.grid-padding-x
+    .cell.small-12.medium-6.large-6
+      %h2= t(".load_country_file").upcase
+      = simple_form_for new_setting, url: import_fund_settings_countries_path, multipart: true do |f|
+        %span.cta.btn_load_countries_file.mb10
+          = t('.import')
+          = f.file_field :file, required: true, class: "btn_import_countries"
+        = f.submit'', class: "cta_submit_countries"
+
+= javascript_pack_tag 'countries'

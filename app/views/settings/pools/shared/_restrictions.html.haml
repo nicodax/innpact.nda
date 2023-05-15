@@ -1,0 +1,44 @@
+.l-restriction-select.fit-content
+  %strong= "#{t('settings.pools.shared._form.restrictions')} :"
+  %ul#pools-tabs.tabs{ :data => { :tabs => ''}}
+    %li.tabs-title.is-active
+      %a{ :href => '#countries_list', :aria => { :selected => 'true'}}
+        = t('settings.pools.shared._form.countries')
+    %li.tabs-title
+      %a{ :href => '#country_groups_list' }
+        = t('settings.pools.shared._form.country_groups')
+    %li.tabs-title
+      %a{ :href => '#institutions_list' }
+        = t('settings.pools.shared._form.institutions')
+    %li.tabs-title
+      %a{ :href => '#institution-groups_list' }
+        = t('settings.pools.shared._form.institution_groups')
+    %li.tabs-title
+      %a{ :href => '#currencies_list' }
+        = t('settings.pools.shared._form.currencies')
+    %li.tabs-title
+      %a{ :href => '#loan-types_list' }
+        = t('settings.pools.shared._form.loan_types')
+    %li.tabs-title
+      %a{ :href => '#institution-types_list' }
+        = t('settings.pools.shared._form.institution_types')
+
+  %input.search_field#restriction_search_field{ :type => 'text', :placeholder => 'Search ...'}
+
+  .tabs-content{ :data => { :tabs => { :content => 'pools-tabs'}}}
+    #countries_list.tabs-panel.is-active
+      = f.association :countries, label: false, as: :check_boxes, collection: fund.countries.all.order('name ASC'), :item_wrapper_class => 'restriction'
+    #country_groups_list.tabs-panel
+      = f.association :country_groups, label: false, as: :check_boxes, collection: fund.country_groups.all.order('name ASC'), :item_wrapper_class => 'restriction'
+    #institutions_list.tabs-panel
+      = f.association :institutions, label: false, as: :check_boxes, collection: fund.institutions.all.order('name ASC'), :item_wrapper_class => 'restriction'
+    #institution-groups_list.tabs-panel
+      -# = f.association :institution_groups, label: false, as: :check_boxes, collection: fund.institution_groups.all.order('name ASC'), :item_wrapper_class => 'restriction'
+    #currencies_list.tabs-panel
+      = f.association :currencies,:label_method => :short_name, label: false, as: :check_boxes, collection: fund.currencies.all.order('short_name ASC'), :item_wrapper_class => 'restriction'
+    #loan-types_list.tabs-panel
+      = f.association :loan_types, label: false, as: :check_boxes, collection: fund.loan_types.all.order('name ASC'), :item_wrapper_class => 'restriction'
+    #institution-types_list.tabs-panel
+      -# = f.association :institution_types, label: false, as: :check_boxes, collection: fund.institution_types.all.order('name ASC'), :item_wrapper_class => 'restriction'
+
+= javascript_pack_tag 'restriction_tabs'

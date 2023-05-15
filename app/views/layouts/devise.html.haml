@@ -1,0 +1,31 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "ie=edge", "http-equiv" => "x-ua-compatible"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %link{:href => image_url("icons/apple-touch-icon.png"), :rel => "apple-touch-icon", :sizes => "180x180"}/
+    %link{:href => image_url("icons/favicon-32x32.png"), :rel => "icon", :sizes => "32x32", :type => "image/png"}/
+    %link{:href => image_url("icons/favicon-16x16.png"), :rel => "icon", :sizes => "16x16", :type => "image/png"}/
+    %link{:href => image_url("icons/site.webmanifest"), :rel => "manifest"}/
+    %link{:color => "#5bbad5", :href => image_url("icons/safari-pinned-tab.svg"), :rel => "mask-icon"}/
+    %meta{:content => "#00aba9", :name => "msapplication-TileColor"}/
+    %meta{:content => "#ffffff", :name => "theme-color"}/
+    %title Innpact
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+    = render partial: 'layouts/qguard'
+
+  %body
+    .grid-x
+      .cell.hide-for-small-only.medium-8.align-middle.zone_img_login
+        .bg_blue
+        .grid-x.grid-padding-x.box_100
+          .txt_login.cell.small-12.align-self-bottom
+            %h1 Welcome
+      .cell.medium-4.inputs_login.grid-x
+        = yield
+      = render partial: "shared/footer"

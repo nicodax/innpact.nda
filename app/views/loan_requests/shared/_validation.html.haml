@@ -1,0 +1,16 @@
+.card
+  .card-divider{class: ("valid" if loan_request.submission_validation_errors.empty?)}
+    = loan_request.submission_validation_status_message
+  .card-section
+    - if loan_request.submission_validation_errors.empty?
+      = t('.no_correction_needed')
+      = link_to t(".submit_for_ratification"), fund_loan_request_submission_path(fund_id: fund, loan_request_id: loan_request), class: "cta ml5", method: :post
+    - else
+      %ul
+        - loan_request.submission_validation_errors.each do |k,v|
+          %li
+            .grid-x
+              .cell.medium-6
+                %strong= k
+              .cell.medium-6
+                =v

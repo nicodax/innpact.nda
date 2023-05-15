@@ -1,0 +1,17 @@
+.cell.small-12.medium-4.section_3
+  .mb20
+  = link_to "Add new version", new_fund_settings_pool_pool_legal_document_path(pool_id: params[:pool_id]), class: "cta ml5 mb5"
+
+  %h2 Legal documents
+  .app-dashboard-search-bar-container
+  %table{:border => 1}
+    %tbody
+      %tr
+        %td Version:
+        %td Filename:
+        %td Last update :
+      - pool_legal_documents.each_with_index do |file, index|
+        %tr
+          %td= pool_legal_documents.length - index
+          %td= link_to file.original_filename,  fund_settings_pool_pool_legal_document_path(pool_id: pool.id, slug: file.slug)
+          %td= file.updated_at

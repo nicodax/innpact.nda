@@ -1,0 +1,18 @@
+.cell.small-12.align-self-middle
+  %a.app-dashboard-logo.logo_login{href: '/users/sign_in'}
+    %img{:alt => "Logo innpact", :src => image_url("logo.png")}/
+  %h2
+    %b Login
+  = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    .form-inputs
+      = f.input :email,required: false, autofocus: true,input_html: { autocomplete: "email" }
+      = f.input :password, required: false, input_html: { autocomplete: "current-password" }
+      = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+      - if notice
+        %p.notice= notice
+      - if alert
+        %p.warning= alert
+    .form-actions
+      = f.button :submit, "Log in", data: {element_purpose: "login_submit_button"}
+.lost_password.cell.small-12.grid-x.grid-padding-x.align-self-stretch.mt20
+  = link_to "Forgot your password?", new_password_path(resource_name), class: "align-self-bottom text-center"

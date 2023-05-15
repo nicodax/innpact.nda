@@ -1,0 +1,18 @@
+.grid-x.grid-margin-x
+  .cell.small-12
+    %table
+      %tr
+        %th= t("activerecord.attributes.repayment_calendar_lines.repayment_date")
+        %th= t("activerecord.attributes.repayment_calendar_lines.repayment_type")
+        %th= t("activerecord.attributes.repayment_calendar_lines.original_amount")
+        %th= t("activerecord.attributes.repayment_calendar_lines.received_amount")
+        %th= t("activerecord.attributes.repayment_calendar_lines.status")
+        %th= t("activerecord.attributes.repayment_calendar_lines.provision")
+      - loan.active_repayment_calendar.repayment_calendar_lines.each do |line|
+        %tr
+          %td= line.repayment_date
+          %td= line.repayment_type
+          %td= line.original_amount
+          %td= line.received_amount
+          %td= line.status
+          %td= line.provision

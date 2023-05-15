@@ -1,0 +1,19 @@
+.grid-x.grid-margin-x
+  .small-12.cell
+    - if institution.upcoming_repayment_lines.empty?
+      = t(".no_upcoming_repayments_for_this_institution")
+    - else
+      %table
+        %tr.text-center
+          %th= t("activerecord.models.loan.one")
+          %th= t("activerecord.attributes.repayment_calendar_line.repayment_date")
+          %th= t("activerecord.attributes.repayment_calendar_line.repayment_type")
+          %th= t("activerecord.attributes.repayment_calendar_line.original_amount")
+          %th= t("activerecord.attributes.repayment_calendar_line.received_amount")
+        - institution.upcoming_repayment_lines.each do |line|
+          %tr.text-center
+            %td= link_to line.loan.innpact_loan_id, fund_loan_path(fund_id: line.loan.fund.id, id: line.loan.id)
+            %td= line.formatted_date
+            %td= line.formatted_repayment_type
+            %td= line.original_amount_currency_value
+            %td= line.received_amount_currency_value

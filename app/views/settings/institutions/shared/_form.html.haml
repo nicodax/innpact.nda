@@ -1,0 +1,545 @@
+.grid-x
+  .cell.small-12
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-12.large-12
+        .grid-x
+          .cell.small-12.medium-12.large-12.institution_title
+            %h3.section_header= t('.general')
+  .cell.small-12
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-12.large-12
+        .grid-x
+          .cell.small-12.medium-12.large-12.institution_title
+            %h3.section_header= t('.institution_profile')
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :name, label: t(".name")
+          .cell.small-12.medium-6.large-6
+            = f.input :name, label: false, input_html: { "data-tooltip" => true, :class => "has-tip fix_margin", :title => t(".tooltip_name")}
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :name, label: t(".assigned_im_group")
+          .cell.small-12.medium-6.large-6
+            - if (current_user.administrator? || current_user.general_manager?) && f.object.editable_im_group?
+              = f.association :im_group, collection: f.object.decorate.im_groups, label: false,
+                input_html: { "data-tooltip" => true, :class => "has-tip mb15", :title => t(".tooltip_im_group")}
+            - else
+              = f.object.im_group.name
+              = f.input :im_group_id, as: :hidden
+      .cell.small-12.medium-6.large-6.mb15
+        .grid-x
+          .cell.small-6
+            = f.label :country, label: t(".country")
+          .cell.small-6
+            = f.association :country, collection: fund.countries.order('name ASC'), label: false, input_html: { "data-tooltip" => true, :class => "has-tip", :title => t(".tooltip_country") }
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :institution_group, label: t(".institution_group")
+          .cell.small-6
+            = f.association :institution_group, collection: fund.institution_groups.order('name ASC'), label: false, input_html: { "data-tooltip" => true, :class => "has-tip", :title => t(".tooltip_institution_group") }
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :institution_type, label: t(".institution_type")
+          .cell.small-6
+            - if f.object.editable_institution_type?
+              = f.association :institution_type, collection: fund.institution_types.order('name ASC'), label: false,
+                input_html: { "data-tooltip" => true, :class => "has-tip", :title => t(".tooltip_institution_type") }
+            -else
+              = f.object.institution_type.name
+              = f.input :institution_type_id, as: :hidden
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :tier, label: t(".tier")
+          .cell.small-6
+            = f.input :tier, label: false, collection: Institution::TIERS, input_html: { "data-tooltip" => true, :class => "has-tip mb15", :title => t(".tooltip_tier") }
+      .cell.small-12.medium-6.large-6.mb15
+        .grid-x
+          .cell.small-6
+            = f.label :regulatory_status, label: t(".regulatory_status")
+          .cell.small-6
+            = f.input :regulatory_status, label: false, collection: Institution::REGULATORYSTATUS
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :cpps_adoption, label: t(".cpps_adoption")
+          .cell.small-6
+            = f.input :cpps_adoption, label: false, input_html: { "data-tooltip" => true, :class => "has-tip", :title => t(".tooltip_cpps_adoption") }, :collection => Institution::CPPS
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :use_of_standard_reporting_tools, label: t(".use_of_standard_reporting_tools")
+          .cell.small-6
+            = f.input :use_of_standard_reporting_tools, label: false, input_html: { "data-tooltip" => true, :class => "has-tip", :title => t(".tooltip_use_of_standard_reporting_tools") }, as: :select
+  
+  .cell.small-12
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-12.large-12
+        .grid-x
+          .cell.small-12.medium-12.large-12.institution_title
+            %h3.section_header= t('shared.form.ratings')
+            = f.label :general_rating_as_of_date, label: t('.as_of')
+            = f.input :general_rating_as_of_date, label: false, as: 'date_picker'
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :external_rating, label: t(".external_rating")
+          .cell.small-6
+            = f.input :external_rating, label: false, input_html: { "data-tooltip" => true, :class => "has-tip", :title => t(".tooltip_external_rating") }
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :external_rating_agency, label: t(".external_rating_agency")
+          .cell.small-6
+            = f.input :external_rating_agency, label: false, input_html: { "data-tooltip" => true, :class => "has-tip", :title => t(".tooltip_external_rating_agency") }
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :internal_credit_risk_rating, label: t(".internal_credit_risk_rating")
+          .cell.small-6
+            = f.input :internal_credit_risk_rating, label: false, input_html: { "data-tooltip" => true, :class => "has-tip", :title => t(".tooltip_ia_esg_rating") }
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :probability_of_default, label: t(".probability_of_default")
+          .cell.small-6.input-group
+            = f.input :probability_of_default, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage", :title => t(".tooltip_probability_of_default") }
+            .input-group-label= "%"
+  .cell.small-12
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-12.large-12
+        .grid-x
+          .cell.small-12.medium-12.large-12.institution_title
+            %h3.section_header= t('.financials') + " (USD)"
+            = f.label :financials_as_of_date, label: t('.as_of')
+            = f.input :financials_as_of_date, label: false, as: 'date_picker'
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :gross_loan_portfolio, label: t(".gross_loan_portfolio")
+          .cell.small-6.input-group
+            = f.input :gross_loan_portfolio, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_gross_loan_portfolio") }
+            .input-group-label= "$"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :revenues, label: t(".revenues")
+          .cell.small-6.input-group
+            = f.input :revenues, label: false, as: "string", as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_revenues") }
+            .input-group-label= "$"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :provision_for_loss, label: t(".provision_for_loss")
+          .cell.small-6.input-group
+            = f.input :provision_for_loss, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_provision_for_loss") }
+            .input-group-label= "$"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :net_income, label: t(".net_income")
+          .cell.small-6.input-group
+            = f.input :net_income, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_net_income") }
+            .input-group-label= "$"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :total_assets, label: t(".total_assets")
+          .cell.small-6.input-group
+            = f.input :total_assets, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_total_assets") }
+            .input-group-label= "$"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :net_income_distributed_as_dividends, label: t(".net_income_distributed_as_dividends")
+          .cell.small-6.input-group
+            = f.input :net_income_distributed_as_dividends, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field input-group-field thousand_currencies_formats", :title => t(".tooltip_net_income_distributed_as_dividends") }
+            .input-group-label= "$"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :international_liabilities, label: t(".international_liabilities")
+          .cell.small-6.input-group
+            = f.input :international_liabilities, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_international_liabilities") }
+            .input-group-label= "$"
+      .cell.small-12.medium-6.large-6
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :domestic_liabilities, label: t(".domestic_liabilities")
+          .cell.small-6.input-group
+            = f.input :domestic_liabilities, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_domestic_liabilities") }
+            .input-group-label= "$"
+      .cell.small-12.medium-6.large-6
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :deposit_amount, label: t(".deposit_amount")
+          .cell.small-6.input-group
+            = f.input :deposit_amount, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_deposit_amount") }
+            .input-group-label= "$"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :npls, label: t(".npls")
+          .cell.small-6.input-group
+            = f.input :npls, label: false, as: "string", as: "string", input_html: { :class => "input-group-field cleave_format two_digits_percentage" }
+            .input-group-label= "%"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :liabilities, label: t(".liabilities")
+          .cell.small-6.input-group
+            = f.input :liabilities, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_liabilities") }
+            .input-group-label= "$"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :write_off, label: t(".write_off")
+          .cell.small-6.input-group
+            = f.input :write_off, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage", :title => t(".tooltip_write_off") }
+            .input-group-label= "%"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :equity, label: t(".equity")
+          .cell.small-6.input-group
+            = f.input :equity, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_equity") }
+            .input-group-label= "$"
+  
+  .cell.small-12
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-12.large-12
+        .grid-x
+          .cell.small-12.medium-12.large-12.institution_title
+            %h3.section_header= t('.portfolio_breakdown_ii') + " (%)"
+            = f.label :portfolio_breakdown_ii_as_of_date, label: t('.as_of')
+            = f.input :portfolio_breakdown_ii_as_of_date, label: false, as: 'date_picker'
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :trade_and_services, label: t(".trade_and_services")
+          .cell.small-6.input-group
+            = f.input :trade_and_services, label: false, as: "string", input_html: { :class => "input-group-field cleave_format two_digits_percentage" }
+            .input-group-label= "%"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :agriculture, label: t(".agriculture")
+          .cell.small-6.input-group
+            = f.input :agriculture, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage", :title => t(".tooltip_agriculture") }
+            .input-group-label= "%"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :production, label: t(".production")
+          .cell.small-6.input-group
+            = f.input :production, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage", :title => t(".tooltip_production") }
+            .input-group-label= "%"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :consumption, label: t(".consumption")
+          .cell.small-6.input-group
+            = f.input :consumption, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage", :title => t(".tooltip_consumption") }
+            .input-group-label= "%"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :other, label: t(".other")
+          .cell.small-6.input-group
+            = f.input :other, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage", :title => t(".tooltip_other") }
+            .input-group-label= "%"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :portfolio_breakdown_ii_total, label: t(".total")
+          .cell.small-6
+            %span#portfolio_breakdown_ii_total
+
+  .cell.small-12
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-12.large-12
+        .grid-x
+          .cell.small-12.medium-12.large-12.institution_title
+            %h3.section_header= t('.portfolio_breakdown_iii')  + " (USD)"
+            = f.label :portfolio_breakdown_iii_as_of_date, label: t('.as_of')
+            = f.input :portfolio_breakdown_iii_as_of_date, label: false, as: 'date_picker'
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :microenterprise_usd, label: t(".microenterprise_usd")
+          .cell.small-6.input-group
+            = f.input :microenterprise_usd, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_microenterprise_usd") }
+            .input-group-label= "$"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :sme_usd, label: t(".sme_usd")
+          .cell.small-6.input-group
+            = f.input :sme_usd, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_sme_usd") }
+            .input-group-label= "$"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :corporate_usd, label: t(".corporate_usd")
+          .cell.small-6.input-group
+            = f.input :corporate_usd, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_corporate_usd") }
+            .input-group-label= "$"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :housing_usd, label: t(".housing_usd")
+          .cell.small-6.input-group
+            = f.input :housing_usd, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_housing_usd") }
+            .input-group-label= "$"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :personal_usd, label: t(".personal_usd")
+          .cell.small-6.input-group
+            = f.input :personal_usd, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_personal_usd") }
+            .input-group-label= "$"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :other_usd, label: t(".other_usd")
+          .cell.small-6.input-group
+            = f.input :other_usd, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_other_usd") }
+            .input-group-label= "$"
+
+  .cell.small-12
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-12.large-12
+        .grid-x
+          .cell.small-12.medium-12.large-12.institution_title
+            %h3.section_header= t('.mef_specific_breakdown') + " (USD)"
+            = f.label :portfolio_breakdown_i_as_of_date, label: t('.as_of')
+            = f.input :portfolio_breakdown_i_as_of_date, label: false, as: 'date_picker'
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :microfinance_portfolio_size, label: t(".micro_finance_portfolio_size")
+          .cell.small-6.input-group
+            = f.input :microfinance_portfolio_size, label: false, as: "string", input_html: { :class => "input-group-field thousand_currencies_formats" }
+            .input-group-label= "$"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :sme_portfolio_size_under_35k, label: t(".sme_portfolio_size_under_35k")
+          .cell.small-6.input-group
+            = f.input :sme_portfolio_size_under_35k, label: false, as: "string", input_html: { :class => "input-group-field thousand_currencies_formats" }
+            .input-group-label= "$"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :sme_portfolio_size_under_50k, label: t(".sme_portfolio_size_under_50k")
+          .cell.small-6.input-group
+            = f.input :sme_portfolio_size_under_50k, label: false, as: "string", input_html: { :class => "input-group-field thousand_currencies_formats" }
+            .input-group-label= "$"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :percentage_rural_ptf, label: t(".percentage_rural_ptf")
+          .cell.small-6.input-group
+            = f.input :percentage_rural_ptf, label: false, as: "string", input_html: { :class => "input-group-field cleave_format two_digits_percentage" }
+            .input-group-label= "%"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :percentage_of_women_ptf, label: t(".percentage_of_women_ptf")
+          .cell.small-6.input-group
+            = f.input :percentage_of_women_ptf, label: false, as: "string", input_html: { :class => "input-group-field cleave_format two_digits_percentage" }
+            .input-group-label= "%"
+
+  .cell.small-12
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-12.large-12
+        .grid-x
+          .cell.small-12.medium-12.large-12.institution_title
+            %h3.section_header= t('.aptf-alinus_results')
+            = f.label :aptf_alinus_results_as_of_date, label: t('.as_of')
+            = f.input :aptf_alinus_results_as_of_date, label: false, as: 'date_picker'
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-6.large-6
+        .grid-x.mb15
+          .cell.small-6
+            = f.label :has_sptf_alinus_reporting_using_alinus, label: t(".has_sptf_alinus_reporting_using_alinus")
+          .cell.small-6
+            = f.input :has_sptf_alinus_reporting_using_alinus, as: :select, label: false, input_html: { "data-tooltip" => true, :class => "has-tip", :title => t(".tooltip_has_sptf_alinus_reporting_using_alinus") }
+      .cell.small-12.medium-6.large-6
+        .grid-x.mb15
+          .cell.small-6
+            = f.label :sptf_alinus_reporting_using_alinus, label: t(".sptf_alinus_reporting_using_alinus")
+          .cell.small-6
+            = f.input :sptf_alinus_reporting_using_alinus , :collection => ["ALINUS","SPTF"], label: false, input_html: { "data-tooltip" => true, :class => "has-tip", :title => t(".tooltip_sptf_alinus_reporting_using_alinus") }
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :overall_sptf_alinus_score, label: t(".overall_sptf_alinus_score")
+          .cell.small-6.input-group
+            = f.input :overall_sptf_alinus_score, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field  cleave_format two_digits_percentage", :title => t(".tooltip_overall_sptf_alinus_score") }
+            .input-group-label= "%"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :define_and_monitor_social_goals, label: t(".define_and_monitor_social_goals")
+          .cell.small-6.input-group
+            = f.input :define_and_monitor_social_goals, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field  cleave_format two_digits_percentage", :title => t(".tooltip_define_and_monitor_social_goals") }
+            .input-group-label= "%"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :ensure_commitment_to_social_goals, label: t(".ensure_commitment_to_social_goals")
+          .cell.small-6.input-group
+            = f.input :ensure_commitment_to_social_goals, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field  cleave_format two_digits_percentage", :title => t(".tooltip_ensure_commitment_to_social_goals") }
+            .input-group-label= "%"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :product_design_to_meet_clients_need, label: t(".product_design_to_meet_clients_need")
+          .cell.small-6.input-group
+            = f.input :product_design_to_meet_clients_need, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field  cleave_format two_digits_percentage", :title => t(".tooltip_product_design_to_meet_clients_need") }
+            .input-group-label= "%"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :treat_clients_responsibly, label: t(".treat_clients_responsibly")
+          .cell.small-6.input-group
+            = f.input :treat_clients_responsibly, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field  cleave_format two_digits_percentage", :title => t(".tooltip_treat_clients_responsibly") }
+            .input-group-label= "%"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :treat_employees_responsibly, label: t(".treat_employees_responsibly")
+          .cell.small-6.input-group
+            = f.input :treat_employees_responsibly, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field  cleave_format two_digits_percentage", :title => t(".tooltip_treat_employees_responsibly") }
+            .input-group-label= "%"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :balance_financial_and_performance, label: t(".balance_financial_and_performance")
+          .cell.small-6.input-group
+            = f.input :balance_financial_and_performance, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field  cleave_format two_digits_percentage", :title => t(".tooltip_balance_financial_and_performance") }
+            .input-group-label= "%"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :promote_environmental_protection, label: t(".promote_environmental_protection")
+          .cell.small-6.input-group
+            = f.input :promote_environmental_protection, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field  cleave_format two_digits_percentage", :title => t(".tooltip_promote_environmental_protection") }
+            .input-group-label= "%"
+
+  .cell.small-12
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-12.large-12
+        .grid-x
+          .cell.small-12.medium-12.large-12.institution_title
+            %h3.section_header= t('.impact_indicators')
+            = f.label :clients_as_of_date, label: t('.as_of')
+            = f.input :clients_as_of_date, label: false, as: 'date_picker'
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :internal_impact_score, label: t(".internal_impact_score")
+          .cell.small-6
+            = f.input :internal_impact_score, label: false
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :avg_loan_size, label: t(".average_loan_size")
+          .cell.small-6.input-group
+            = f.input :avg_loan_size, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_average_loan_size") }
+            .input-group-label= "$"
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :number_of_clients, label: t(".number_of_clients")
+          .cell.small-6
+            = f.input :number_of_clients, label: false, as: "string", input_html: { :class => "thousand_currencies_formats" }
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :borrowers_count, label: t(".number_of_active_borrowers")
+          .cell.small-6
+            = f.input :borrowers_count, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip thousand_currencies_formats", :title => t(".tooltip_number_of_active_borrowers") }
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :female_borrowers_count, label: t(".number_of_female_borrowers")
+          .cell.small-6
+            = f.input :female_borrowers_count, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip thousand_currencies_formats", :title => t(".tooltip_number_of_female_borrowers") }
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :rural_borrowers_count, label: t(".number_of_rural_borrowers")
+          .cell.small-6
+            = f.input :rural_borrowers_count, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip thousand_currencies_formats", :title => t(".tooltip_number_of_rural_borrowers") }
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :number_of_sme_borrowers, label: t(".number_of_sme_borrowers")
+          .cell.small-6
+            = f.input :number_of_sme_borrowers, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip thousand_currencies_formats", :title => t(".tooltip_number_of_sme_borrowers") }
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :number_of_micro_borrowers, label: t(".number_of_micro_borrowers")
+          .cell.small-6
+            = f.input :number_of_micro_borrowers, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip thousand_currencies_formats", :title => t(".tooltip_number_of_micro_borrowers") }
+
+  .cell.small-12
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-12.large-12
+        .grid-x
+          .cell.small-12.medium-12.large-12.institution_title
+            %h3.section_header= t('.services_offered')
+            = f.label :services_offered_as_of_date, label: t('.as_of')
+            = f.input :services_offered_as_of_date, label: false, as: 'date_picker'
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :mobile_banking_services, label: t(".mobile_banking_services")
+          .cell.small-6
+            = check_box_tag "mobile_checkbox"
+      .cell.small-12.medium-6.large-6
+        .grid-x#mobile_checkbox_div
+          .cell.small-6
+            = f.label :number_clients_using_mobile_banking, label: t(".number_clients_using_mobile_banking")
+          .cell.small-6
+            = f.input :number_clients_using_mobile_banking, label: false, as: "string", input_html: { :class => "thousand_currencies_formats services_mobile" }
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :deposits, label: t(".deposits")
+          .cell.small-6
+            = check_box_tag "deposits_checkbox"
+      .cell.small-12.medium-6.large-6
+        .grid-x#deposits_checkbox_div
+          .cell.small-6
+            = f.label :number_clients_with_deposits, label: t(".number_clients_with_deposits")
+          .cell.small-6
+            = f.input :number_clients_with_deposits, label: false, as: "string", input_html: { :class => "has-tip thousand_currencies_formats services_deposits" }
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-6
+            = f.label :voluntary_savings, label: t(".voluntary_savings")
+          .cell.small-6
+            = f.input :voluntary_savings, label: false, as: :select
+
+  .cell.small-12
+    %a.cta.cta_grey#reset-form Cancel
+    = f.submit "Save", class: "cta ml5"
+
+= javascript_pack_tag 'institution_form'
+= javascript_pack_tag 'cleave_form_format'

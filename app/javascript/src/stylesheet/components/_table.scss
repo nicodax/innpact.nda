@@ -1,0 +1,13 @@
+.table{
+  &__element{
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+    color: $primary;
+
+    > span{
+      font-weight: 300;
+      color: $noir;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {t("settings.currencies.breadcrumb_currencies") => fund_settings_currencies_path, setting.short_name =>fund_settings_currency_path(id: setting.id)}, current_topic: t("settings.currencies.breadcrumb_edit")}
+= render partial: "settings/currencies/shared/header"
+%hr
+  .grid-x.grid-padding-x
+    .cell.small-12.medium-6.large-6.section_3
+      %a.cta{href: new_fund_settings_currency_path}= t("settings.shared.create")
+      %a.cta{href: upload_fund_settings_currencies_path}= t(".update_currency_rates")
+      = render partial: "settings/currencies/shared/index"
+    .cell.small-12.medium-4
+      %h2=t(".edit")
+      = simple_form_for setting, url: fund_settings_currency_path(id: setting.id), method: :put do |f|
+        = render 'shared/form_error_messages', object: f.object
+        = render partial: "settings/currencies/shared/form", locals: {f: f}

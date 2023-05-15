@@ -1,0 +1,91 @@
+= simple_form_for dashboard.loan_search, url: search_path do |f|
+  = f.input :loan_category, as: :hidden, html: {value: :accepted}
+  
+  .grid-x.grid-margin-x
+    .cell.small-9.medium-9.large-9
+      %h3= t(".filters")
+    .cell.small-3.medium-3.large-3
+      = f.submit t(".apply_filters")
+
+  .grid-x.grid-margin-x
+    .cell.small-6.medium-4.large-3
+      = f.input :im_group_id, collection: dashboard.im_groups
+    .cell.small-6.medium-4.large-3
+      = f.input :institution_id, collection: dashboard.institutions, input_html: { class: "institutions_list" }
+    .cell.small-6.medium-4.large-3
+      = f.input :country_id, collection: dashboard.countries, input_html: { class: "countries_list" }
+    .cell.small-6.medium-4.large-3
+      = f.input :status, collection: dashboard.statuses
+  
+  %label &nbsp;
+
+  %ul.accordion{"data-accordion" => "", "data-allow-all-closed" => "true"}
+    %li.accordion-item{"data-accordion-item" => ""}
+      %a.accordion-title{:href => "#"}
+        = t(".advanced_filters")
+      .accordion-content{"data-tab-content" => ""}
+        = f.input :loan_category, as: :hidden, html: {value: :accepted}
+        .grid-x.grid-margin-x
+          .cell.small-6.medium-4.large-4
+            = f.input :pool_id, collection: dashboard.pools
+          .cell.small-6.medium-4.large-4
+            = f.input :noval
+          .cell.small-6.medium-4.large-4
+            = f.input :institution_group_id, collection: dashboard.institution_groups
+          .cell.small-6.medium-4.large-4
+            = f.input :country_group_id, collection: dashboard.country_groups
+          .cell.small-6.medium-4.large-4
+            = f.input :currency_id, collection: dashboard.currencies
+          .cell.small-6.medium-4.large-4
+            = f.input :loan_type_id, collection: dashboard.loan_types
+
+          .cell.small-12
+            .grid-x.grid-margin-x
+              - [:executed_nominal_amount, :executed_tenor,
+                :loan_spread, :executed_upfront_fees, :executed_fixed_rate].each do |att|
+                .cell.small-12.medium-6.large-4
+                  %label= t(".#{att}")
+                  = f.simple_fields_for att do |ff|
+                    .grid-x.grid-margin-x
+                      .cell.small-6
+                        = ff.input :begin, placeholder: "min", label: false, input_html: {value:  f.object.send(att).try(:[], "begin")}
+                      .cell.small-6
+                        = ff.input :end, placeholder: "max", label: false, input_html: {value:  f.object.send(att).try(:[], "end")}
+
+          - [:disbursement_date, :maturity_date, :vrr_maturity_date, :provision_date].each do |att|
+            .cell.small-12.medium-6.large-3
+              %label
+                %strong= t(".#{att}")
+              = f.simple_fields_for att do |ff|
+                .grid-x.grid-margin-x
+                  .cell.small-6
+                    = ff.input :begin, as: 'date_picker', label: "from", input_html: {value:  f.object.send(att).try(:[], "begin")}
+                  .cell.small-6
+                    = ff.input :end, as: 'date_picker', label: "to", input_html: {value:  f.object.send(att).try(:[], "end")}
+            
+
+          - [:nav_usd, :net_position_value, :gross_position_value, ].each do |att|
+            .cell.small-12.medium-6.large-3
+              %label= t(".#{att}")
+              = f.simple_fields_for att do |ff|
+                .grid-x.grid-margin-x
+                  .cell.small-6
+                    = ff.input :begin, placeholder: "min", label: false, input_html: {value:  f.object.send(att).try(:[], "begin")}
+                  .cell.small-6
+                    = ff.input :end, placeholder: "max", label: false, input_html: {value:  f.object.send(att).try(:[], "end")}
+
+          .cell.small-6.medium-4.large-3
+            = f.input :executed_bond_id, collection: dashboard.bonds, label: t(".bond")
+          
+          .cell.small-6.medium-4.large-3
+            = f.input :critical_cases
+
+          .cell.small-6.medium-4.large-3
+            = f.input :loan_interest_rate_type_id, collection: dashboard.interest_rate_types, label: t(".interest_rate_type")
+
+          .cell.small-6.medium-4.large-3
+            = f.input :institution_type_id, collection: dashboard.institution_types
+
+          .cell.small-6.medium-4.large-3
+            = f.input :repayment_type_id, collection: dashboard.repayment_types
+= javascript_pack_tag 'filter_loans_dashboard'

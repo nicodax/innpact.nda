@@ -1,0 +1,11 @@
+.grid-x.grid-margin-x
+  .cell.small-12.medium-4.large-4
+    .grid-x.grid-margin-x
+      .cell.small-12
+        = lvf.association :approved_bond, collection: fund.bonds, required: true, disabled: lock, input_html: { class: "status_input bond_input approved_bond_input", data: {element_purpose: "approved_bond_input"}}
+
+  .cell.small-12.medium-4.large-4
+    .grid-x.grid-margin-x
+      .cell.small-12
+        = lvf.association :approved_interest_rate_type, collection: fund.interest_rate_types, required: true, disabled: lock, input_html: { class: "status_input interest_rate_type_input approved_interest_rate_type_input", data: {element_purpose: "approved_interest_rate_type_input"}}
+  %br

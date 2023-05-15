@@ -1,0 +1,7 @@
+.grid-x.grid-margin-x
+  = f.hidden_field :created_by,value: current_user.full_name
+  .cell.small-12.medium-6
+    = f.input :name
+  .cell.small-12
+    %a.cta.cta_grey#reset-form Cancel
+    = f.submit "Save", class: "cta ml5"

@@ -1,0 +1,26 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Remote Code Execution",
+      "warning_code": 24,
+      "fingerprint": "9d8b23b23171a3080dcffbb20613a6aecfd70d34b8f79938b58d94fed21a3ab1",
+      "check_name": "UnsafeReflection",
+      "message": "Unsafe reflection method `constantize` called with parameter value",
+      "file": "app/controllers/settings/deleted_items_controller.rb",
+      "line": 75,
+      "link": "https://brakemanscanner.org/docs/warning_types/remote_code_execution/",
+      "code": "params[:record_type].classify.constantize",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Settings::DeletedItemsController",
+        "method": "set_record"
+      },
+      "user_input": "params[:record_type].classify",
+      "confidence": "High",
+      "note": "A validation has been added to ensure record_type is an authorized model name"
+    }
+  ],
+  "updated": "2021-09-09 10:24:40 +0200",
+  "brakeman_version": "5.1.1"
+}

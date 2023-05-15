@@ -1,0 +1,17 @@
+%table.repayment_calendar_logs_table.unstriped
+  %tr.text-center
+    %th.user_column= t("activerecord.attributes.calendar_log_line.user")
+    %th.date_column= t("activerecord.attributes.calendar_log_line.date")
+    %th.repayment_type_column= t("activerecord.attributes.calendar_log_line.repayment_type")
+    %th= t("activerecord.attributes.calendar_log_line.change")
+  - dashboard.logs.each do |log|
+    %tr.log_header_line.text-center
+      %td= log.user_name
+      %td= log.creation_date
+      %td
+      %td
+    - log.lines.each do |line|
+      - if [CalendarLogLine::ACTION_VALIDATION, CalendarLogLine::ACTION_REJECTION].include?(line[:action])
+        = render partial: "repayment_calendar_dashboards/validation_log_line", locals: {log: log}
+      - else
+        = render partial: "repayment_calendar_dashboards/log_line", locals: {line: line}

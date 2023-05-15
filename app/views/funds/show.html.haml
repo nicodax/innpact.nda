@@ -1,0 +1,54 @@
+- content_for :breadcrumbs do
+  %nav{"aria-label" => t("breadcrumbs.you_are_here"), :role => "navigation"}
+    %ul.breadcrumbs
+      %li
+        %a{:href => root_path} Welcome
+      %li
+        %a{:href => root_path} Funds
+      %li
+        %span.show-for-sr t("current")
+        = fund.name
+.grid-x
+  .cell.medium-6
+    %h1.mb0{data: {element_purpose: "fund_name"}}= fund.name
+    .soustitre.primary= fund.status.capitalize
+  .cell.medium-6.cta_bottom
+    - if current_user.administrator?
+      = link_to "Delete fund", "#", class: "cta cta_right cta_warning ml5", id: "delete-fund"
+      = link_to "Deactivate fund", fund_archive_path(fund_id: fund.id), class: "cta cta_right cta_alert ml10 mr10", method: :put
+      = link_to "Edit fund", edit_fund_path(id: fund.id), class: "cta cta_right"
+%hr/
+
+%ul#fund_tabs.tabs{"data-tabs" => ""}
+  %li.tabs-title.is-active
+    %a{"aria-selected" => "true", :href => "#loans_tab"}
+      = t('activerecord.models.loan.other').capitalize
+  %li.tabs-title
+    %a{"data-tabs-target" => "details_tab", :href => "#details_tab"}
+      = t(".details")
+  %li.tabs-title
+    %a{"data-tabs-target" => "users_tab", :href => "#users_tab"}
+      = t(".users")
+  %li.tabs-title
+    %a{"data-tabs-target" => "upcoming_repayments_tab", :href => "#upcoming_repayments_tab"}
+      = t(".upcoming_repayments")
+.tabs-content{"data-tabs-content" => "fund_tabs"}
+  #loans_tab.tabs-panel.is-active
+    = render partial: "loans", locals: {fund: fund}
+  #details_tab.tabs-panel
+    = render partial: "details", locals: {fund: fund}
+  #users_tab.tabs-panel
+    = render partial: "users", locals: { fund: fund, administrators: @administrators,
+      general_managers: @general_managers, investment_managers: @investment_managers, readers: @readers }
+  #upcoming_repayments_tab.tabs-panel
+    = render partial: "upcoming_repayments", locals: {fund: fund}
+
+#confirmation-modal.reveal{"data-reveal" => ''}
+  %p Are you sure you want to delete that fund ?
+  .cell.small-12
+    = link_to "Cancel", "#", class: "cta cta_grey ml5", id: "cancel-delete"
+    = link_to "Delete", fund_path(id: fund.id), class: "cta cta_warning cta_right", id: "delete-user", method: :delete
+  %button.close-button{"aria-label" => "Close modal", "data-close" => "", :type => "button"}
+    %span{"aria-hidden" => "true"} ×
+
+=javascript_pack_tag 'funds'

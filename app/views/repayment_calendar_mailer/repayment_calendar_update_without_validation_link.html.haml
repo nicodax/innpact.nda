@@ -1,0 +1,12 @@
+%p= t("mailers.shared.dear_ia", recipient_name: @investment_manager_name)
+%p= t("mailers.repayment_calendar_update.intro")
+
+%table.repayment_calendar_update_table
+  %tr
+    %th= t("mailers.repayment_calendar_update.noval")
+    %th= t("mailers.repayment_calendar_update.mfi_name")
+  %tr
+    %td= link_to @noval, fund_loan_repayment_calendar_dashboards_url(fund_id: @fund_id, loan_id: @loan_id), target: "_blank"
+    %td= @mfi_name
+
+%p= t("mailers.mail_repayment_calendar_update.question_comment")

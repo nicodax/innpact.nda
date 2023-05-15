@@ -1,0 +1,43 @@
+%table{class: "stack unstriped scroll "}
+  %thead
+    %tr
+      %td #{t(".institution")} :
+      %td #{t(".loan")} :
+      %td #{t(".country")} :
+      %td #{t(".region")} :
+      %td #{t(".im_group")} :
+      %td #{t(".active_loan_novals")} :
+      %td #{t(".loan_nominal")} :
+      %td #{t(".loan_gross_present_value")} :
+      %td #{t(".loan_net_present_value")} :
+      %td #{t(".month_in_watchlist")} :
+      %td #{t(".watchlist_reason")} :
+
+    - watchlist_list.each do |institution, loans|
+      %tbody
+        %tr{:class => "institution_row"}
+          %td= link_to institution.name, fund_settings_institution_path(id: institution.id)
+          %td= loans.length
+          %td= institution.country.name
+          %td= institution.country_group_name
+          %td
+          %td
+          %td
+          %td
+          %td
+          %td= institution.month_in_watchlist
+          %td= institution.watchlist_reason
+        - loans.each do |loan|
+          %tr{:class => ["hidden-row", "loan_row"]}
+            %td
+            %td= link_to (institution.name + " - " + loan.innpact_loan_id.to_s), fund_loan_path(id: loan.id)
+            %td
+            %td
+            %td= loan.im_group_name
+            %td
+            %td
+            %td
+            %td
+            %td
+            %td
+

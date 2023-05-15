@@ -1,0 +1,4 @@
+= link_to "Edit", fund_settings_institution_institution_esg_edit_path(fund_id: fund.id, institution_id: institution.id), class: "cta text-center mb5"
+= render partial: "settings/institutions/esg/esg_risks", locals: {institution: setting}
+&nbsp
+= render partial: "settings/institutions/esg/safeguards", locals: {institution: setting}

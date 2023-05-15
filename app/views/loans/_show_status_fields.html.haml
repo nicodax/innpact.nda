@@ -1,0 +1,58 @@
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag "#{fields_label}_nominal_amount"
+    = loan.send("formatted_#{fields_label}_nominal_amount")
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag "#{fields_label}_nominal_amount_usd"
+    = loan.send("formatted_#{fields_label}_nominal_amount_usd")
+  .cell.small-12.medium-4.large-4
+    .strong_title= label_tag "#{fields_label}_tenor"
+    = loan.send("#{fields_label}_tenor")
+
+.grid-x.grid-margin-x
+  .cell.small-12.medium-4.large-4
+    .strong_title= label_tag "#{fields_label}_spread"
+    = loan.send("formatted_#{fields_label}_spread")
+  .cell.small-12.medium-4.large-4
+    .strong_title= label_tag "#{fields_label}_upfront_fees"
+    = loan.send("formatted_#{fields_label}_upfront_fees")
+  .cell.small-12.medium-4.large-4
+    .strong_title= label_tag "#{fields_label}_fixed_rate"
+    = loan.send("formatted_#{fields_label}_fixed_rate")
+
+- if step_status != LoanVersion::STATUS_INVESTED
+  .grid-x.grid-margin-x
+    .cell.small-12.medium-6.large-4
+      .strong_title= label_tag "#{date_fields_label}_date"
+      = loan.send "#{date_fields_label}_date"
+    .cell.small-12.medium-6.large-4
+      .strong_title= label_tag "deadline_#{date_fields_label}_date"
+      = loan.send "deadline_#{date_fields_label}_date"
+    - if step_status == LoanVersion::STATUS_APPROVED
+      .cell.small-12.medium-6.large-4
+        .strong_title= label_tag :approved_bond
+        = loan.approved_bond_name
+      .cell.small-12.medium-6.large-4
+        .strong_title= label_tag :approved_interest_rate_type
+        = loan.approved_interest_rate_type_name
+      .cell.small-12.medium-6.large-4
+        .strong_title= label_tag :number_of_disbursement_date_updates
+        = loan.number_of_disbursement_date_updates
+
+- else
+  = render partial: "invested_attributes"
+
+- unless [LoanVersion::STATUS_ASSIGNED, LoanVersion::STATUS_APPETITE_INQUIRY].include?(step_status)
+  -unless loan.send("hedge_comment").nil? || loan.send("hedge_comment").empty?
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-12.large-12
+        .strong_title= label_tag :hedge_comment
+        .invested_hedge_value
+          =loan.send("hedge_comment").gsub(/\r/, '<br/>').html_safe
+
+  -unless loan.send("#{step_status}_comment").nil? || loan.send("#{step_status}_comment").empty?
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-12.large-12
+        .strong_title= label_tag :comment
+        .invested_hedge_value
+          =loan.send("#{step_status}_comment").gsub(/\r/, '<br/>').html_safe

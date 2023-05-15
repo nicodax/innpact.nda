@@ -1,0 +1,27 @@
+%h2= t(".#{type}")
+.grid-x.repayment_table_grid
+  %table.repayment_calendar_lines_table.unstriped
+    %thead
+      %tr
+        %th.repayment_date_column= t('activerecord.attributes.repayment_calendar_line.repayment_date')
+        %th.original_amount_column= t('activerecord.attributes.repayment_calendar_line.original_amount')
+        %th.received_amount_column= t('activerecord.attributes.repayment_calendar_line.received_amount')
+        %th.status_column= t('activerecord.attributes.repayment_calendar_line.status')
+        - if type == RepaymentCalendarLine::REPAYMENT_TYPE_PRINCIPAL
+          %th.provision_column= t('activerecord.attributes.repayment_calendar_line.provision')
+        %th.action_column= t('activerecord.attributes.repayment_calendar_line.action')
+    %tbody{"class" => "#{type}_repayment_lines"}
+      = f.simple_fields_for "#{type}_repayment_lines".to_sym, f.object.repayment_calendar_lines.select{|l| l.repayment_type == type} do |tf|
+        - if tf.object
+          = render 'repayment_calendars/repayment_calendar_line_fields_edition', f: tf, repayment_type: type
+  .links
+    = link_to_add_association f, "#{type}_repayment_lines".to_sym,
+      partial: "repayment_calendars/repayment_calendar_line_fields_addition",
+      class: "button",
+      render_options:  {locals: { repayment_type: type}},
+      data: {element_purpose: "add_#{type}_repayment_line_button", association_insertion_node: "tbody.#{type}_repayment_lines", association_insertion_method: "append"} do
+      %i{class:"fi-plus"}
+
+= javascript_pack_tag 'clear_cleave_library'
+= javascript_pack_tag 'repayment_calendar'
+= javascript_pack_tag 'cleave_form_format'

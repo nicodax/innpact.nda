@@ -1,0 +1,17 @@
+%tr.nested-fields{data: {element_purpose: "repayment_row"}}
+  = f.input :repayment_type, as: :hidden, input_html: {value: repayment_type}
+  %td.repayment_date_column
+    = f.input :repayment_date, label: false, as: 'date_picker', input_html: { data: {element_purpose: "repayment_date_input"}, class: "repayment_date_input"}
+  %td
+    = f.input :original_amount, label: false, as: "string", input_html: { data: {element_purpose: "original_amount_input", initial_value: f.object.original_amount}, class: "repayment_calendar_updatable_input thousand_currencies_formats", min: 0}
+  %td
+    = f.input :received_amount, label: false, as: "string", input_html: { data: {element_purpose: "received_amount_input", initial_value: f.object.received_amount}, class: "repayment_calendar_updatable_input thousand_currencies_formats", min: 0}
+  %td
+    = f.input :status, label: false, as: :select, collection: RepaymentCalendarLine::STATUSES, include_blank: false, input_html: { data: {element_purpose: "status_input", initial_value: f.object.status}, class: "repayment_calendar_updatable_input"}
+  - if repayment_type == RepaymentCalendarLine::REPAYMENT_TYPE_PRINCIPAL
+    %td
+      = f.input :provision, label: false, as: "string", input_html: { data: {element_purpose: "provision_input", initial_value: f.object.provision}, class: "repayment_calendar_updatable_input thousand_currencies_formats", min: 0}
+  - else
+    = f.input :provision, as: :hidden, as: "string", input_html: { value: 0, class: "thousand_currencies_formats"}
+  %td
+    = ""

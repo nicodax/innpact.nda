@@ -1,0 +1,60 @@
+= f.simple_fields_for(loan.active_sdg_goals || loan.loan_sdg_data.build) do |s|
+  .grid-x.grid-margin-x
+    .cell
+      = s.label :sdg_goals, t('sdg_goals')
+    .cell.small-12.medium-6.large-4
+      = s.check_box :no_poverty
+      = s.label :no_poverty, t('settings.esg_sdg_contribution.shared.form.no_poverty')
+    .cell.small-12.medium-6.large-4
+      = s.check_box :zero_hunger
+      = s.label :zero_hunger, t('settings.esg_sdg_contribution.shared.form.zero_hunger')
+    .cell.small-12.medium-6.large-4
+      = s.check_box :good_health_and_wellbeing
+      = s.label :good_health_and_wellbeing, t('settings.esg_sdg_contribution.shared.form.good_health_and_wellbeing')
+  .grid-x.grid-margin-x
+    .cell.small-12.medium-6.large-4
+      = s.check_box :quality_education
+      = s.label :quality_education, t('settings.esg_sdg_contribution.shared.form.quality_education')
+    .cell.small-12.medium-6.large-4
+      = s.check_box :gender_equality
+      = s.label :gender_equality, t('settings.esg_sdg_contribution.shared.form.gender_equality')
+    .cell.small-12.medium-6.large-4
+      = s.check_box :clean_water_and_sanitation
+      = s.label :clean_water_and_sanitation, t('settings.esg_sdg_contribution.shared.form.clean_water_and_sanitation')
+  .grid-x.grid-margin-x
+    .cell.small-12.medium-6.large-4
+      = s.check_box :affordable_and_clean_energy
+      = s.label :affordable_and_clean_energy, t('settings.esg_sdg_contribution.shared.form.affordable_and_clean_energy')
+    .cell.small-12.medium-6.large-4
+      = s.check_box :descent_work_and_economic_growth
+      = s.label :descent_work_and_economic_growth, t('settings.esg_sdg_contribution.shared.form.descent_work_and_economic_growth')
+    .cell.small-12.medium-6.large-4
+      = s.check_box :industry_innovation_and_infrastructure
+      = s.label :industry_innovation_and_infrastructure, t('settings.esg_sdg_contribution.shared.form.industry_innovation_and_infrastructure')
+  .grid-x.grid-margin-x
+    .cell.small-12.medium-6.large-4
+      = s.check_box :reduced_inequalities
+      = s.label :reduced_inequalities, t('settings.esg_sdg_contribution.shared.form.reduced_inequalities')
+    .cell.small-12.medium-6.large-4
+      = s.check_box :sustainable_cities_and_conmmunities
+      = s.label :sustainable_cities_and_conmmunities, t('settings.esg_sdg_contribution.shared.form.sustainable_cities_and_communities')
+    .cell.small-12.medium-6.large-4
+      = s.check_box :responsible_consumption_and_production
+      = s.label :responsible_consumption_and_production, t('settings.esg_sdg_contribution.shared.form.responsible_consumption_and_production')
+  .grid-x.grid-margin-x
+    .cell.small-12.medium-6.large-4
+      = s.check_box :climate_action
+      = s.label :climate_action, t('settings.esg_sdg_contribution.shared.form.climate_action')
+    .cell.small-12.medium-6.large-4
+      = s.check_box :life_below_water
+      = s.label :life_below_water, t('settings.esg_sdg_contribution.shared.form.life_below_water')
+    .cell.small-12.medium-6.large-4
+      = s.check_box :life_on_land
+      = s.label :life_on_land, t('settings.esg_sdg_contribution.shared.form.life_on_land')
+  .grid-x.grid-margin-x
+    .cell.small-12.medium-6.large-4
+      = s.check_box :peace_justice_and_strong_institutions
+      = s.label :peace_justice_and_strong_institutions, t('settings.esg_sdg_contribution.shared.form.peace_justice_and_strong_institutions')
+    .cell.small-12.medium-6.large-4
+      = s.check_box :partnerships_for_the_goals
+      = s.label :partnerships_for_the_goals, t('settings.esg_sdg_contribution.shared.form.partnerships_for_the_goals')

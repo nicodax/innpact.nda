@@ -1,0 +1,10 @@
+.cell.small-12.medium-4.section_3
+  .mb20
+    %h2= t(".institution_covenants")
+    .app-dashboard-search-bar-container
+      - if !setting_collection.empty?
+        - setting_collection.each do |institution_covenant|
+          .mt10.mb10
+            %a{href: fund_settings_institution_institution_covenant_path(fund_id: fund.id,institution_id:  institution.id,id: institution_covenant.id), class: ("bold" if setting&.id == institution_covenant.id)}= institution_covenant.name
+      - else
+        %p= t(".no_covenant")

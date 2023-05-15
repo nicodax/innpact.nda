@@ -1,0 +1,8 @@
+.cell.small-12.medium-3.large-2.section_3
+  .cta_center
+    .soustitre.mb5=t('settings.covenants.import.csv_caution_message')
+  = simple_form_for new_setting, url: fund_settings_covenants_path, multipart: true do |f|
+    %span.cta.btn_import_covenant.mr15
+      =t('.covenant_import')
+      = f.file_field :file, required: true, id: "import_covenant_file"
+    = f.submit '', class: "cta_submit_covenant"

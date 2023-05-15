@@ -1,0 +1,14 @@
+%p= t("mailers.shared.dear_team")
+%p= t("mailers.loan_creation.intro")
+
+%table.loan_creation_table
+  %tr
+    %th= t("mailers.loan_creation.noval")
+    %th= t("mailers.loan_creation_with_validation_link.im")
+    %th= t("mailers.loan_creation.mfi_name")
+  %tr
+    %td= link_to @noval, fund_loan_url(fund_id: @loan.fund.id, id: @loan.id), target: "_blank"
+    %td= @creation_user_name
+    %td= @mfi_name
+
+%p= t("mailers.loan_creation_with_validation_link.question_comment")

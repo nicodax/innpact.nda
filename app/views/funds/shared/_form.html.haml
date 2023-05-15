@@ -1,0 +1,22 @@
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    = f.hidden_field :created_by,value: current_user.full_name
+    = f.input :name
+    = f.input :details
+    - unless fund.new_record?
+      %fieldset.large-5.cell
+        %label Fund status
+        - ["active", "inactive"].each do |status|
+          %input{:name => "fund[status]", :required => "", :type => "radio", :value => status, id: "fund_status_#{status}", checked: fund.status == status}/
+          %label{:for => "fund_status_#{status}"}= status.capitalize
+
+  .cell.small-12
+    = link_to "Cancel", root_path, class:"cta cta_grey"
+    = f.submit "Save", class: "cta ml5"
+
+- if fund.persisted?
+  .grid-x.grid-margin-x{ style: "margin-top: 10px"}
+    .cell.small-12
+      = link_to t(".add_usd_amount"), new_fund_fund_usd_amount_path(fund_id: fund.id), class: "cta"
+
+=javascript_pack_tag 'funds'

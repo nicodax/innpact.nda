@@ -1,0 +1,35 @@
+- content_for :breadcrumbs do
+  %nav{"aria-label" => t("breadcrumbs.you_are_here"), :role => "navigation"}
+    %ul.breadcrumbs
+      %li
+        %a{:href => root_path}= t('.breadcrumb.welcome')
+      %li
+        %a{:href => funds_path}= t('.breadcrumb.funds')
+      %li
+        %a{:href => fund_path(id: fund.id)}= fund.try(:name)
+      %li
+        %a{:href => fund_loan_path(fund_id: fund.id, id: loan.id)}= loan.try(:innpact_loan_id)
+      %li
+        %a{:href => fund_loan_repayment_calendar_dashboards_path}= t('activerecord.models.repayment_calendar.one')
+      %li
+        %span.show-for-sr t("current")
+        = t('general.edit')
+
+.grid-x
+  .cell.medium-6
+    %h1.mb0= t('.edit_calendar')
+
+%hr/
+
+.grid-x.grid-margin-x
+  .cell.small-12
+    %h2= t('.repayment_calendar')
+    = simple_form_for calendar, url: fund_loan_repayment_calendar_path do |f|
+      = f.error :base
+      = f.error :repayment_calendar_lines
+      .grid-x.grid-margin-x
+        .cell.medium-12.large-6
+          = render partial: "repayment_calendars/repayment_calendar_lines", locals: {f: f, type: RepaymentCalendarLine::REPAYMENT_TYPE_PRINCIPAL}
+        .cell.medium-12.large-6
+          = render partial: "repayment_calendars/repayment_calendar_lines", locals: {f: f, type: RepaymentCalendarLine::REPAYMENT_TYPE_INTEREST}
+      = f.submit

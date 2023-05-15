@@ -1,0 +1,16 @@
+- content_for :breadcrumbs do
+  %nav{"aria-label" => t("breadcrumbs.you_are_here"), :role => "navigation"}
+    %ul.breadcrumbs
+      %li
+        %a{:href => root_path} Welcome
+      %li
+        %span.show-for-sr t("current")
+        = t("shared.settings")
+.grid-x
+  .cell.medium-6
+    %h1.mb0= t("shared.settings")
+%hr
+  .grid-x.grid-padding-x
+    
+    .cell.small-12.medium-4.section_3
+    .cell.small-12.medium-4

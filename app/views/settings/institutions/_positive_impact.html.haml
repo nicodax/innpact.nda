@@ -1,0 +1,22 @@
+- if false
+  .grid-x.grid-margin-x
+    .cell.small-12
+      %ul#institution_tabs.tabs{"data-tabs" => "", 'data-deep-link' => 'true'}
+        - %w(results impact_indicators services_offered gender_data).each do |tab_subject|
+          %li.tabs-title{"class" => tab_subject == (params["selected_tab"] || "results") ? "is-active" : nil}
+            %a{"class" => tab_subject == (params["selected_tab"] || "general") ? "aria-selected" : nil, :href => "##{tab_subject}_tab", "data-tabs-target" => "#{tab_subject}_tab", :data => {element_purpose: "#{tab_subject}_tab"}}
+              = t("settings.institutions.show.#{tab_subject}")
+
+      .tabs-content{"data-tabs-content" => "institution_tabs"}
+        - %w(results impact_indicators services_offered gender_data).each do |tab_subject|
+          .tabs-panel{"id" => "#{tab_subject}_tab", class: tab_subject == (params["selected_tab"] || "results") ? "is-active table_height" : nil}
+            = render partial: "#{tab_subject}", locals: {institution: setting}
+
+= link_to "Edit", fund_settings_institution_institution_positive_impact_edit_path(fund_id: fund.id, institution_id: institution.id), class: "cta text-center mb5"
+= render partial: "settings/institutions/positive_impact/impact_indicators", locals: {institution: setting}
+&nbsp
+= render partial: "settings/institutions/positive_impact/services_offered", locals: {institution: setting}
+&nbsp
+= render partial: "settings/institutions/positive_impact/esg_gender_equalities", locals: {institution: setting}
+&nbsp
+= render partial: "settings/institutions/positive_impact/alinus_results", locals: {institution: setting}

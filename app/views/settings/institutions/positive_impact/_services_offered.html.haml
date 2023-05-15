@@ -1,0 +1,45 @@
+.grid-margin-x.small-12.medium-6.large-6
+  .cell.small-12.medium-12.large-12
+    .grid-x
+      .cell.small-12.medium-12.large-12
+        %h4= t('settings.institutions.show.services_offered')
+
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.as_of")
+      .cell.auto.field_value
+        = setting.positive_impact_services_offered_as_of.try(:strftime, "%d-%m-%Y")
+  .cell.small-12.medium-6.large-6
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.mobile_banking_services")
+      .cell.auto.field_value
+        = PositiveImpactServicesOffered.services_offered_boolean_map[institution.mobile_banking_services]
+  - if setting.mobile_banking_services.present? && setting.mobile_banking_services
+    .cell.small-12.medium-6.large-6
+      .grid-x
+        .cell.small-12.medium-6.large-6
+          %strong= t("settings.institutions.show.number_clients_using_mobile_banking")
+        .cell.auto.field_value
+          = setting.number_clients_using_mobile_banking_integer_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.deposits")
+      .cell.auto.field_value
+        = PositiveImpactServicesOffered.deposits_boolean_map[institution.deposits]
+  - if setting.deposits.present? && setting.deposits
+    .cell.small-12.medium-6.large-6
+      .grid-x
+        .cell.small-12.medium-6.large-6
+          %strong= t("settings.institutions.show.number_clients_with_deposits")
+        .cell.auto.field_value
+          = setting.number_clients_with_deposits_integer_value
+  .cell.small-12.medium-6.large-6
+    .grid-x
+      .cell.small-12.medium-6.large-6
+        %strong= t("settings.institutions.show.voluntary_savings")
+      .cell.auto.field_value
+        = PositiveImpactServicesOffered.voluntary_savings_boolean_map[institution.voluntary_savings]

@@ -1,0 +1,37 @@
+- content_for :breadcrumbs do
+  %nav{"aria-label" => t("breadcrumbs.you_are_here"), :role => "navigation"}
+    %ul.breadcrumbs
+      %li
+        %a{:href => root_path} Welcome
+      %li
+        %a{:href => inactive_funds_path} Inactive Funds
+      %li
+        %span.show-for-sr t("current")
+        = @fund.name
+.grid-x
+  .cell.medium-6
+    %h1.mb0= @fund.name
+    .soustitre.primary= @fund.status.capitalize
+  .cell.medium-6.cta_bottom
+    -# = link_to "Archive fund", fund_archive_path(fund_id: @fund.id), class: "cta cta_right cta_warning ml5", method: :put
+    = link_to "Enable fund", fund_enable_path(fund_id: @fund.id), class: "cta cta_right", method: :put
+%hr/
+.grid-x.grid-margin-x
+  .cell.small-12.cell.medium-4
+    %h2 Details
+    %p= @fund.details
+
+.grid-x.grid-margin-x
+  .cell.small-12.medium-12
+    %h2 Users
+    %h3= t("roles.administrator")
+    - @administrators.each do |user|
+      = link_to user.full_name, settings_user_path(id: user), class: "button hollow"
+
+    %h3= t("roles.general_manager")
+    - @general_managers.each do |user|
+      = link_to user.full_name, settings_user_path(id: user), class: "button hollow"
+
+    %h3= t("roles.investment_manager")
+    - @investment_managers.each do |user|
+      = link_to user.full_name, settings_user_path(id: user), class: "button hollow"

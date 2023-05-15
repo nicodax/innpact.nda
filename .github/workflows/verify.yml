@@ -1,0 +1,71 @@
+name: Verify
+on: [pull_request]
+
+jobs:
+  linters:
+    name: Security & Linters
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - run: sudo apt-get update -y
+      - run: sudo apt-get install -y freetds-dev
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.20.0
+      
+      - run: corepack enable
+      - run: yarn install --pure-lockfile
+      - run: bundle exec rubocop -c .rubocop.ci.yml --parallel
+      - run: ./node_modules/.bin/eslint --quiet -c .eslintrc.ci.json app/javascript
+      - run: bundle exec bundle-audit check --update
+      - run: bundle exec brakeman -q -w2
+
+  tests:
+    name: Tests
+    runs-on: ubuntu-20.04
+    env:
+      RAILS_ENV: test
+      DATABASE_USERNAME: sa
+      SA_PASSWORD: 1Secure*Password1
+      DATABASE_HOST: localhost
+    services:
+      mssql:
+        image: mcr.microsoft.com/mssql/server:2017-latest
+        env:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: 1Secure*Password1
+        ports: ["1433:1433"]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - run: sudo apt-get update -y
+      - run: sudo apt-get install -y freetds-dev
+
+      - name: Setup Ruby and install gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - run: cp config/version.json.example version.json
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.20.0
+
+      - run: corepack enable
+      - run: yarn install --pure-lockfile
+      - run: bundle exec rails db:prepare
+      - run: bundle exec rake assets:precompile
+      - run: bundle exec rake spec

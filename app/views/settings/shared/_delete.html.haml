@@ -1,0 +1,15 @@
+#confirmation-modal.reveal{"data-reveal" => ''}
+  -#TODO
+  -#add warning for pool and currency that when deleting parent object, nested object will be deleted as well
+  -#Should be implemented when remodeling the app
+  %p.text-center= t("settings.shared.delete_are_you_sure", setting_name: setting_name.downcase)
+  .grid-x.grid-margin-x
+    .cell.small-12.medium-2.large-2
+    .cell.small-12.medium-6.large-5
+      = link_to t("settings.shared.cancel"), "#", class: "cta cta_grey", id: "cancel-delete"
+    .cell.small-12.medium-6.large-5
+      = link_to t("settings.shared.delete"), url_for(id: setting.id), class: "cta cta_warning", id: "delete-user", method: :delete
+    %button.close-button{"aria-label" => "Close modal", "data-close" => "", :type => "button"}
+      %span{"aria-hidden" => "true"} ×
+
+=javascript_pack_tag 'delete_modal'

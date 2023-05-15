@@ -1,0 +1,22 @@
+.grid-x.grid-margin-x
+  .small-12.cell
+    - if dashboard.loan_provisions.empty?
+      = t(".no_provision_for_this_loan")
+    - else
+      %table
+        %tr.text-center
+          %th= t("activerecord.attributes.loan_provision.status")
+          %th= t("activerecord.attributes.loan_provision.creation_user")
+          %th= t("activerecord.attributes.loan_provision.previous_amount_of_provision")
+          %th= t("activerecord.attributes.loan_provision.new_amount_of_provision")
+          %th= t("activerecord.attributes.loan_provision.created_at")
+          %th= t("activerecord.attributes.loan_provision.comment")
+        - dashboard.loan_provisions.each do |provision|
+          %tr.text-center{data: {element_purpose: "provision_line"}}
+            %td
+              .label{"class" => provision.version_status_label_class}= provision.version_status
+            %td= provision.creation_user_name
+            %td= provision.formatted_previous_amount_of_provision
+            %td= provision.formatted_new_amount_of_provision
+            %td= provision.created_at
+            %td= provision.comment

@@ -1,0 +1,45 @@
+version: '3.8'
+
+# Configurations shared by multiple services
+x-app_common: &app_common
+  build:
+    context: ../..
+    dockerfile: ops/dev/Dockerfile
+  tmpfs:
+    - /tmp
+  volumes:
+    - ../..:/app
+  env_file:
+    - app_env
+    - app_env.secrets
+  labels:
+    com.dnsdock.ignore: '1'
+  depends_on:
+    - db
+
+x-backend: &backend
+  <<: *app_common
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    volumes:
+      - db_data:/var/opt/mssql
+    env_file:
+      - ../../.env
+
+  proxy:
+    build:
+      context: ./proxy
+    labels:
+      com.dnsdock.alias: 'innpact.docker'
+    depends_on:
+      - app
+
+  app:
+    <<: *backend
+    tty: true
+    stdin_open: true
+    
+volumes:
+  db_data:

@@ -1,0 +1,7 @@
+%tr.text-center
+  %td= line.formatted_date
+  %td= line.original_amount_currency_value
+  %td= line.received_amount_currency_value
+  %td= line.formatted_status
+  - if type == RepaymentCalendarLine::REPAYMENT_TYPE_PRINCIPAL
+    %td= line.provision_currency_value

@@ -1,0 +1,45 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {}, current_topic: "pools"}
+= render partial: "settings/pools/shared/header"
+
+%hr
+  .grid-x.grid-padding-x
+
+    = render partial: "settings/pools/shared/index"
+    .cell.small-12.medium-8
+      %h2= t('settings.pools.shared._form.create')
+      = simple_form_for new_setting, url: fund_settings_pools_path do |f|
+        = render 'shared/form_error_messages', object: f.object
+        .grid-x.grid-margin-x.flex-dir-column
+          .cell.small-12.medium-6
+            = f.input :name, label: t('settings.pools.shared._form.name')
+            = f.input :subscription_date, as: 'date_picker', label: t('settings.pools.shared._form.subscription_date')
+            = f.input :has_maturity_date, label: t('settings.pools.shared._form.has_maturity_date'), input_html: { data: {:toggle => 'maturity_date'} }
+            #maturity_date.hidden{data: {:toggler => '.hidden'}}
+              = f.input :maturity_date, as: 'date_picker', label: t('settings.pools.shared._form.maturity_date'), required: true
+            = f.input :required_specific_reporting, label: t('settings.pools.shared._form.required_specific_reporting'), input_html: { data: {:toggle => 'specific_reporting'} }
+            #specific_reporting.hidden{data: {:toggler => '.hidden'}}
+              %strong= t('settings.pools.shared._form.upload_specific_reporting')
+              = f.simple_fields_for :pool_documents, f.object.pool_documents.build do |ft|
+                = ft.file_field :document, required: false, accept: 'pdf'
+                = ft.hidden_field :document_cache
+            = f.input :amount, label: t('settings.pools.shared._form.amount'), as: "string", input_html: { class: "thousand_currencies_formats"}
+            = f.label :currency_id, t("settings.pools.shared._form.currency")
+            = f.collection_select :currency_id, fund.currencies, :id, :short_name
+            = f.simple_fields_for :pool_targets do |ft|
+              = render partial: "settings/pool_targets/shared/select_target_field", locals: {f: ft}
+            %strong
+              %abbr *
+              = t('settings.pools.shared._form.upload_legal_document')
+            = f.simple_fields_for :pool_legal_documents do |ft|
+              = ft.file_field :document, accept: 'pdf'
+              = ft.hidden_field :document_cache
+            = f.input :is_targeted, label: t('settings.pools.shared._form.is_targeted'), input_html: { data: {:toggle => 'restriction_select'} }
+          .cell.mb2
+            #restriction_select.hidden{data: {:toggler => '.hidden'}}
+              = render partial: "settings/pools/shared/restrictions", locals: {f: f}
+          .cell.small-12
+            %a.cta.cta_grey#reset-form= t('settings.pools.shared._form.cancel')
+            = f.submit t('settings.pools.shared._form.save'), class: "cta ml5"
+
+= javascript_pack_tag 'pools'
+= javascript_pack_tag 'cleave_form_format'

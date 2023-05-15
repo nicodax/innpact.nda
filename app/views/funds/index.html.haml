@@ -1,0 +1,41 @@
+- content_for :breadcrumbs do
+  %nav{"aria-label" => t("breadcrumbs.you_are_here"), :role => "navigation"}
+    %ul.breadcrumbs
+      %li
+        %a{:href => root_path} Welcome
+      %li
+        %span.show-for-sr= t("current")
+        Funds
+.grid-x
+  .cell.large-12
+    %h1.mb0 Funds
+    .soustitre Here you can manage the funds
+  .cell.large-12.mt10
+    .grid-x
+      .cell.large-2
+        = link_to "Create a fund", new_fund_path, class: "cta mt10 mb10" if current_user.administrator?
+      .cell.auto.mt5
+        - if current_user.administrator?
+          - if @archived_funds_count > 0
+            .see_funds
+              = link_to "See inactive funds (#{@archived_funds_count})", inactive_funds_path
+          - if @deleted_funds_count > 0
+            .see_funds
+              = link_to "See deleted funds (#{@deleted_funds_count})", deleted_funds_path
+%hr/
+.grid-x.grid-margin-x{data: {element_purpose: "funds_list"}}
+  - @funds.each do |fund|
+    %a.cell.medium-6.large-3.tiles_home{href: fund_path(fund_id: fund.id),
+      data: {element_purpose: "item[:record]_card", element_purpose_id: fund.name}}
+      .grid-x.grid-margin-x
+        .cell.merdium-6.large-3
+          %img{:alt => "picto bank", :src => image_url("bank.png")}/
+        .cell.merdium-6.large-9
+          %h3.mb0.pb0= fund.name
+          %p.primary= fund.status.capitalize
+        .cell.small-12
+          %hr/
+          - if @investment_managers[fund.id]
+            %div= t('funds.users.investment_managers')
+            .tiles_name
+              = @investment_managers[fund.id].map(&:firstname).join(" - ")

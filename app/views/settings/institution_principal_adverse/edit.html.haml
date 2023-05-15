@@ -1,0 +1,14 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {t(".institutions") => fund_settings_institutions_path, @institution.name => fund_settings_institution_path(fund_id: @institution.fund.id, id: @institution.id), t("settings.principal_adverse.new.breadcrumb_principal_adverse") => fund_settings_institution_path(fund_id: @institution.fund.id, id: @institution.id, selected_tab: 'impact_and_esg', anchor: 'principal_adverse_impact_tab')}, current_topic: t("settings.breadcrumb_edit")}
+= render partial: "settings/institutions/shared/header", locals: {current_institution: @institution, subtitle: {t("settings.principal_adverse.new.breadcrumb_principal_adverse") => fund_settings_institution_path(fund_id: @institution.fund.id, id: @institution.id, selected_tab: 'impact_and_esg', anchor: 'principal_adverse_impact_tab')}}
+
+= simple_form_for(@institution_pai_indicator, method: :post, url: fund_settings_institution_institution_principal_adverse_update_pai_indicator_path(fund_id: fund.id, institution_id: @institution.id), html: { class: "institution_esg_pai_indicator" }) do |f|
+  = render partial: "settings/institution_principal_adverse/shared/institution_esg_pai_indicators_form", locals: {f: f}
+&nbsp
+= simple_form_for(@environment_pai, method: :post, url: fund_settings_institution_institution_principal_adverse_update_environment_pai_path(fund_id: fund.id, institution_id: @institution.id), html: { class: "additional_pais_environment" }) do |f|
+  = render partial: "settings/institution_principal_adverse/shared/institution_additional_pais_environments_form", locals: {f: f, institution: @institution}
+&nbsp
+= simple_form_for(@social_pai, method: :post, url: fund_settings_institution_institution_principal_adverse_update_social_pai_path(fund_id: fund.id, institution_id: @institution.id), html: { class: 'additional_pais_social' }) do |f|
+  = render partial: "settings/institution_principal_adverse/shared/institution_additional_pais_socials_form", locals: {f: f, institution: @institution}
+
+= javascript_pack_tag 'institution_form'
+= javascript_pack_tag 'cleave_form_format'

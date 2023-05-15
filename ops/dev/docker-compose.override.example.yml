@@ -1,0 +1,7 @@
+services:
+  db:
+    ports:
+      - 1433:1433
+  app:
+    ports:
+      - 3000:3000

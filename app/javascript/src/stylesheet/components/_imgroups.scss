@@ -1,0 +1,30 @@
+.im_group_list {
+	margin: 0 !important;
+	li {
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+}
+.im_buttons {
+	background-color: $primary;
+	border-radius: 6px;
+	color: snow;
+	padding: 3px 8px;
+	&:hover {
+		background-color: $secondary;
+		color: snow;
+	}
+}
+
+.im_list_item {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.remove_im {
+	&:hover {
+		background-color: $warning;
+		color: snow;
+	}
+}

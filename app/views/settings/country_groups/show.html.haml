@@ -1,0 +1,26 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {t("settings.country_groups.country_groups") => fund_settings_country_groups_path}, current_topic: setting.name}
+= render partial: "settings/country_groups/shared/header"
+
+%hr
+  .grid-x.grid-padding-x
+    = render partial: "settings/country_groups/shared/index"
+    .cell.small-12.medium-8
+      %h2= setting.name
+      %ul.ml0
+        %li
+          %strong="#{t('settings.country_groups.show.name')} :"
+          = setting.name
+        %li
+          %strong="#{t('settings.country_groups.show.description')} :"
+          = setting.description
+        %li
+          %strong="#{t('settings.country_groups.show.countries')} :"
+          - @countries.each do |country|
+            = link_to country.name, fund_settings_country_path(id: country.id)
+      .grid-x
+        .cell.small-6.medium-4.large-2
+          = link_to t("settings.shared.delete"), "#", class: "cta cta_warning", id: "delete-setting"
+        .cell.small-6.medium-4.large-2
+          = link_to t("settings.shared.edit"), edit_fund_settings_country_group_path(id: setting.id), class: "cta ml5 mb5"
+
+= render partial: "settings/shared/delete", locals: {setting: setting, setting_name: resource_name}

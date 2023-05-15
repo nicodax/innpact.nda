@@ -1,0 +1,18 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {"Currencies" => fund_settings_currencies_path, currency.name => fund_settings_currency_path(id: currency.id) },current_topic: "new rate"}
+
+%hr
+  .grid-x.grid-padding-x
+
+    -# = render partial: "settings/currencies/shared/index"
+
+    .cell.small-12.medium-4
+      %h2 #{t(".new_rate")}
+      %p= currency.short_name
+      = simple_form_for ([fund, :settings, currency, currency_rate]) do |f|
+        = render 'shared/form_error_messages', object: f.object
+        .cell.small-12.medium-6
+          = f.hidden_field :created_by,value: current_user.full_name
+          = f.input :rate
+        .cell.small-12
+          %a.cta.cta_grey#reset-form Cancel
+          = f.submit "Save", class: "cta ml5"

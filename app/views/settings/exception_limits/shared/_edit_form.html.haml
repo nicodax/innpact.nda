@@ -1,0 +1,23 @@
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6
+    = f.input :model, as: :select, collection: [["Institution","institution"],["Institution group","institution group"],["Country","country"]], disabled: true
+  - if setting.model == "institution"
+    .cell.small-12.medium-6#institution-select
+      = f.input :model_id, as: :select, collection: fund.institutions.all, value_method: :id, label: "Institution", selected: setting.model_id
+  - elsif setting.model == "country"
+    .cell.small-12.medium-6#country-select
+      = f.input :model_id, as: :select, collection: fund.countries.all, value_method: :id, label: "Country", selected: setting.model_id
+  - elsif setting.model == "institution_group"
+    .cell.small-12.medium-6#group-select
+      = f.input :model_id, as: :select, collection: fund.institution_groups.all, value_method: :id, label: "Institution group", selected: setting.model_id
+  .cell.small-12.medium-6#form-value
+    = f.input :value, as: "string", input_html: { class: "thousand_currencies_formats" }
+  .cell.small-12.medium-6#form-value
+    = f.input :description
+
+  = f.input :model_id, as: :hidden
+  .cell.small-12#form-buttons
+    %a.cta.cta_grey#reset-form Cancel
+    = f.submit "Save", class: "cta ml5"
+    
+= javascript_pack_tag 'cleave_form_format'

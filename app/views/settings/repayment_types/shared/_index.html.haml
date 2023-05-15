@@ -1,0 +1,14 @@
+.cell.small-12.medium-4.section_3
+  .mb20
+    %a.cta{href: fund_settings_repayment_types_path} Create
+  %h2 Repayment Types
+  .app-dashboard-search-bar-container
+    -# %input.app-dashboard-search.ml0{:placeholder => "Search", :type => "search"}
+    -#   %i.app-dashboard-search-icon.fa.fa-search.pr30
+    - if !setting_collection.empty?
+      - setting_collection.each do |repayment_type|
+        .mt10.mb10
+          %span.top{repayment_type.description ? { data: {tooltip: ""}} : {}, title: repayment_type.description}
+            %a{href: fund_settings_repayment_type_path(id: repayment_type.id), class: ("bold" if setting&.id == repayment_type.id)}= repayment_type.name
+    - else
+      %p No repayment_types registered yet.

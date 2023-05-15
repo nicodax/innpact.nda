@@ -1,0 +1,23 @@
+.cell.small-12.medium-4.section_3
+  .mb20
+    %a.cta{href: new_fund_settings_default_limit_path}= t(".new_default")
+    %a.cta{href: new_fund_settings_exception_limit_path}= t(".new_exception")
+  %h2= t(".limits")
+  .app-dashboard-search-bar-container
+    -# %input.app-dashboard-search.ml0{:placeholder => "Search", :type => "search"}
+    -#   %i.app-dashboard-search-icon.fa.fa-search.pr30
+    %h3= t(".default_limits")
+    - if !@default_limits.empty?
+      - @default_limits.each do |limit|
+        .mt10.mb10
+          %a{href: fund_settings_default_limit_path(id: limit.id), class: ("bold" if limit.is_a?(DefaultLimit) && limit&.id == limit.id)}= limit.model.upcase
+    - else
+      %p= t(".no_default_limit_registered_yet")
+    %h3= t(".exception_limits")
+    - if !@exception_limits.empty?
+      - @exception_limits.each do |limit|
+        .mt10.mb10
+          %a{href: fund_settings_exception_limit_path(id: limit.id), class: ("bold" if limit.is_a?(LimitException) && limit&.id == limit.id)}
+            = limit.display_name
+    - else
+      %p= t(".no_exception_limit_registered_yet")

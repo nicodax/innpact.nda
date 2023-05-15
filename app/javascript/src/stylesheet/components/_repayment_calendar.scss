@@ -1,0 +1,62 @@
+.cell {
+	.provision-field {
+		text-align: right;
+	}
+}
+
+.repayment_calendar_lines_table {
+	input {
+		margin-bottom: 0px;
+	}
+
+	a.button {
+		margin-bottom: 0px;
+	}
+	tr.modified {
+		background-color: #f1f1f1;
+	}
+	.repayment_date_column {
+		width: auto;
+	}
+	.status_column {
+		width: auto;
+	}
+	.original_amount_column,
+	.received_amount_column {
+		width: 150px;
+	}
+	.provision_column {
+		width: 75px;
+	}
+	.repayment_date_column {
+		width: 185px;
+	}
+}
+
+.repayment_calendar_logs_table {
+	a.button {
+		margin-bottom: 0px;
+	}
+
+	.changed_attribute {
+		background-color: #f1f1f1;
+	}
+
+	tr.log_header_line {
+		border-width: thick;
+		border-top: solid #f1f1f1;
+		border-bottom: solid #f1f1f1;
+	}
+
+	i.new_version {
+		color: #61a754;
+	}
+
+	i.old_version {
+		color: #9c1b19;
+	}
+}
+
+.button {
+	border-radius: 0.5rem;
+}

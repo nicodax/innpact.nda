@@ -1,0 +1,59 @@
+.grid-x.grid-margin-x.institution_subentity
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    %h4= t('settings.esg_gender_equality.shared.header.esg_gender_equality_main_title')
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.esg_gender_equality.shared.form.as_of')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :as_of, label: false, as: 'date_picker'
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.esg_gender_equality.shared.form.percentage_loans_to_women_borrowers_per_glp')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :percentage_loans_to_women_borrowers_per_glp, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage" }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.esg_gender_equality.shared.form.women_percentage_in_board')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :women_percentage_in_board, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage" }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.esg_gender_equality.shared.form.women_percentage_in_management')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :women_percentage_in_management, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage" }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.esg_gender_equality.shared.form.women_percentage_in_staff')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :women_percentage_in_staff, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage" }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.esg_gender_equality.shared.form.percentage_women_among_loan_officers')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :percentage_women_among_loan_officers, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage" }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.esg_gender_equality.shared.form.financial_services_targeting_women')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :financial_services_targeting_women, label: false, as: :select
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.esg_gender_equality.shared.form.non_financial_services_targeting_women')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :non_financial_services_targeting_women, label: false, as: :select
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.esg_gender_equality.shared.form.training_on_responsible_finance_targeting_women')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :training_on_responsible_finance_targeting_women, label: false, as: :select
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    &nbsp;
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.auto.cta_center
+      = f.submit t('settings.shared.submit'), class: "cta"
+%hr

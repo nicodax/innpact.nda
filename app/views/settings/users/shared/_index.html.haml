@@ -1,0 +1,7 @@
+- User::ROLES.excluding(User::ROLE_SYSTEM).each do |role|
+  %h3= t("roles.#{role}")
+  - if users.with_role(role.to_sym).empty?
+    %p= t('.no_user_with_that_role')
+  %ul
+    - users.with_role(role.to_sym).each do |menu_user|
+      %li= link_to menu_user.full_name, settings_user_path(menu_user.id), class: ("bold" if user&.id == menu_user.id)

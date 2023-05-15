@@ -1,0 +1,26 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {t(".breadcrumb_covenants")=> fund_settings_covenants_path}, current_topic: t('.breadcrumb_import_covenants')}
+= render partial: "settings/covenants/header"
+%hr
+.grid-x.grid-margin-x
+  = render 'settings/covenants/upload_form'
+  .cell.medium-9.large-10
+    %h2
+      =t('.covenant_imported')
+    .grid-x.grid-margin-x.grid-margin-y
+      - if @result.present?
+        - @result.errors.each do |item|
+          .cell.small-12.medium-6.large-6
+            .institution_card_error
+              %h3= item[:name]
+              %a{"data-toggle" => "covenant_#{item[:institution_id]}"}
+                =t('.covenant_errors')
+              .import_covenant_modal{"data-toggler"=>"data-toggler", "data-animate"=>"fade-in fade-out", id: "covenant_#{item[:institution_id]}"}
+                %p= item[:errors].join("\n")
+        - @result.success.each do |item|
+          .cell.small-12.medium-6.large-3
+            .institution_card
+              %h3= item[:name]
+              %a{href: fund_settings_institution_path(fund_id: fund.id, id: item[:institution_id], anchor: 'covenant_tab'), target: '_blank'}
+                =t('.covenant_title')
+
+= javascript_pack_tag 'covenants'

@@ -1,0 +1,107 @@
+- institution_covenant = institution.institution_covenant
+.grid-x
+  .cell.small-12.medium-12.large-12
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-12.large-12
+        %h1.text-center.mb40 Covenants
+    - if institution_covenant.present?
+      .grid-x.grid-margin-x
+        .cell.small-12.medium-12.large-12
+          .grid-x.grid-margin-x.mb10.text-center
+            .cell.large-2
+            .cell.small-1.medium-2.large-2
+            .cell.small-1.medium-2.large-2
+              %strong= t("actual")
+            .cell.small-1.medium-2.large-2
+              %strong= t("limit")
+          .grid-x.grid-margin-x.mb10.text-center
+            .cell.large-2
+            .cell.small-1.medium-2.large-2.text-left
+              %span= t("institution_covenants.institution_covenants.shared.form.par30")
+            .cell.small-1.medium-2.large-2
+              .text-center= big_decimal_to_percentage(institution_covenant.par30)
+            .cell.small-1.medium-2.large-2
+              .text-center= big_decimal_to_percentage(institution_covenant.par30_limit)
+          .grid-x.grid-margin-x.mb10.text-center
+            .cell.large-2
+            .cell.small-1.medium-2.large-2.text-left
+              %span= t("institution_covenants.institution_covenants.shared.form.par30_refy")
+            .cell.small-1.medium-2.large-2
+              .text-center= big_decimal_to_percentage(institution_covenant.par30_refy)
+            .cell.small-1.medium-2.large-2
+              .text-center= big_decimal_to_percentage(institution_covenant.par30_refy_limit)
+          .grid-x.grid-margin-x.mb10.text-center
+            .cell.large-2
+            .cell.small-1.medium-2.large-2.text-left
+              %span= t("institution_covenants.institution_covenants.shared.form.roa")
+            .cell.small-1.medium-2.large-2
+              .text-center= big_decimal_to_percentage(institution_covenant.roa)
+            .cell.small-1.medium-2.large-2
+              .text-center= big_decimal_to_percentage(institution_covenant.roa_limit)
+          .grid-x.grid-margin-x.mb10.text-center
+            .cell.large-2
+            .cell.small-1.medium-2.large-2.text-left
+              %span= t("institution_covenants.institution_covenants.shared.form.adj_roa")
+            .cell.small-1.medium-2.large-2
+              .text-center= big_decimal_to_percentage(institution_covenant.adj_roa)
+            .cell.small-1.medium-2.large-2
+              .text-center= big_decimal_to_percentage(institution_covenant.adj_roa_limit)
+          .grid-x.grid-margin-x.mb10.text-center
+            .cell.large-2
+            .cell.small-1.medium-2.large-2.text-left
+              %span= t("institution_covenants.institution_covenants.shared.form.open_fx_exposure")
+            .cell.small-1.medium-2.large-2
+              .text-center= big_decimal_to_percentage(institution_covenant.open_fx_exposure)
+            .cell.small-1.medium-2.large-2
+              .text-center= big_decimal_to_percentage(institution_covenant.open_fx_exposure_limit)
+          .grid-x.grid-margin-x.mb10.text-center
+            .cell.large-2
+            .cell.small-1.medium-2.large-2.text-left
+              %span= t("institution_covenants.institution_covenants.shared.form.open_loan_position")
+            .cell.small-1.medium-2.large-2
+              .text-center= big_decimal_to_percentage(institution_covenant.open_loan_position)
+            .cell.small-1.medium-2.large-2
+              .text-center= big_decimal_to_percentage(institution_covenant.open_loan_position_limit)
+          .grid-x.grid-margin-x.mb10.text-center
+            .cell.large-2
+            .cell.small-1.medium-2.large-2.text-left
+              %span= t("institution_covenants.institution_covenants.shared.form.car")
+            .cell.small-1.medium-2.large-2
+              .text-center= big_decimal_to_percentage(institution_covenant.car)
+            .cell.small-1.medium-2.large-2
+              .text-center= big_decimal_to_percentage(institution_covenant.car_limit)
+          .grid-x.grid-margin-x.mb10.text-center
+            .cell.large-2
+            .cell.small-1.medium-2.large-2.text-left
+              %span= t("institution_covenants.institution_covenants.shared.form.deposits_liabilities")
+            .cell.small-1.medium-2.large-2
+              .text-center= big_decimal_to_percentage(institution_covenant.deposits_liabilities)
+            .cell.small-1.medium-2.large-2
+              .text-center= big_decimal_to_percentage(institution_covenant.deposits_liabilities_limit)
+          .grid-x.grid-margin-x.mb10.text-center
+            .cell.large-2
+            .cell.small-1.medium-2.large-2.text-left
+              %span= t("institution_covenants.institution_covenants.shared.form.maturity_matching_if_applicable")
+            .cell.small-1.medium-2.large-2
+              .text-center= big_decimal_to_percentage(institution_covenant.maturity_matching_if_applicable)
+            .cell.small-1.medium-2.large-2
+              .text-center= big_decimal_to_percentage(institution_covenant.maturity_matching_if_applicable_limit)
+          .grid-x.grid-margin-x.mb10.text-center
+            .cell.large-2
+            .cell.small-1.medium-2.large-2.text-left
+              %span= t("institution_covenants.institution_covenants.shared.form.liquid_assets_deposits_if_applicable")
+            .cell.small-1.medium-2.large-2
+              .text-center= big_decimal_to_percentage(institution_covenant.liquid_assets_deposits_if_applicable)
+            .cell.small-1.medium-2.large-2
+              .text-center= big_decimal_to_percentage(institution_covenant.liquid_assets_deposits_if_applicable_limit)
+          .grid-x.grid-margin-x.text-center.mt40
+            .cell.small-12.medium-12.large-12
+              - if policy(institution_covenant).destroy?
+                = link_to "Delete", fund_settings_institution_institution_covenant_path(fund_id: fund.id,
+                  institution_id: institution.id, id: institution_covenant.id), method: :delete, class: "cta cta_warning text-center mr20", id: "delete-institution_covenant"
+              = link_to "Edit", edit_fund_settings_institution_institution_covenant_path(fund_id: fund.id,
+                institution_id: institution.id, id: institution_covenant.id), class: "cta text-center mb5"
+    - else
+      = link_to "New Covenant", new_fund_settings_institution_institution_covenant_path(fund_id: fund.id,
+        institution_id: institution.id), class: "cta text-center mb5"
+

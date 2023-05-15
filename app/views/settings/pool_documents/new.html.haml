@@ -1,0 +1,10 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {t("shared.menu_vertical.pools") => fund_settings_pools_path, pool.name => fund_settings_pool_path(id: pool.id),t("settings.pool_documents.index.specific_reporting_documents") => fund_settings_pool_pool_documents_path(id: pool.id)}, current_topic: t(".create_new_specific_reporting")}
+
+%hr
+  %h1.mb0= t(".create_new_specific_reporting")
+  .grid-x.grid-padding-x
+    = render partial: "settings/pool_documents/shared/index"
+    .cell.small-12.medium-8
+      .grid-x
+        = simple_form_for ([fund, :settings, pool, pool_document]) do |f|
+          = render partial: "settings/pool_documents/shared/form", locals: {f: f}

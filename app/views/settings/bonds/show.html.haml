@@ -1,0 +1,21 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {t("activerecord.models.bond.other") => fund_settings_bonds_path}, current_topic: setting.name}
+= render partial: "settings/bonds/shared/header"
+%hr
+  .grid-x.grid-padding-x
+    = render partial: "settings/bonds/shared/index"
+    .cell.small-12.medium-8
+      %h2= setting.name
+      %ul.ml0
+        %li
+          %strong= t("activerecord.attributes.bond.name")
+          = setting.name
+        %li
+          %strong= t("activerecord.attributes.bond.description")
+          = setting.description
+      .grid-x
+        .cell.small-6.medium-4.large-2
+          = link_to t("general.delete"), "#", class: "cta cta_warning", id: "delete-setting"
+        .cell.small-6.medium-4.large-2
+          = link_to t("general.edit"), edit_fund_settings_bond_path(id: setting.id), class: "cta ml5 mb5"
+
+= render partial: "settings/shared/delete", locals: {setting: setting, setting_name: resource_name}

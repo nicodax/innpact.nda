@@ -1,0 +1,58 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "airbnb-base"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "rules": {
+        "arrow-body-style": "warn",
+        "camelcase": "warn",
+        "comma-dangle": "warn",
+        "dot-notation": "warn",
+        "eol-last": "warn",
+        "eqeqeq": "warn",
+        "func-names": "warn",
+        "function-paren-newline": "warn",
+        "implicit-arrow-linebreak": "warn",
+        "import/first": "warn",
+        "import/no-unresolved": "warn",
+        "import/prefer-default-export": "warn",
+        "indent": "warn",
+        "keyword-spacing": "warn",
+        "max-len": "warn",
+        "no-bitwise": "warn",
+        "no-multiple-empty-lines": "warn",
+        "no-new": "warn",
+        "no-redeclare": "warn",
+        "no-restricted-globals": "warn",
+        "no-restricted-syntax": "warn",
+        "no-shadow": "warn",
+        "no-tabs": "warn",
+        "no-trailing-spaces": "warn",
+        "no-undef": "warn",
+        "no-unused-expressions": "warn",
+        "no-unused-vars": "warn",
+        "no-use-before-define": "warn",
+        "no-var": "warn",
+        "object-shorthand": "warn",
+        "operator-linebreak": "warn",
+        "prefer-arrow-callback": "warn",
+        "prefer-const": "warn",
+        "prefer-destructuring": "warn",
+        "prefer-template": "warn",
+        "quotes": "warn",
+        "semi": "warn",
+        "space-before-blocks": "warn",
+        "space-before-function-paren": "warn",
+        "space-in-parens": "warn",
+        "space-infix-ops": "warn",
+        "vars-on-top": "warn",
+        "wrap-iife": "warn"
+    }
+}

@@ -1,0 +1,37 @@
+.grid-x.grid-margin-x
+  = f.hidden_field :created_by,value: current_user.full_name
+  .cell.small-12.medium-4.large-6
+    = f.input :name, label: t(".name"), input_html: { "data-tooltip" => true, :class => "has-tip", :title => t(".tooltip_name") }
+  .cell.small-12.medium-4.large-6
+    = f.label t(".isocode")
+    %div{ "data-tooltip" => true, :class => "has-tip", :title => t(".tooltip_isocode") }
+      = f.select :iso_code, country_iso_codes, include_blank: true
+  .cell.small-12.medium-4.large-6
+    = f.input :population, label: t(".population"), as: "string", input_html: { "data-tooltip" => true, :class => "has-tip thousand_currencies_formats", :title => t(".tooltip_population") }
+  .cell.small-12.medium-4.large-6
+    = f.input :rating, label: t(".rating"), input_html: { "data-tooltip" => true, :class => "has-tip", :title => t(".tooltip_rating") }
+  .cell.small-12.medium-4.large-6
+    = f.input :gdp, label: t(".gdp"), as: "string", input_html: { "data-tooltip" => true, :class => "has-tip thousand_currencies_formats", :title => t(".tooltip_gdp") }
+  .cell.small-12.medium-4.large-6
+    = f.input :gdp_per_capita, label: t(".gdp_per_capita"), as: "string", input_html: { "data-tooltip" => true, :class => "has-tip thousand_currencies_formats", :title => t(".tooltip_gdp_per_capita") }
+  .cell.small-12.medium-4.large-6
+    = f.input :gni, label: t(".gni"), as: "string", input_html: { "data-tooltip" => true, :class => "has-tip thousand_currencies_formats", :title => t(".tooltip_gni") }
+  .cell.small-12.medium-4.large-6
+    = f.input :gni_per_capita, label: t(".gni_per_capita"), as: "string", input_html: { "data-tooltip" => true, :class => "has-tip thousand_currencies_formats", :title => t(".tooltip_gni_per_capita") }
+  .cell.small-12.medium-4.large-6
+    = f.input :mimosa_score, label: t(".mimosa_score"), input_html: { "data-tooltip" => true, :class => "has-tip", :title => t(".tooltip_mimlosa_score") }
+  .cell.small-12.medium-4.large-6
+    = f.input :is_a_high_income_country, label: t(".is_a_high_income_country"), input_html: { "data-tooltip" => true, :class => "has-tip mt45", :title => t(".tooltip_is_a_high_income_country") }
+  .cell.small-12.medium-4.large-6
+    = f.label t(".country_group")
+    %div.cell.small-12.medium-12.large-12{ "data-tooltip" => true, :class => "has-tip", :title => t(".country_group") }
+      =f.select :country_group_id, country_groups.map { |country_group| [country_group.name, country_group.id] }, include_blank: true
+
+  .cell.small-12.medium-4.large-6
+    = f.input :limit, disabled: true
+  .cell.small-12
+    %a.cta.cta_grey#reset-form= t("settings.shared.cancel")
+    = f.submit t("settings.shared.save"), class: "cta ml5"
+
+= javascript_pack_tag 'settings_countries'
+= javascript_pack_tag 'cleave_form_format'

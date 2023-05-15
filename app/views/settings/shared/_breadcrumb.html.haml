@@ -1,0 +1,15 @@
+- content_for :breadcrumbs do
+  %nav{"aria-label" => t("breadcrumbs.you_are_here"), :role => "navigation"}
+    %ul.breadcrumbs
+      %li
+        %a{:href => root_path} Welcome
+      %li
+        %a{:href => fund_path(fund_id: fund.id)}= fund.name
+      %li
+        = t("shared.settings")
+      - intermediate_topics.each do |topic_label, topic_path|
+        %li
+          %a{:href => topic_path}= topic_label
+      %li
+        %span.show-for-sr t("current")
+        = current_topic

@@ -1,0 +1,22 @@
+- content_for :breadcrumbs do
+  %nav{"aria-label": t("breadcrumbs.you_are_here"), role: "navigation"}
+    %ul.breadcrumbs
+      %li
+        %a{href: root_path} Welcome
+        %li
+          %a{href: root_path} Funds
+        %li
+          %a{href: root_path} Settings
+        %li
+          %span Readers
+.grid-x
+  .cell.medium-12
+    %h1.mb0 Readers
+    .soustitre.primary Define and manage Reader(s) that will be available to this Fund.
+
+%hr/
+
+.grid-x.grid-padding-x
+  .cell.small-12.medium-8.section_3
+    = render partial: "form", locals: { assigned_readers: @assigned_readers, available_readers: @available_readers,
+      url: fund_settings_funds_users_path(fund_id: fund.id) }

@@ -1,0 +1,61 @@
+.grid-x.grid-margin-x.institution_subentity
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    %h4= t('settings.institution_alinus_results.shared.header.institution_alinus_results_main_title')
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.institution_alinus_results.shared.form.as_of')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :as_of, label: false, as: 'date_picker'
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.institution_alinus_results.shared.form.overall_sptf_alinus_score')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :overall_sptf_alinus_score, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage" }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.institution_alinus_results.shared.form.define_and_monitor_social_goals')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :define_and_monitor_social_goals, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage" }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.institution_alinus_results.shared.form.ensure_commitment_to_social_goals')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :ensure_commitment_to_social_goals, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage" }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.institution_alinus_results.shared.form.product_design_to_meet_clients_need')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :product_design_to_meet_clients_need, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage" }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.institution_alinus_results.shared.form.treat_clients_responsibly')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :treat_clients_responsibly, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage" }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.institution_alinus_results.shared.form.treat_employees_responsibly')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :treat_employees_responsibly, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage" }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.institution_alinus_results.shared.form.balance_financial_and_performance')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :balance_financial_and_performance, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage" }
+      .input-group-label= "%"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.institution_alinus_results.shared.form.promote_environmental_protection')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :promote_environmental_protection, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage" }
+      .input-group-label= "%"
+    &nbsp;
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.auto.cta_center
+      = f.submit t('settings.shared.submit'), class: "cta"
+%hr

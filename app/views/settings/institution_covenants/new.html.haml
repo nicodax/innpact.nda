@@ -1,0 +1,13 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {t("shared.menu_vertical.institutions") => fund_settings_institutions_path, institution.name => fund_settings_institution_path(id: institution.id)}, current_topic: t("settings.shared.edit") }
+
+.grid-x
+  .cell.medium-12
+    %h1
+      =t('.new_covenants_title')
+%hr
+  .grid-x.grid-margin-x
+    .cell.small-4.medium-4.large-2
+    .cell.small-4.medium-4.large-8
+      = simple_form_for new_setting, url: fund_settings_institution_institution_covenants_path(fund_id: fund.id, institution_id: institution.id) do |f|
+        = render partial: "settings/institution_covenants/shared/form", locals: {f: f}
+    .cell.small-4.medium-4.large-2

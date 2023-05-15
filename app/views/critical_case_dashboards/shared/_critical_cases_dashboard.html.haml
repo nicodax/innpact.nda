@@ -1,0 +1,27 @@
+.grid-x.grid-margin-x
+  .cell.small-12
+    %ul#critical-cases-tabs.tabs{"data-tabs" => ""}
+      %li.tabs-title.is-active
+        %a{:href => '#panel_all_critical_cases'}
+          = t(".all_critical_cases")
+      %li.tabs-title
+        %a{:href => '#panel_watchlist'}
+          = t(".watchlist")
+      %li.tabs-title
+        %a{:href => '#panel_restructuring'}
+          = t(".restructuring")
+      %li.tabs-title
+        %a{:href => '#panel_provisions'}
+          = t(".provisions")
+
+    .tabs-content{"data-tabs-content" => "critical-cases-tabs"}
+      #panel_all_critical_cases.tabs-panel.is-active
+        = render partial: "critical_case_dashboards/shared/all_critical_cases"
+      #panel_watchlist.tabs-panel
+        = render partial: "critical_case_dashboards/shared/watchlist"
+      #panel_restructuring.tabs-panel
+        = render partial: "critical_case_dashboards/shared/restructuring"
+      #panel_provisions.tabs-panel
+        = render partial: "critical_case_dashboards/shared/provisions"
+
+=javascript_pack_tag 'critical_case_dashboard'

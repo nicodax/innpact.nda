@@ -1,0 +1,27 @@
+= f.input :email
+.grid-x.grid-margin-x
+  .cell.small-6
+    = f.input :firstname
+  .cell.small-6
+    = f.input :lastname
+  .cell.small-6
+    = f.input :phone_number
+  .cell.small-12
+    %label
+      User Role
+      %select{name: "user[role]"}
+        -if current_user.administrator?
+          %option{:value => "administrator", selected: f.object.administrator?} Administrator
+        %option{:value => "general_manager", selected: f.object.general_manager?} General Manager
+        %option{:value => "investment_manager", selected: f.object.investment_manager?} Investment Manager
+        %option{:value => "reader", selected: f.object.reader?} Reader
+%label
+  .grid-x
+    - if f.object.persisted?
+      .cell.medium-6.large-6
+        %button.cta.cta_warning.cta_warning_button{"data-open" => "delete_user_modal", "type" => "button"}= t('.delete')
+      .cell.medium-6.large-6
+        = f.submit "Save", class: "cta"
+    - else
+      .cell.medium-6.large-6
+        = f.submit "Save", class: "cta"

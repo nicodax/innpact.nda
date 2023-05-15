@@ -1,0 +1,9 @@
+.grid-x.grid-margin-x
+  .cell.small-12.medium-4.large-6
+    = f.error :base
+    = render partial: "settings/pool_targets/shared/select_target_field", locals: {f: f}
+  .cell.small-12
+    %a.cta.cta_grey#reset-form= t("settings.shared.cancel")
+    = f.submit t("settings.shared.save"), class: "cta ml5"
+
+=javascript_pack_tag 'pool_targets'

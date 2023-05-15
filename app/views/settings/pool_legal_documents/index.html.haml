@@ -1,0 +1,6 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {"Pools" => fund_settings_pools_path, pool.name => fund_settings_pool_path(id: pool.id)}, current_topic: t(".legal_document")}
+
+%hr
+  %h1.mb0= t(".show_previous_versions")
+  .grid-x.grid-padding-x
+    = render partial: "settings/pool_legal_documents/shared/index"

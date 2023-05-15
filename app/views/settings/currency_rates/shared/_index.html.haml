@@ -1,0 +1,13 @@
+.cell.small-12.medium-4.section_3
+  .mb20
+    %a.cta{href: fund_settings_currency_currency_rates_path} Create
+  %h2 Currency Rates
+  .app-dashboard-search-bar-container
+    -# %input.app-dashboard-search.ml0{:placeholder => "Search", :type => "search"}
+    -#   %i.app-dashboard-search-icon.fa.fa-search.pr30
+    - if !setting_collection.empty?
+      - setting_collection.each do |currency_rate|
+        .mt10.mb10
+          %a{href: fund_settings_currency_currency_rate_path(id: currency_rate.id), class: ("bold" if setting&.id == currency_rate.id)}= currency_rate.display_name
+    - else
+      %p No currency_rates registered yet.

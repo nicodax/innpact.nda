@@ -1,0 +1,11 @@
+= render partial: "settings/shared/user_breadcrumb", locals: {intermediate_topics: {}, current_topic: "User management"}
+= render partial: "settings/users/shared/header"
+
+.grid-x.grid-margin-x
+  .cell.small-12.medium-4.section_3
+    = render partial: "settings/users/shared/index"
+  .cell.small-12.medium-8
+    .cell.small-12.medium-6
+      %h2 New user
+      = simple_form_for @new_user, url: settings_users_path do |f|
+        = render partial: "settings/users/shared/form", locals: {f: f}

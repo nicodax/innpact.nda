@@ -1,0 +1,54 @@
+.grid-x.grid-margin-x.institution_subentity
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    %h4= t('settings.impact_indicator.shared.header.impact_indicator_main_title')
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.impact_indicator.shared.form.as_of')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :as_of, label: false, as: 'date_picker'
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.impact_indicator.shared.form.internal_impact_score')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :internal_impact_score, label: false, input_html: { "data-tooltip" => true, :class => "has-tip input-group-field" }
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.impact_indicator.shared.form.avg_loan_size')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :avg_loan_size, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats"}
+      .input-group-label= "$"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.impact_indicator.shared.form.number_of_clients')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :number_of_clients, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats"}
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.impact_indicator.shared.form.borrowers_count')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :borrowers_count, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats"}
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.impact_indicator.shared.form.female_borrowers_count')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :female_borrowers_count, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats"}
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.impact_indicator.shared.form.rural_borrowers_count')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :rural_borrowers_count, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats"}
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.impact_indicator.shared.form.number_of_sme_borrowers')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :number_of_sme_borrowers, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats"}
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.impact_indicator.shared.form.number_of_micro_borrowers')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :number_of_micro_borrowers, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats"}
+    &nbsp;
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.auto.cta_center
+      = f.submit t('settings.shared.submit'), class: "cta"
+%hr

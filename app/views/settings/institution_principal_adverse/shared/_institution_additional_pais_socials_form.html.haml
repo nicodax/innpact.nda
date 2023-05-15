@@ -1,0 +1,58 @@
+- list_pai_social = institution.try(:last_additional_pais_social)
+
+.grid-x.grid-margin-x
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    %h4{id: 'additional_pais_socials'}= t('settings.additional_pais_socials.shared.header.additional_pais_socials_main_title')
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .grid-x
+      - list_pai_social.each do |pai_social|
+        - if pai_social[:as_of] != nil
+          .cell.small-10.medium-10.large-10.grid-x.align-middle
+            .cell.small-12.medium-12.large-12
+              .grid-x
+                .cell.small-4.medium-4.large-4
+                  = t("settings.additional_pais_socials.shared.form.as_of")
+                .cell.auto
+                  = pai_social.try(:as_of).try(:strftime, "%d/%m/%Y")
+            .cell.small-12.medium-12.large-12
+              .grid-x
+                .cell.small-4.medium-4.large-4
+                  = t("settings.additional_pais_socials.shared.form.social_pai_reported")
+                .cell.auto
+                  = AdditionalPaisSocial.additional_pais_social_map[pai_social.try(:social_pai_reported)]
+            .cell.small-12.medium-12.large-12
+              .grid-x
+                .cell.small-4.medium-4.large-4
+                  = t("settings.additional_pais_socials.shared.form.social_pai_value")
+                .cell.auto
+                  = format_pai_with_unit(pai_social.try(:social_pai_value), AdditionalPaisSocial.additional_pai_social_units_map[pai_social.try(:social_pai_reported)])
+            &nbsp
+          .cell.small-2.medium-2.large-2.auto.grid-x.align-top.cta_center
+            = link_to t('settings.additional_pais_socials.delete.delete'), fund_settings_institution_institution_principal_adverse_delete_social_pai_path(fund_id: fund.id, institution_id: institution.id, social_pai_id: pai_social.id), method: :post, class: 'button alert', data: { confirm: t('settings.additional_pais_socials.delete.delete_confirmation') }
+    &nbsp    
+  .cell.small-10.medium-10.large-10.grid-x.align-middle
+    .cell.small-4.medium-4.large-4.grid-x.align-middle
+      %span= t('settings.additional_pais_socials.shared.form.as_of')
+    .cell.small-8.medium-8.large-8.grid-x.align-middle
+      = f.input :as_of, label: false, as: 'date_picker'
+    .cell.small-4.medium-4.large-4.grid-x.align-middle
+      %span= t('settings.additional_pais_socials.shared.form.social_pai_reported')
+    .cell.small-8.medium-8.large-8.grid-x.align-middle
+      = f.input :social_pai_reported, label: false, collection: AdditionalPaisSocial.additional_pais_social_options, input_html: { "data-tooltip" => true, :class => "has-tip"}
+    .cell.small-4.medium-4.large-4.grid-x.align-middle
+      %span= t('settings.additional_pais_socials.shared.form.social_pai_value')
+    .cell.small-8.medium-8.large-8.grid-x.align-top
+      = f.input :social_pai_value, label: false, as: :string, value: true, checked: false, input_html: { :class => "input-group-field" }
+  .cell.auto.grid-x.align-top.cta_center
+    .cell.auto.cta_center
+      = f.button :button, t('settings.additional_pais_socials.update.add'), type: 'submit', name: 'add_another', value: 'true'
+
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    &nbsp;
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.auto.cta_center
+      = f.submit t('settings.shared.submit'), class: "cta"
+%hr
+
+
+

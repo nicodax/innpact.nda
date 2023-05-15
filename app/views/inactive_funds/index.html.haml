@@ -1,0 +1,28 @@
+- content_for :breadcrumbs do
+  %nav{"aria-label" => t("breadcrumbs.you_are_here"), :role => "navigation"}
+    %ul.breadcrumbs
+      %li
+        %a{:href => root_path} Welcome
+      %li
+        %span.show-for-sr
+        = t('.inactive_funds')
+.grid-x.warning
+  .cell.small-12.medium-9.large-6
+    %h1.mb0= t('.inactive_funds')
+    .soustitre= t('.warning_title')
+%hr/
+.grid-x.grid-margin-x
+  - @archived_funds.each do |fund|
+    %a.cell.medium-6.large-3.tiles_home.warning_tiles{href: show_inactive_funds_path(id: fund.id)}
+      .grid-x.grid-margin-x
+        .cell.merdium-6.large-3
+          %img{:alt => "picto bank", :src => image_url("bank.png")}/
+        .cell.merdium-6.large-9
+          %h3.mb0.pb0= fund.name
+          %p.primary= fund.status.capitalize
+        .cell.small-12
+          %hr/
+          - if @investment_managers[fund.id]
+            %div= t('funds.users.investment_managers')
+            .tiles_name
+              = @investment_managers[fund.id].map(&:firstname).join(" - ")

@@ -1,0 +1,5 @@
+.card
+  .card-divider
+    = t('.loan_request_submitted_for_ratification')
+  .card-section
+    = t('.submitted_at', submission_time: loan_request.submitted_at.strftime("%F %T"))

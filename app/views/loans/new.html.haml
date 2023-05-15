@@ -1,0 +1,32 @@
+- content_for :breadcrumbs do
+  %nav{"aria-label" => t("breadcrumbs.you_are_here"), :role => "navigation"}
+    %ul.breadcrumbs
+      %li
+        %a{:href => root_path}= t('.breadcrumb.welcome')
+      %li
+        %a{:href => funds_path}= t('.breadcrumb.funds')
+      %li
+        %a{:href => fund_path(id: fund.id)}= fund.try(:name)
+      %li
+        %span.show-for-sr t("current")
+        = loan.try(:name)
+
+= render partial: "shared/actions_header",
+  locals: { title: t('.new_loan'),
+subtitle: loan.new_institution_mode? ? t('.not_invested_info_message') : t('.invested_info_message'),
+links: []}
+
+%h2=t('.import')
+
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    %span.cta.btn_initial_loan_import_file
+      =t(".import_assigned_loan_data_from_file")
+      \#{file_field_tag "initial_loan_import_file", id: "initial_loan_import_file", accept: "text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", data: {status: loan.loan_version.status, fund_id: fund.id}}
+
+%h2=t('.params')
+
+= simple_form_for loan, url: fund_loans_path(fund_id: fund), data: {element_purpose: "loan_form", fund_id: fund.id} do |f|
+  = render partial: "loans/shared/form", locals: {f: f, im_groups: @im_groups}
+
+= javascript_pack_tag 'assigned_loan_import'

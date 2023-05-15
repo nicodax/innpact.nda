@@ -1,0 +1,9 @@
+= render partial: "loan_request_documents/shared/breadcrumb", locals: {current_step: t(".new_document")}
+%hr
+  %h1.mb0= t(".new_document")
+  .grid-x.grid-padding-x
+
+    .cell.small-12.medium-8
+      .grid-x
+        = simple_form_for loan_request_document, url: fund_loan_request_documents_path(fund_id: fund, loan_request_id: loan_request) do |f|
+          = render partial: "loan_request_documents/shared/form", locals: {f: f}

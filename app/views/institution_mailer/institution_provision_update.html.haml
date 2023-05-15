@@ -1,0 +1,11 @@
+%p= t('mailers.shared.dear_team')
+%p= t('mailers.institution_provision_update.intro', institution_name: @institution.name)
+
+%table.repayment_calendar_update_table
+  %tr
+    %th= t('mailers.institution_provision_update.institution_name')
+    %th= t('mailers.institution_provision_update.im')
+  %tr
+    %td= link_to @institution.name, fund_settings_institution_url(id: @institution.id,
+      fund_id: @institution.fund_id, selected_tab: 'provisions') , target: '_blank'
+    %td= @creation_user_name

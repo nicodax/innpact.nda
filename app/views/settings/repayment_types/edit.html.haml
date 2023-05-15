@@ -1,0 +1,11 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {"Repayment Types" => fund_settings_repayment_types_path}, current_topic: setting.name}
+= render partial: "settings/repayment_types/shared/header"
+%hr
+  .grid-x.grid-padding-x
+    
+    = render partial: "settings/repayment_types/shared/index"
+    .cell.small-12.medium-4
+      %h2 EDIT
+      = simple_form_for setting, url: fund_settings_repayment_type_path(id: setting.id) do |f|
+        = render 'shared/form_error_messages', object: f.object
+        = render partial: "settings/repayment_types/shared/form", locals: {f: f}

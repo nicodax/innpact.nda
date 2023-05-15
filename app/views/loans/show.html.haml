@@ -1,0 +1,178 @@
+- content_for :breadcrumbs do
+  %nav{"aria-label" => t("breadcrumbs.you_are_here"), :role => "navigation"}
+    %ul.breadcrumbs
+      %li
+        %a{:href => root_path}= t('.breadcrumb.welcome')
+      %li
+        %a{:href => funds_path}= t('.breadcrumb.funds')
+      %li
+        %a{:href => fund_path(id: fund.id)}= fund.try(:name)
+      %li
+        %a{:href => loan.dashboard_path}= loan.dashboard_path_name
+      %li
+        %span.show-for-sr t("current")
+        = loan.try(:name)
+
+.grid-x.grid-margin-x.grid-margin-y
+  .cell.medium-6
+    %h1.mb0= loan.try(:name)
+    .label{data: {element_purpose: "status_label"}}= loan.status_name
+    - if loan.active_loan_version.temporary?
+      .label.warning{data: {element_purpose: "temporary_label", tooltip: true, position: "bottom"}, title: t(".temporary_loan_version_info") }= t(".temporary_loan_version_alert")
+    - if loan.restructuring
+      .label.alert{data: {element_purpose: "restructuring_label", tooltip: true, position: "bottom"}, title: t(".restructuring_loan_version_info") }= t(".restructuring_loan_version_alert")
+    - if loan.provision?
+      .label.alert{data: {element_purpose: "provision_label", tooltip: true, position: "bottom"}, title: t(".provision_loan_version_info") }= t(".provision_loan_version_alert")
+    - if loan.presentable_at.present? && loan.status == LoanVersion::STATUS_RATIFIED
+      .label.success{data: {element_purpose: 'presentable_label'}}= t('.ready_to_be_presented')
+    - if loan.missing_sdg_goals?
+      .label.alert{data: {element_purpose: 'sdg_goals_label', tooltip: true, position: 'bottom'}, title: t('.missing_sdg_goals') }= t('.sdg_goals_alert')
+    - if loan.missing_presentation_compliance_checks?
+      .label.alert{data: {element_purpose: 'presentation_compliance_check', tooltip: true, position: 'bottom'}, title: t('.incomplete_presentation_compliance_check')}= t('.incomplete_presentation_compliance_check_alert')
+
+  - unless loan.matured?
+    -if (policy(loan).edit? && !loan.active_loan_version.temporary?) || policy(loan).validate_or_reject?
+      .cell.medium-6.cta_bottom
+        = link_to(t('loans.show.create_new_tranche'), fund_loan_create_loan_tranche_path(loan_id: loan.id), method: :post, class: "cta cta_primary", id: "create_new_tranche") if policy(loan).edit? && !loan.is_children?
+        = link_to(t('general.delete'), '#', class: "cta ml20 cta_warning", id: "delete-loan") if policy(loan).destroy?
+        = link_to t('general.edit'), loan.edit_loan_path, class: "cta ml20" if (!loan.closed? || loan.status == LoanVersion::STATUS_INVESTED ) && policy(loan).edit?
+  - if loan.active_loan_version.temporary? && policy(loan).validate_or_reject?
+    .cell.medium-12
+      = link_to t('.validate_this_version'), fund_loan_version_validation_path(fund_id: fund, loan_id: loan, version_id: loan.active_loan_version, validated: true), class: "cta cta_right ", method: :post
+      = link_to t('.reject_this_version'), fund_loan_version_validation_path(fund_id: fund, loan_id: loan, version_id: loan.active_loan_version, validated: false), class: "cta cta_right cta_warning ", method: :post
+
+- if loan.status == LoanVersion::STATUS_RATIFIED && loan.presentable_at.present? && (loan.missing_sdg_goals? || loan.missing_presentation_compliance_checks?)
+  .grid-x.grid-margin-x.grid-margin-y
+    %p.cell.medium-12.alert_info= t('.deal_will_not_be_presented')
+
+.grid-x.grid-margin-x
+  .cell.small-12.medium-3.large-2
+    .strong_title= label_tag "Tranche"
+    %span{data: {element_purpose_id: "nb-tranches"}}
+      -if loan.parent_loan?
+        ="1/#{loan.nb_tranches + 1}"
+      -else
+        -if loan.is_children? && !loan.original_innpact_loan_deleted?
+          = "#{loan.index_of_tranches + 2}/#{loan.nb_tranches + 1}"
+        -else
+          = "1/1"
+  .cell.small-12.medium3.large-2
+    -if loan.is_children? && !loan.original_innpact_loan_deleted?
+      .strong_title= t(".original_innpact_loan_id")
+      =loan.original_innpact_loan_id
+  .cell.small-12.medium-6.large-4
+    -if loan.is_children? && !loan.original_innpact_loan_deleted?
+      =link_to "Link to original loan", fund_loan_path(fund_id: fund, id: loan.original_loan_id), class: "cta cta_primary"
+
+%hr/
+
+- if loan.status == LoanVersion::STATUS_INVESTED
+  = link_to t('.link_to_repayment_calendar'), fund_loan_repayment_calendar_dashboards_path(fund_id: fund, loan_id: loan), class: "button hollow"
+
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4{data: {element_purpose: "im_group"}}
+    .strong_title= label_tag :im_group
+    = loan.im_group_name
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag :creation_user
+    = loan.creation_user_name
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag :pool
+    = loan.pool_name
+
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    %label
+      %strong= t("activerecord.attributes.loan.innpact_loan_id").capitalize
+    = loan.innpact_loan_id
+
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag :institution
+    = loan.institution_name
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag :group_name
+    %span#group_name= loan.institution_group_name
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag :type_name
+    %span#type_name= loan.institution_type_name
+
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag :country_name
+    %span#country_name= loan.country_name
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag :country_group_name
+    %span#country_group_name= loan.country_group_name
+
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag :currency
+    = loan.currency_name
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag :loan_type
+    = loan.loan_type_name
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag :repayment_type
+    = loan.repayment_type_name
+
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag :expected_disbursement_date
+    = loan.expected_disbursement_date
+  .cell.small-12.medium-6.large-4
+    .strong_title= label_tag :probabilities
+    = loan.formatted_probabilities
+
+- if loan.compliance_check_statuses.excluding(LoanVersion::STATUS_RATIFIED).include?(loan.status) || (loan.status == LoanVersion::STATUS_RATIFIED && loan.presentable_at.present?)
+  .grid-x.grid-margin-x
+    .strong_title.cell= label_tag 'sdg_goals', t(:sdg_goals)
+    - loan.sdg_goals_selected.each do |goal, value|
+      %p.cell.small-12.medium-6.large-4= t("sdg_goal.#{goal}")
+
+  - if loan.presentation_compliance_check.present?
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-6.large-4
+        .strong_title= label_tag :proposed_investment_complies_with_mef_guidelines, t('.proposed_investment_complies_with_mef_guidelines')
+        = loan.presentation_compliance_check.proposed_investment_complies_with_mef_guidelines
+      .cell.small-12.medium-6.large-4
+        .strong_title= label_tag :investee_microfinance_portfolio_greater_than_two_times_mef_loan, t('.investee_microfinance_portfolio_greater_than_two_times_mef_loan')
+        = loan.presentation_compliance_check.investee_microfinance_portfolio_greater_than_two_times_mef_loan
+      .cell.small-12.medium-6.large-4
+        .strong_title= label_tag :kyc_check, t('.kyc_check')
+        = t(loan.presentation_compliance_check.kyc_check, scope: [:presentation_compliance_check, :kyc_check_values]) if loan.presentation_compliance_check.kyc_check.present?
+    .grid-x.grid-margin-x
+      .cell.small-12.medium-6.large-4
+        .strong_title= label_tag :aml_risk_rate, t('.aml_risk_rate')
+        = t(loan.presentation_compliance_check.aml_risk_rate, scope: [:presentation_compliance_check, :aml_risk_rate_values]) if loan.presentation_compliance_check.aml_risk_rate.present?
+      .cell.small-12.medium-6.large-4
+        .strong_title= label_tag :aml_country_risk_assessment, t('.aml_country_risk_assessment')
+        = t(loan.presentation_compliance_check.aml_country_risk_assessment, scope: [:presentation_compliance_check, :aml_country_risk_assessment_values]) if loan.presentation_compliance_check.aml_country_risk_assessment.present?
+      .cell.small-12.medium-6.large-4
+        .strong_title= label_tag :tax_report_assessment, t('.tax_report_assessment')
+        = t(loan.presentation_compliance_check.tax_report_assessment, scope: [:presentation_compliance_check, :tax_report_assessment]) if loan.presentation_compliance_check.tax_report_assessment.present?
+
+.grid-x.grid-margin-x
+  .cell.small-12
+    %ul#status-fields.tabs{"data-tabs" => ""}
+      - loan.status_historic.each do |step_status|
+        %li.tabs-title{class: (step_status == loan.last_data_specific_status ? "is-active" : ""), id: "tab_title_#{step_status}"}
+          %a{:href => "#panel_#{step_status}"}= t("loans.status_fields", status: (step_status == LoanVersion::STATUS_INVESTED && loan.matured?) ? "Matured" : t("activerecord.attributes.loan.statuses.#{step_status}"))
+
+    .tabs-content{"data-tabs-content" => "status-fields"}
+      - loan.status_historic.each do |step_status|
+        .tabs-panel{id: "panel_#{step_status}", class: (step_status == loan.last_data_specific_status ? "is-active" : ""), data: {element_purpose: "status_tab"}}
+          = render partial: "show_status_fields", locals: {loan: loan, step_status: step_status, fields_label: loan.loan_version.fields_labels[step_status], date_fields_label: loan.loan_version.date_fields_labels[step_status], spread_fields_label: loan.loan_version.spread_fields_labels[step_status]}
+
+- if loan.status == LoanVersion::STATUS_MATURED && policy(loan).administrator? && loan.loan_versions.size > 1
+  = link_to t("loans.show.rollback_to_invested"), fund_loan_rollback_to_invested_path(loan_id: loan.id), method: :patch, class: "cta cta_primary mt10"
+
+#confirmation-modal.reveal{"data-reveal" => ''}
+  %p= t(".deletion_are_you_sure")
+  .cell.small-12
+    = link_to t("general.cancel"), "#", class: "cta cta_grey ml5", id: "cancel-delete"
+    = link_to t("general.delete"), fund_loan_path(fund_id: fund.id, id: loan), class: "cta cta_warning cta_right", id: "delete-user", method: :delete
+  %button.close-button{"aria-label" => "Close modal", "data-close" => "", :type => "button"}
+    %span{"aria-hidden" => "true"} ×
+
+=javascript_pack_tag 'loans'

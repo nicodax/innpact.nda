@@ -1,0 +1,12 @@
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6
+    = f.input :model, as: :select, collection: [[t("settings.exception_limits.shared.form.institutions"),"institution"],[t("settings.exception_limits.shared.form.institution_groups"),"group"],[t("settings.exception_limits.shared.form.countries"),"country"]]
+  .cell.small-12.medium-6
+    = f.input :value, as: "string", input_html: { class: "thousand_currencies_formats" }
+  .cell.small-12.medium-6
+    = f.input :description
+  .cell.small-12
+    %a.cta.cta_grey#reset-form Cancel
+    = f.submit "Save", class: "cta ml5"
+
+= javascript_pack_tag 'cleave_form_format'

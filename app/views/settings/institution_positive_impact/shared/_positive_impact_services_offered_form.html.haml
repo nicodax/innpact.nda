@@ -1,0 +1,39 @@
+.grid-x.grid-margin-x.institution_subentity
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    %h4= t('settings.positive_impact_services_offereds.shared.header.esg_pai_indicator_main_title')
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.positive_impact_services_offereds.shared.form.as_of')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :as_of, label: false, as: 'date_picker'
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.positive_impact_services_offereds.shared.form.mobile_banking_services')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :mobile_banking_services, label: false, collection: PositiveImpactServicesOffered.services_offered_boolean_options, default: true
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle.mobile_banking_clients
+      %span= t('settings.positive_impact_services_offereds.shared.form.number_clients_using_mobile_banking')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle.mobile_banking_clients
+      = f.input :number_clients_using_mobile_banking, label: false, as: "string", input_html: { :class => "input-group-field thousand_currencies_formats"}
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.positive_impact_services_offereds.shared.form.deposits')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :deposits, label: false, collection: PositiveImpactServicesOffered.services_offered_boolean_options, default: true
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle.deposit_clients
+      %span= t('settings.positive_impact_services_offereds.shared.form.number_clients_with_deposits')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle.deposit_clients
+      = f.input :number_clients_with_deposits, label: false, as: "string", input_html: { :class => "input-group-field thousand_currencies_formats"}
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.positive_impact_services_offereds.shared.form.voluntary_savings')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :voluntary_savings, label: false, collection: PositiveImpactServicesOffered.services_offered_boolean_options, default: true
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    &nbsp;
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.auto.cta_center
+      = f.submit t('settings.shared.submit'), class: "cta"
+%hr

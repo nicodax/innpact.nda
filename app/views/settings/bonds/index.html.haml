@@ -1,0 +1,12 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {}, current_topic: t('activerecord.models.bond.other')}
+= render partial: "settings/bonds/shared/header"
+
+%hr
+  .grid-x.grid-padding-x
+    
+    = render partial: "settings/bonds/shared/index"
+    .cell.small-12.medium-4
+      %h2= t("general.create")
+      = simple_form_for new_setting, url: fund_settings_bonds_path do |f|
+        = render 'shared/form_error_messages', object: f.object
+        = render partial: "settings/bonds/shared/form", locals: {f: f}

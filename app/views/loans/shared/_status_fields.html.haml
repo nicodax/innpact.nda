@@ -1,0 +1,163 @@
+.grid-x.grid-margin-x
+  .cell.small-12.medium-6.large-4
+    .grid-x.grid-margin-x
+      .cell.small-12
+        = lvf.label "#{fields_label}_nominal_amount", required: true, disabled: lock
+      .cell.small-12.input-group
+        = lvf.input "#{fields_label}_nominal_amount", label: false, as: "string", disabled: lock, input_html: { class: "status_input nominal_amount_input has-tip input-group-field thousand_currencies_formats_nominal_amount", data: {element_purpose: "#{fields_label}_nominal_amount_input"}}
+        .input-group-label.ccy_label
+          .span.span_ccy ccy
+  .cell.small-12.medium-6.large-4
+    .grid-x.grid-margin-x
+      .cell.small-12
+        = lvf.label "#{fields_label}_nominal_amount_usd", disabled: true
+      .cell.small-12.input-group
+        = lvf.input "#{fields_label}_nominal_amount_usd", disabled: true, label: false, as: "string", input_html: { class: "status_input nominal_amount_usd_input has-tip input-group-field thousand_currencies_formats", data: {element_purpose: "#{fields_label}_nominal_amount_usd_input"}}
+        .input-group-label= "$"
+  .cell.small-12.medium-4.large-4
+    .grid-x.grid-margin-x
+      .cell.small-12
+        = lvf.input "#{fields_label}_tenor", disabled: lock, as: "string", input_html: { class: "status_input tenor_input fix_margin thousand_currencies_formats", data: {element_purpose: "#{fields_label}_tenor_input"}}, required: true
+
+.grid-x.grid-margin-x
+  - unless [LoanVersion::STATUS_INVESTED, LoanVersion::STATUS_MATURED].include?(step_status)
+    .cell.small-12.medium-4.large-4
+      .grid-x.grid-margin-x
+        .cell.small-12
+          = lvf.label "#{spread_fields_label}_spread", required: true, disabled: lock
+        .cell.small-12.input-group
+          = lvf.input "#{spread_fields_label}_spread", label: false, as: "string", disabled: lock, input_html: { class: "status_input spread_input has-tip input-group-field thousand_currencies_formats", min: 0, max: 100, data: {element_purpose: "#{fields_label}_spread_input"}}
+          .input-group-label= "%"
+
+  .cell.small-12.medium-4.large-4
+    .grid-x.grid-margin-x
+      .cell.small-12
+        = lvf.label "#{fields_label}_upfront_fees", required: true, disabled: lock
+      .cell.small-12.input-group
+        = lvf.input "#{fields_label}_upfront_fees", label: false, as: "string", disabled: lock, input_html: { class: "status_input upfront_fees_input has-tip input-group-field thousand_currencies_formats", min: 0, max: 100, data: {element_purpose: "#{fields_label}_upfront_fees_input"}}
+        .input-group-label= "%"
+
+  - unless [LoanVersion::STATUS_INVESTED, LoanVersion::STATUS_MATURED].include?(step_status)
+    .cell.small-12.medium-4.large-4
+      .grid-x.grid-margin-x
+        .cell.small-12
+          = lvf.label "#{fields_label}_fixed_rate", required: true, disabled: lock
+        .cell.small-12.input-group
+          = lvf.input "#{fields_label}_fixed_rate", label: false, as: "string", disabled: lock, input_html: { class: "status_input fixed_rate_input has-tip input-group-field thousand_currencies_formats", min: 0, max: 100, data: {element_purpose: "#{fields_label}_fixed_rate_input"}}
+          .input-group-label= "%"
+
+- if step_status == LoanVersion::STATUS_INVESTED || step_status == LoanVersion::STATUS_MATURED
+  .grid-x.grid-margin-x
+    .cell.small-12.medium-6.large-4
+      = lvf.input "disbursement_date", as: 'date_picker', required: true, disabled: lock, input_html: { class: "status_input status_date_input", data: {element_purpose: "disbursement_date_input"}}
+    .cell.small-12.medium-6.large-4
+      = lvf.input "maturity_date", as: 'date_picker', required: true, disabled: lock, input_html: { class: "status_input deadline_status_date_input", data: {element_purpose: "maturity_date_input"}}
+
+  = render partial: "loans/shared/invested_fields", locals: {lvf: lvf, lock: lock}
+
+- else
+  .grid-x.grid-margin-x
+    .cell.small-12.medium-4.large-4
+      = lvf.input "#{date_fields_label}_date", as: 'date_picker', required: true, disabled: lock, input_html: { class: "status_input status_date_input", data: {element_purpose: "#{date_fields_label}_date_input"}}
+    .cell.small-12.medium-4.large-4
+      = lvf.input "deadline_#{date_fields_label}_date", as: 'date_picker', required: true, disabled: lock, input_html: { class: "status_input deadline_status_date_input", data: {element_purpose: "deadline_#{date_fields_label}_date_input"}}
+    .cell.small-12.medium-4.large-4
+      - if step_status == LoanVersion::STATUS_APPROVED
+        = lvf.input :number_of_disbursement_date_updates, disabled: lock, input_html: { class: "status_input number_of_disbursement_date_updates_input", data: {element_purpose: "number_of_disbursement_date_updates_input"}, value: loan.number_of_disbursement_date_updates || 1}
+
+- if step_status == LoanVersion::STATUS_APPROVED
+  = render partial: "loans/shared/approved_fields", locals: {lvf: lvf, lock: lock}
+
+-if step_status == LoanVersion::STATUS_RATIFIED
+  .grid-x.grid-margin-x
+    .cell.small-12.medium-4.large-4
+      .grid-x.grid-margin-x
+        .cell.small-12
+          = lvf.label t('.presentable'), disabled: lock
+        .cell.small-12.input-group
+          = lvf.check_box :presentable, input_html: { class: 'status_input presentable_input', data: { element_purpose: 'presentable_input' } }, disabled: lock
+
+- if step_status == LoanVersion::STATUS_INVESTED || step_status == LoanVersion::STATUS_MATURED
+  .grid-x.grid-margin-x
+    .cell.medium-4.large-4
+    .cell.medium-8.large-8
+      .grid-x.grid-margin-x
+        .cell.small-12.medium-6.large-6
+          .grid-x
+            .cell.small-12
+              = lvf.label :loan_spread, disabled: lock
+            .cell.small-12.input-group
+              = lvf.input :loan_spread, label: false, as: "string", disabled: lock, input_html: { class: "status_input spread_input has-tip input-group-field thousand_currencies_formats loan_spread_input", min: 0, max: 100, data: {element_purpose: "loan_spread_input"}}
+              .input-group-label= "%"
+        .cell.small-12.medium-6.large-6
+          .grid-x
+            .cell.small-12
+              = lvf.association :loan_interest_rate_type, collection: fund.interest_rate_types, disabled: lock, input_html: { class: "status_input interest_rate_type_input loan_interest_rate_type_input", data: {element_purpose: "loan_interest_rate_type_input"}}, required: true
+    .cell.medium-4.large-4
+      = lvf.label :hedge, disabled: lock
+      = check_box_tag "loan[loan_version][hedge_checkbox]"
+    .cell.medium-8.large-8
+      .grid-x.grid-margin-x#hedge_grid
+        .cell.small-12.medium-6.large-6
+          .grid-x
+            .cell.small-12
+              = lvf.label :hedge_spread, disabled: lock
+            .cell.small-12.input-group
+              = lvf.input :hedge_spread, label: false, as: "string", disabled: lock, input_html: { class: "status_input spread_input has-tip input-group-field thousand_currencies_formats hedge_spread_input", min: 0, max: 100, data: {element_purpose: "hedge_spread_input"}}
+              .input-group-label= "%"
+        .cell.small-12.medium-6.large-6
+          .grid-x
+            .cell.small-12
+              = lvf.association :hedge_interest_rate_type, collection: fund.interest_rate_types, disabled: lock, input_html: { class: "status_input interest_rate_type_input hedge_interest_rate_type_input", data: {element_purpose: "hedge_interest_rate_type_input"}}
+      .grid-x.grid-margin-x
+        .cell.small-12.medium-6.large-6
+          .grid-x
+            .cell.small-12
+              = lvf.label :executed_spread, disabled: true
+            .cell.small-12.input-group
+              = lvf.simple_fields_for :executed_spread do |ft|
+                = ft.input :executed_spread, label: false, as: "string", disabled: true, input_html: { class: "status_input input-group-field thousand_currencies_formats executed_spread_input", min: 0, max: 100, data: {element_purpose: "executed_spread_input"}}
+                .input-group-label= "%"
+        .cell.small-12.medium-6.large-6
+          .grid-x
+            .cell.small-12
+              = lvf.simple_fields_for :executed_interest_rate_type do |ft|
+                = ft.input :executed_interest_rate_type, disabled: true, input_html: { class: "status_input executed_rate_type_input executed_interest_rate_type_input", data: {element_purpose: "executed_interest_rate_type_input"}}
+
+
+- if step_status == LoanVersion::STATUS_INVESTED
+  .grid-x#hedge_comment
+    .cell
+      = lvf.label :hedge_comment, disabled: lock
+    .cell
+      = lvf.input :hedge_comment, label: false, disabled: lock, input_html: { class: "invested_hedge_input"}
+
+- unless [LoanVersion::STATUS_ASSIGNED, LoanVersion::STATUS_APPETITE_INQUIRY, LoanVersion::STATUS_MATURED].include?(step_status)
+  .grid-x.mt10
+    .cell
+      = lvf.label :comment, disabled: lock
+    .cell
+      = lvf.input "#{step_status}_comment", label: false, disabled: lock, input_html: { class: "no-resize status_comment" }
+
+
+
+- if !lock
+  .grid-x.grid-margin-x
+    .cell.small-12.medium-6.large-3
+      %label.cta
+        = file_field_tag "#{step_status}_status_data_import_file", accept: "text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "data-name-id" => "file_import_button" , class: "input_file_button"
+        =t(".import_status_data_from_file")
+    - if loan.persisted? && loan.next_statuses.include?(step_status)
+      .cell.small-12.medium-6.large-1
+        = t(".or")
+      .cell.small-12.medium-6.large-4
+        = button_tag t(".import_status_data_from_current_status", current_status: t("activerecord.attributes.loan.statuses.#{loan.last_valid_status}")), id: "#{step_status}_status_copy_data_button", class: "cta ml5 copy_status_data_button", data: {element_purpose: "copy_values_button"}
+
+
+    .cell.auto
+      = button_tag '', id: "#{step_status}_status_import_data_button", class: "ml5 import_status_data_button ", "data-name-id" => "file_submit_button"
+- if step_status == LoanVersion::STATUS_INVESTED
+  %br
+  = render partial: "loans/shared/repayment_calendar", locals: {lvf: lvf, f: f, lock: loan.repayment_calendar_locked?(current_status) }
+  %br
+

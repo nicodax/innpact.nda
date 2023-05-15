@@ -1,0 +1,8 @@
+.grid-x
+  .cell.medium-12
+    %h1.mb0= t('settings.covenants.shared.header.covenants_main_title')
+    .soustitre= t('settings.covenants.shared.header.covenants_subtitle')
+
+    - if @result.present?
+      %h3
+        =t('.covenants_import_message', total_count: @result.total_count, imported_count: @result.imported_count, rejected_count: @result.rejected_count)

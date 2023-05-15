@@ -1,0 +1,146 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {t("shared.menu_vertical.institutions") => fund_settings_institutions_path, institution.name => fund_settings_institution_path(id: institution.id), t("settings.institution_covenants.see_covenants") => fund_settings_institution_institution_covenants_path(institution_id: institution.id)}, current_topic: setting.name}
+= render partial: "settings/institution_covenants/shared/header"
+%hr
+  .grid-x.grid-padding-x
+    .cell.medium-2.large-2
+    .cell.small-12.medium-8.large-8.mt20
+      .grid-x.grid-margin-x.mb10
+        .cell.small-3.medium-3.large-3
+          %span= t("settings.institution_covenants.shared.form.par30")
+        .cell.small-4.medium-4.large-4
+          %strong= t("actual")
+          %br
+            - if setting.par30.present?
+              = "#{setting.par30} %"
+        .cell.small-4.medium-4.large-4
+          %strong= t("limit")
+          %br
+            - if setting.par30_limit.present?
+              = "#{setting.par30_limit} %"
+      .grid-x.grid-margin-x.mb10
+        .cell.small-3.medium-3.large-3
+          %span= t("settings.institution_covenants.shared.form.par30_refy")
+        .cell.small-4.medium-4.large-4
+          %strong= t("actual")
+          %br
+            - if setting.par30_refy.present?
+              = "#{setting.par30_refy} %"
+        .cell.small-4.medium-4.large-4
+          %strong= t("limit")
+          %br
+            - if setting.par30_refy_limit.present?
+              = "#{setting.par30_refy_limit} %"
+      .grid-x.grid-margin-x.mb10
+        .cell.small-3.medium-3.large-3
+          %span= t("settings.institution_covenants.shared.form.roa")
+        .cell.small-4.medium-4.large-4
+          %strong= t("actual")
+          %br
+            - if setting.roa.present?
+              = "#{setting.roa} %"
+        .cell.small-4.medium-4.large-4
+          %strong= t("limit")
+          %br
+            - if setting.roa_limit.present?
+              = "#{setting.roa_limit} %"
+      .grid-x.grid-margin-x.mb10
+        .cell.small-3.medium-3.large-3
+          %span= t("settings.institution_covenants.shared.form.adj_roa")
+        .cell.small-4.medium-4.large-4
+          %strong= t("actual")
+          %br
+            - if setting.adj_roa.present?
+              = "#{setting.adj_roa} %"
+        .cell.small-4.medium-4.large-4
+          %strong= t("limit")
+          %br
+            - if setting.adj_roa_limit.present?
+              = "#{setting.adj_roa_limit} %"
+      .grid-x.grid-margin-x.mb10
+        .cell.small-3.medium-3.large-3
+          %span= t("settings.institution_covenants.shared.form.open_fx_exposure")
+        .cell.small-4.medium-4.large-4
+          %strong= t("actual")
+          %br
+            - if setting.open_fx_exposure.present?
+              = "#{setting.open_fx_exposure} %"
+        .cell.small-4.medium-4.large-4
+          %strong= t("limit")
+          %br
+            - if setting.open_fx_exposure_limit.present?
+              = "#{setting.open_fx_exposure_limit} %"
+      .grid-x.grid-margin-x.mb10
+        .cell.small-3.medium-3.large-3
+          %span= t("settings.institution_covenants.shared.form.open_loan_position")
+        .cell.small-4.medium-4.large-4
+          %strong= t("actual")
+          %br
+            - if setting.open_loan_position.present?
+              = "#{setting.open_loan_position} %"
+        .cell.small-4.medium-4.large-4
+          %strong= t("limit")
+          %br
+            - if setting.open_loan_position_limit.present?
+              = "#{setting.open_loan_position_limit} %"
+      .grid-x.grid-margin-x.mb10
+        .cell.small-3.medium-3.large-3
+          %span= t("settings.institution_covenants.shared.form.car")
+        .cell.small-4.medium-4.large-4
+          %strong= t("actual")
+          %br
+            - if setting.car.present?
+              = "#{setting.car} %"
+        .cell.small-4.medium-4.large-4
+          %strong= t("limit")
+          %br
+            - if setting.car_limit.present?
+              = "#{setting.car_limit} %"
+      .grid-x.grid-margin-x.mb10
+        .cell.small-3.medium-3.large-3
+          %span= t("settings.institution_covenants.shared.form.deposits_liabilities")
+        .cell.small-4.medium-4.large-4
+          %strong= t("actual")
+          %br
+            - if setting.deposits_liabilities.present?
+              = "#{setting.deposits_liabilities} %"
+        .cell.small-4.medium-4.large-4
+          %strong= t("limit")
+          %br
+            - if setting.deposits_liabilities_limit.present?
+              = "#{setting.deposits_liabilities_limit} %"
+      .grid-x.grid-margin-x.mb10
+        .cell.small-3.medium-3.large-3
+          %span= t("settings.institution_covenants.shared.form.maturity_matching_if_applicable")
+        .cell.small-4.medium-4.large-4
+          %strong= t("actual")
+          %br
+            - if setting.maturity_matching_if_applicable.present?
+              = "#{setting.maturity_matching_if_applicable} %"
+        .cell.small-4.medium-4.large-4
+          %strong= t("limit")
+          %br
+            - if setting.maturity_matching_if_applicable_limit.present?
+              = "#{setting.maturity_matching_if_applicable_limit} %"
+      .grid-x.grid-margin-x.mb10
+        .cell.small-3.medium-3.large-3
+          %span= t("settings.institution_covenants.shared.form.liquid_assets_deposits_if_applicable")
+        .cell.small-4.medium-4.large-4
+          %strong= t("actual")
+          %br
+            - if setting.liquid_assets_deposits_if_applicable.present?
+              = "#{setting.liquid_assets_deposits_if_applicable} %"
+        .cell.small-4.medium-4.large-4
+          %strong= t("limit")
+          %br
+            - if setting.liquid_assets_deposits_if_applicable_limit.present?
+              = "#{setting.liquid_assets_deposits_if_applicable_limit} %"
+      .grid-x.grid-margin-x.mb10
+      .grid-x.grid-margin-x.mb10
+        .cell.auto
+        .cell.small-12.medium-3.large-3
+          = link_to "Delete", "fund_settings_institutions", class: "cta cta_right cta_warning ml5", id: "delete-setting"
+        .cell.small-12.medium-3.large-3
+          = link_to "Edit", edit_fund_settings_institution_institution_covenant_path(id: setting.id), class: "cta ml5 mb5"
+        .cell.auto
+
+  = render partial: "settings/shared/delete", locals: {setting: setting, setting_name: resource_name}

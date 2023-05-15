@@ -1,0 +1,5 @@
+ID_TypeOfLoan,TYPE_OF_LOAN_NAME,CREATION_DATE,CREATED_BY,MODIFICATION_DATE,MODIFIED_BY
+1,Add.Exp.,16-5-2018 14:47:44,guillaume.marois,16-5-2018 14:48:39,guillaume.marois
+3,New,3-5-2018 14:35:30,03/05/2018 14:35:30,3-5-2018 14:35:32,guillaume.marois
+5,Renewal,3-5-2018 14:35:30,,,
+6,Renewal/ Add.Exp.,31-7-2018 14:27:45,,,

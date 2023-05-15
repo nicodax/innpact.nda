@@ -1,0 +1,10 @@
+.grid-x
+  .cell.medium-6
+    - if title.present?
+      %h1.mb0= title
+    - if subtitle.present?
+      .subtitle.primary{data: {element_purpose: "subtitle"}}= subtitle
+  .cell.medium-6
+    - links.each do |link|
+      = link_to link[:label], link[:path], class: "cta cta_right #{link[:class]}", method: link[:method], id: link[:id]
+%hr/

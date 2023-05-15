@@ -1,0 +1,7 @@
+= link_to "Edit", fund_settings_institution_institution_specific_breakdown_edit_path(fund_id: fund.id, institution_id: institution.id), class: "cta text-center mb5"
+
+= render partial: "settings/institutions/portfolio_breakdown/mef_specific", locals: {institution: setting}
+&nbsp
+= render partial: "settings/institutions/portfolio_breakdown/distribution_by_sector", locals: {institution: setting}
+&nbsp
+= render partial: "settings/institutions/portfolio_breakdown/distribution_by_loan_purpose", locals: {institution: setting}

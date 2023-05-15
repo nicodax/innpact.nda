@@ -1,0 +1,30 @@
+%p= t("mailers.shared.dear_team")
+%p= t("mailers.system_loan_status_update_failed.intro")
+%table.archive_failed_table
+  %tr
+    %th= t("mailers.system_archive_failed.archive_v_loans")
+    %th= t("mailers.system_archive_failed.archive_cash_flows")
+    %th= t("mailers.system_archive_failed.archive_v_institutions")
+    %th= t("mailers.system_archive_failed.archive_v_institutions_covenants")
+  %tr
+    -if @not_processed_value_by_archive[:archive_v_loans].empty?
+      %td= t("mailers.system_archive_failed.no_missing_data")
+    -else
+      %td= @not_processed_value_by_archive[:archive_v_loans]
+
+    -if @not_processed_value_by_archive[:archive_cash_flows].empty?
+      %td= t("mailers.system_archive_failed.no_missing_data")
+    -else
+      %td= @not_processed_value_by_archive[:archive_cash_flows]
+
+    -if @not_processed_value_by_archive[:archive_v_institutions].empty?
+      %td= t("mailers.system_archive_failed.no_missing_data")
+    -else
+      %td= @not_processed_value_by_archive[:archive_v_institutions]
+
+    -if @not_processed_value_by_archive[:archive_v_institutions_covenants].empty?
+      %td= t("mailers.system_archive_failed.no_missing_data")
+    -else
+      %td= @not_processed_value_by_archive[:archive_v_institutions_covenants]
+
+%p= t("mailers.system_archive_failed.question_comment")

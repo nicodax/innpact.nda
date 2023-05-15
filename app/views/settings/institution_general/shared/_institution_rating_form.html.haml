@@ -1,0 +1,30 @@
+.grid-x.grid-margin-x
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    %h4= t('rating')
+
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    %span= t('settings.rating.shared.form.as_of')
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    = f.input :as_of, label: false, as: 'date_picker'
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    %span= t('settings.rating.shared.form.external_rating')
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    = f.input :external_rating, label: false, input_html: { "data-tooltip" => true, :class => "has-tip", :title => t(".tooltip_external_rating") }
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    %span= t('settings.rating.shared.form.external_rating_agency')
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    = f.input :external_rating_agency, label: false, collection: InstitutionRating.rating_agencies_options, input_html: { "data-tooltip" => true, :class => "has-tip", :title => t(".tooltip_external_rating_agency") }
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    %span= t('settings.rating.shared.form.internal_credit_risk_rating')
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    = f.input :internal_credit_risk_rating, label: false, input_html: { "data-tooltip" => true, :class => "has-tip", :title => t(".tooltip_ia_esg_rating") }
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    %span= t('settings.rating.shared.form.probability_of_default')
+  .cell.small-6.medium-6.large-6.grid-x.align-top
+    = f.input :probability_of_default, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format two_digits_percentage", :title => t(".tooltip_probability_of_default") }
+    .input-group-label= "%"
+  &nbsp;
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.auto.cta_center
+      = f.submit t('settings.shared.submit'), class: "cta"
+%hr

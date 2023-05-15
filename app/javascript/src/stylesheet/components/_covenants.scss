@@ -1,0 +1,84 @@
+.btn_import_covenant {
+	overflow: hidden;
+	padding: 8px 15px !important;
+	position: relative;
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+#import_covenant_file {
+	background: white;
+	cursor: pointer;
+	display: block;
+	filter: alpha(opacity=0);
+	opacity: 0;
+	outline: none;
+	padding: 40px;
+	position: absolute;
+	right: 0;
+	text-align: left;
+	top: 0;
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+.cta_submit_covenant {
+	background: none !important;
+	color: inherit !important;
+	border: none !important;
+	padding: 0 !important;
+	font: inherit !important;
+	cursor: pointer !important;
+	outline: inherit !important;
+}
+
+.covenant_lists {
+	ul {
+		margin: 0 0 10px 0;
+	}
+	li {
+		margin: 0 0 10px 0;
+	}
+}
+
+.institution_card {
+	padding: 10px;
+	background-color: snow;
+	border: 2px solid $primary;
+	border-radius: 6px;
+}
+
+.institution_card_error {
+	padding: 10px;
+	background-color: #fc6565;
+	border: 2px solid $warning;
+	border-radius: 6px;
+	color: snow;
+	a {
+		color: snow;
+		text-decoration: none;
+	}
+}
+
+#import_covenant_error_list {
+	margin: 0px;
+	padding: 0px;
+	li {
+		margin: 0px;
+		padding: 0px;
+	}
+}
+li[data-error] {
+	color: $warning;
+	font-weight: bold;
+}
+
+.import_covenant_modal {
+	display: none;
+	font-size: small;
+	p {
+		white-space: pre-line;
+	}
+}

@@ -1,0 +1,40 @@
+.c-tab{
+  border-bottom: 1px solid red;
+  &__item{
+
+  }
+}
+
+.tabs{
+  border-top-left-radius: 0.4em;
+  border-top-right-radius: 0.4em;
+}
+
+.tabs-title{
+  a{
+    color: $primary;
+    border-top-left-radius: 0.4em;
+    border-top-right-radius: 0.4em;
+  }
+
+  &.is-active{
+    a{
+      background-color: $primary;
+      color: $snow;
+    }
+  }
+}
+
+.tabs-panel{
+  max-height: 480px;
+  overflow-y: scroll;
+}
+
+.c-tab-list{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  &__item{
+
+  }
+}

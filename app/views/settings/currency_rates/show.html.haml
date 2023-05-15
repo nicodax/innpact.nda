@@ -1,0 +1,26 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {t("settings.currencies.breadcrumb_currencies") => fund_settings_currencies_path}, current_topic: setting.display_name}
+= render partial: "settings/currency_rates/shared/header"
+%hr
+  .grid-x.grid-padding-x
+    
+    -# = render partial: "settings/currency_rates/shared/index"
+    .cell.small-12.medium-4
+      %h2= setting.name
+      %ul
+        %li
+          %strong Name :
+          = setting.name
+        %li
+          %strong Rate :
+          = number_with_precision(setting.rate, precision: 2, delimiter: ",")
+        %li
+          %strong Creation Date :
+          = setting.created_at.to_date
+        %li
+          %strong Last updated :
+          = setting.updated_at.to_date
+      .cell.small-12
+        = link_to "Delete", "#", class: "cta cta_right cta_warning ml5", id: "delete-setting"
+        = link_to "Edit", edit_fund_settings_currency_currency_rate_path(id: setting.id), class: "cta ml5 mb5"
+
+= render partial: "settings/shared/delete", locals: {setting: setting, setting_name: resource_name}

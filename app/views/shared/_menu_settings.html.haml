@@ -1,0 +1,24 @@
+.menu_hover
+  - if !current_user.reader?
+    %h3= t("shared.menu")
+    .grid-x
+      -# - {"institutions" => Institution,
+      -#     "users" => User,
+      -#     "countries" => Country,
+      -#     "institution_groups" => InstitutionGroup,
+      -#     "limits" => DefaultLimit,
+      -#     "currencies" => Currency,
+      -#     "repayment_types" => RepaymentType,
+      -#     "loan_types" => LoanType,
+      -#     "country_groups" => CountryGroup,
+      -#     "pools" => Pool,
+      -#     "statuses" => Status}.sort_by{|k,v| t(".#{k}")}.each do |k,v|
+      -#   - if policy(v).index?
+      -#     %a.small-12.medium-6{href: url_for(controller: "settings/#{k}")}= t(".#{k}")
+      -#%a.small-12.medium-6{href: url_for(controller: "settings/countries")}= t(".settings")
+
+  .grid-x
+    = link_to "My profile", profile_path, class: "cell small-12 text-right"
+    = link_to destroy_user_session_path, method: :delete, class: "logout cell small-12 text-right" do
+      = image_tag "logout.svg"
+      %span= t("shared.logout")

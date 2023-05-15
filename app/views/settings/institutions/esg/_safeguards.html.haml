@@ -1,0 +1,56 @@
+- institution_esg_safeguards = institution.last_institution_esg_safeguard
+.grid-x
+  .cell.small-12.medium-12.large-12
+    .cell.small-12.medium-6.large-6
+      %h2= t("settings.esg_safeguard.shared.form.confirmation_of_compliance_with_SFDR_safeguards")
+    - if true || institution_esg_safeguards.present?
+      .cell.small-12.medium-6.large-6
+        .grid-x
+          .cell.small-12.medium-6.large-6
+            %strong= t("settings.esg_safeguard.shared.form.as_of")
+          .cell.auto.field_value
+            = institution.esg_safeguard_as_of.try(:strftime, "%d-%m-%Y")
+        .grid-x
+          .cell.small-12.medium-6.large-6
+            %strong= t("settings.esg_safeguard.shared.form.compliance_with_fund_exclusion_list")
+          .cell.auto.field_value
+            = InstitutionEsgSafeguard.safeguard_boolean_map[institution.compliance_with_fund_exclusion_list]
+        .grid-x
+          .cell.small-12.medium-6.large-6
+            %strong= t("settings.esg_safeguard.shared.form.compliance_with_international_labour_organization_standards")
+          .cell.auto.field_value
+            = InstitutionEsgSafeguard.safeguard_boolean_map[institution.compliance_with_international_labour_organization_standards]
+      
+        .grid-x
+          .cell.small-12.medium-6.large-6
+            %strong= t("settings.esg_safeguard.shared.form.compliance_with_international_bill_of_human_rights")
+          .cell.auto.field_value
+            = InstitutionEsgSafeguard.safeguard_boolean_map[institution.compliance_with_international_bill_of_human_rights]
+      
+        .grid-x
+          .cell.small-12.medium-6.large-6
+            %strong= t("settings.esg_safeguard.shared.form.compliance_with_guiding_principles_on_business_and_human_rights")
+          .cell.auto.field_value
+            = InstitutionEsgSafeguard.safeguard_boolean_map[institution.compliance_with_guiding_principles_on_business_and_human_rights]
+  
+        .grid-x
+          .cell.small-12.medium-6.large-6
+            %strong= t("settings.esg_safeguard.shared.form.compliance_with_oecd_guidelines_for_multinational_enterprises")
+          .cell.auto.field_value
+            = InstitutionEsgSafeguard.safeguard_boolean_with_na_map[institution.compliance_with_oecd_guidelines_for_multinational_enterprises]
+        
+        .grid-x
+          .cell.small-12.medium-6.large-6
+            %strong= t("settings.esg_safeguard.shared.form.compliance_with_national_standards_and_law")
+          .cell.auto.field_value
+            = InstitutionEsgSafeguard.safeguard_boolean_map[institution.compliance_with_national_standards_and_law]
+      
+        .grid-x
+          .cell.small-12.medium-6.large-6
+            %strong= t("settings.esg_safeguard.shared.form.compliance_with_client_protection_principles")
+          .cell.auto.field_value
+            = InstitutionEsgSafeguard.safeguard_boolean_map[institution.compliance_with_client_protection_principles]
+    - else 
+      .cell.small-12.medium-12.large-12
+        = link_to t("settings.esg_safeguard.new.esg_safeguard_new_button"), new_fund_settings_institution_institution_esg_safeguard_path(fund_id: fund.id,
+          institution_id: institution.id), class: "cta text-center mb5"

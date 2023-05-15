@@ -1,0 +1,10 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {}, current_topic: "Limits"}
+= render partial: "settings/limits/shared/header"
+%hr
+  .grid-x.grid-padding-x
+    
+    = render partial: "settings/limits/shared/index"
+    .cell.small-12.medium-4
+      -# %h2 CREATE
+      -# = simple_form_for @new_institution, url: fund_settings_institutions_path do |f|
+      -#   = render partial: "settings/institutions/shared/form", locals: {f: f}

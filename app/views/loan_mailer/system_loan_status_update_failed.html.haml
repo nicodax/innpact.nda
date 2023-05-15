@@ -1,0 +1,22 @@
+%p= t("mailers.shared.dear_team")
+%p= t("mailers.system_loan_status_update_failed.intro")
+
+- @loan_failed_array.each do |loan|
+  %p= t("mailers.system_loan_status_update_failed.loan_updated", innpact_loan_id: loan[:loan].innpact_loan_id)
+  %table.loan_update_table
+    %tr
+      %th= t("mailers.loan_update.noval")
+      %th= t("mailers.system_loan_status_update_failed.im")
+      %th= t("mailers.loan_update.mfi_name")
+      %th= t("mailers.loan_update.previous_status")
+      %th= t("mailers.loan_update.intended_status")
+      %th= t('mailers.errors')
+    %tr
+      %td= link_to loan[:noval], fund_loan_url(fund_id: loan[:loan].fund.id, id: loan[:loan].id), target: "_blank"
+      %td= loan[:im_group_name]
+      %td= loan[:mfi_name]
+      %td= loan[:last_loan_version_status]
+      %td= loan[:loan_version_status]
+      %td= loan[:errors]
+
+%p= t("mailers.system_loan_update.question_comment")

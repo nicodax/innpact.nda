@@ -1,0 +1,14 @@
+.cell.small-12.medium-4.section_3
+  .mb20
+    %a.cta{href: fund_settings_loan_types_path} Create
+  %h2 Loan Types
+  .app-dashboard-search-bar-container
+    -# %input.app-dashboard-search.ml0{:placeholder => "Search", :type => "search"}
+    -#   %i.app-dashboard-search-icon.fa.fa-search.pr30
+    - if !setting_collection.empty?
+      - setting_collection.each do |loan_type|
+        .mt10.mb10
+          %span.top{loan_type.description ? { data: {tooltip: ""}} : {}, title: loan_type.description}
+            %a{href: fund_settings_loan_type_path(id: loan_type.id), class: ("bold" if setting.try(:id) == loan_type.id)}= loan_type.name
+    - else
+      %p No loan_types registered yet.

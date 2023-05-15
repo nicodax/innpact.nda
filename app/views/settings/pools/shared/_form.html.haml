@@ -1,0 +1,27 @@
+.grid-x.grid-margin-x.flex-dir-column
+  .cell.small-12.medium-8
+    = f.input :name, label: t('settings.pools.shared._form.name')
+    = f.input :subscription_date, as: 'date_picker', label: t('settings.pools.shared._form.subscription_date')
+    = f.input :has_maturity_date, label: t('settings.pools.shared._form.has_maturity_date'), input_html: { data: {:toggle => 'maturity_date'} }
+    #maturity_date.hidden{data: {:toggler => '.hidden'}}
+      = f.input :maturity_date, as: 'date_picker', label: t('settings.pools.shared._form.maturity_date'), nclude_blank: true, id: "JE VEUX SAVOIR"
+    = f.input :required_specific_reporting, label: t('settings.pools.shared._form.required_specific_reporting'), input_html: { data: {:toggle => 'specific_reporting'} }
+    -#Back-end validation still to be done
+    #specific_reporting.hidden{data: {:toggler => '.hidden'}}
+      %strong= t('settings.pools.shared._form.upload_specific_reporting')
+      = f.simple_fields_for :pool_documents, f.object.pool_documents.build do |ft|
+        = ft.file_field :document, required: false, accept: 'pdf'
+        = ft.hidden_field :document_cache
+    = f.input :amount, label: t('settings.pools.shared._form.amount'), as: "string", input_html: { class: "thousand_currencies_formats" }
+    = f.label :currency_id, t("settings.pools.shared._form.currency")
+    = f.collection_select :currency_id, fund.currencies, :id, :short_name
+  .cell.mb2
+    - if setting.is_targeted
+      = render partial: "settings/pools/shared/restrictions", locals: {f: f}
+
+  .cell.small-12
+    %a.cta.cta_grey#reset-form= t('settings.pools.shared._form.cancel')
+    = f.submit t('settings.pools.shared._form.save'), class: "cta ml5"
+
+= javascript_pack_tag 'pools'
+= javascript_pack_tag 'cleave_form_format'

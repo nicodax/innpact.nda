@@ -1,0 +1,58 @@
+version: "3.8"
+
+# Configurations shared by multiple services
+x-app_common: &app_common
+  build:
+    context: ../..
+    dockerfile: ops/test/Dockerfile
+  tmpfs:
+    - /tmp
+  volumes:
+    - ../..:/app:cached
+    - app_cache:/app/tmp/cache
+    - node_modules:/app/node_modules
+    - packs:/app/public/packs
+  env_file:
+    - app_env
+    - app_env.secrets
+  labels:
+    com.dnsdock.ignore: '1'
+  depends_on:
+    - db
+
+x-backend: &backend
+  <<: *app_common
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    volumes:
+      - db_data:/var/opt/mssql
+    environment:
+      DATABASE_USERNAME: 'sa'
+      SA_PASSWORD: '1Secure*Password1'
+      ACCEPT_EULA: 'Y'
+
+  assets:
+    <<: *app_common
+    environment:
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+      RAILS_ENV: development
+    labels:
+      com.dnsdock.ignore: '1'
+    command: bash -c "yarn install && ./bin/webpack-dev-server"
+
+  app:
+    <<: *backend
+    environment:
+      WEBPACKER_DEV_SERVER_HOST: assets
+      WEBPACKER_DISABLE_INTEGRITY_CHECK: '1'
+    depends_on:
+      - db
+      - assets
+
+volumes:
+  db_data:
+  node_modules:
+  app_cache:
+  packs:

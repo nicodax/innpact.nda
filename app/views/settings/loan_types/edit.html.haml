@@ -1,0 +1,12 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {"Loan Types" => fund_settings_loan_types_path}, current_topic: setting.name}
+= render partial: "settings/loan_types/shared/header"
+
+%hr
+  .grid-x.grid-padding-x
+    
+    = render partial: "settings/loan_types/shared/index"
+    .cell.small-12.medium-4
+      %h2 EDIT
+      = simple_form_for setting, url: fund_settings_loan_type_path(id: setting.id) do |f|
+        = render 'shared/form_error_messages', object: f.object
+        = render partial: "settings/loan_types/shared/form", locals: {f: f}

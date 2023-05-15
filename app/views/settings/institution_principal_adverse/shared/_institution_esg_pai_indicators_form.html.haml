@@ -1,0 +1,100 @@
+.grid-x.grid-margin-x
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    %h4= t('settings.esg_pai_indicator.shared.header.esg_pai_indicator_main_title')
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    %span= t('settings.esg_pai_indicator.shared.form.as_of')
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    = f.input :as_of, label: false, as: 'date_picker'
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    %span= t('settings.esg_pai_indicator.shared.form.ghg_emissions')
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+  .cell.small-6.medium-6.large-6.grid-x.align-middle.subtitle
+    %span= t('settings.esg_pai_indicator.shared.form.scope_1_emissions')
+  .cell.small-6.medium-6.large-6.grid-x.align-top
+    = f.input :scope_1_emissions, label: false, as: :string, value: true, checked: false, input_html: { :class => "input-group-field seven_digits_thousands_formats" }
+    .input-group-label= 'tCO²e / million USD'
+  .cell.small-6.medium-6.large-6.grid-x.align-middle.subtitle
+    %span= t('settings.esg_pai_indicator.shared.form.scope_2_emissions')
+  .cell.small-6.medium-6.large-6.grid-x.align-top
+    = f.input :scope_2_emissions, label: false, as: :string, value: true, checked: false, input_html: { :class => "input-group-field seven_digits_thousands_formats" }
+    .input-group-label= 'tCO²e / million USD'
+  .cell.small-6.medium-6.large-6.grid-x.align-middle.subtitle
+    %span= t('settings.esg_pai_indicator.shared.form.scope_3_emissions')
+  .cell.small-6.medium-6.large-6.grid-x.align-top
+    = f.input :scope_3_emissions, label: false, as: :string, value: true, checked: false, input_html: { :class => "input-group-field seven_digits_thousands_formats" }
+    .input-group-label= 'tCO²e / million USD'
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    %span= t('settings.esg_pai_indicator.shared.form.carbon_footprint')
+  .cell.small-6.medium-6.large-6.grid-x.align-top
+    = f.input :carbon_footprint, label: false, as: :string, value: true, checked: false, input_html: { :class => "input-group-field seven_digits_thousands_formats" }
+    .input-group-label= 'tCO²e / million USD'
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    %span= t('settings.esg_pai_indicator.shared.form.ghg_intensity_investee_companies')
+  .cell.small-6.medium-6.large-6.grid-x.align-top
+    = f.input :ghg_intensity_investee_companies, label: false, as: :string, value: true, checked: false, input_html: { :class => "input-group-field seven_digits_thousands_formats" }
+    .input-group-label= 'tCO²e / million USD'
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    %span= t('settings.esg_pai_indicator.shared.form.exposure_companies_active_in_fossil_fuel_sector')
+  .cell.small-6.medium-6.large-6.grid-x.align-top
+    = f.input :exposure_companies_active_in_fossil_fuel_sector, label: false, as: :string, value: true, checked: false, input_html: { :class => "has-tip input-group-field cleave_format seven_digits_percentage" }
+    .input-group-label= '%'
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    %span= t('settings.esg_pai_indicator.shared.form.share_of_non_renewable_energy_consumption_and_production')
+  .cell.small-6.medium-6.large-6.grid-x.align-top
+    = f.input :share_of_non_renewable_energy_consumption_and_production, label: false, as: :string, value: true, checked: false, input_html: { :class => "has-tip input-group-field cleave_format seven_digits_percentage" }
+    .input-group-label= '%'
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    %span= t('settings.esg_pai_indicator.shared.form.energy_consumption_intensity_per_high_impact_climate_sector')
+  .cell.small-6.medium-6.large-6.grid-x.align-top
+    = f.input :energy_consumption_intensity_per_high_impact_climate_sector, label: false, as: :string, value: true, checked: false, input_html: { :class => "input-group-field seven_digits_thousands_formats" }
+    .input-group-label= 'GWh/ million USD'
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    %span= t('settings.esg_pai_indicator.shared.form.activities_negatively_affecting_biodiversity_sensitive_areas')
+  .cell.small-6.medium-6.large-6.grid-x.align-top
+    = f.input :activities_negatively_affecting_biodiversity_sensitive_areas, label: false, as: :string, value: true, checked: false, input_html: { :class => "has-tip input-group-field cleave_format seven_digits_percentage" }
+    .input-group-label= '%'
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    %span= t('settings.esg_pai_indicator.shared.form.emissions_to_water')
+  .cell.small-6.medium-6.large-6.grid-x.align-top
+    = f.input :emissions_to_water, label: false, as: :string, value: true, checked: false, input_html: { :class => "input-group-field seven_digits_thousands_formats" }
+    .input-group-label= 'tCO²e / million USD'
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    %span= t('settings.esg_pai_indicator.shared.form.hazardous_waste_ratio')
+  .cell.small-6.medium-6.large-6.grid-x.align-top
+    = f.input :hazardous_waste_ratio, label: false, as: :string, value: true, checked: false, input_html: { :class => "input-group-field seven_digits_thousands_formats" }
+    .input-group-label= 't/million USD'
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    %span= t('settings.esg_pai_indicator.shared.form.violations_of_un_global_compact_principles_and_oecd_guidelines_for_multinational_enterprises')
+  .cell.small-6.medium-6.large-6.grid-x.align-top
+    = f.input :violations_of_un_global_compact_principles_and_oecd_guidelines_for_multinational_enterprises, label: false, as: :string, value: true, checked: false, input_html: { :class => "has-tip input-group-field cleave_format seven_digits_percentage" }
+    .input-group-label= '%'
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    %span= t('settings.esg_pai_indicator.shared.form.lack_of_processes_and_compliance_mechanisms_to_monitor_compliance_with_un_global_compact_principles')
+  .cell.small-6.medium-6.large-6.grid-x.align-top
+    = f.input :lack_of_processes_and_compliance_mechanisms_to_monitor_compliance_with_un_global_compact_principles, label: false, as: :string, value: true, checked: false, input_html: { :class => "has-tip input-group-field cleave_format seven_digits_percentage" }
+    .input-group-label= '%'
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    %span= t('settings.esg_pai_indicator.shared.form.unadjusted_gender_pay_gap')
+  .cell.small-6.medium-6.large-6.grid-x.align-top
+    = f.input :unadjusted_gender_pay_gap, label: false, as: :string, value: true, checked: false, input_html: { :class => "has-tip input-group-field cleave_format seven_digits_percentage" }
+    .input-group-label= '%'
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    %span= t('settings.esg_pai_indicator.shared.form.board_gender_diversity')
+  .cell.small-6.medium-6.large-6.grid-x.align-top
+    = f.input :board_gender_diversity, label: false, as: :string, value: true, checked: false, input_html: { :class => "has-tip input-group-field cleave_format seven_digits_percentage" }
+    .input-group-label= '%'
+  .cell.small-6.medium-6.large-6.grid-x.align-middle
+    %span= t('settings.esg_pai_indicator.shared.form.exposure_to_controversial_weapons')
+  .cell.small-6.medium-6.large-6.grid-x.align-top
+    = f.input :exposure_to_controversial_weapons, label: false, as: :string, value: true, checked: false, input_html: { :class => "has-tip input-group-field cleave_format seven_digits_percentage" }
+    .input-group-label= '%'
+    
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    &nbsp;
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.auto.cta_center
+      = f.submit t('settings.shared.submit'), class: "cta"
+%hr
+
+
+

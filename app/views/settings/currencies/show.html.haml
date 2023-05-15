@@ -1,0 +1,59 @@
+
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {t("settings.currencies.breadcrumb_currencies") => fund_settings_currencies_path}, current_topic: setting.short_name}
+= render partial: "settings/currencies/shared/header"
+%hr
+  .grid-x.grid-padding-x
+    .cell.small-12.medium-7.large-7.section_3
+      .mb20
+        %a.cta{href: new_fund_settings_currency_path}= t("settings.shared.create")
+        %a.cta{href: upload_fund_settings_currencies_path}= t(".update_currency_rates")
+      = render partial: "settings/currencies/shared/index"
+    .cell.small-12.medium-5
+      %h2= setting.name
+      %ul.ml0
+        %li
+          %strong=t(".short_name")
+          = setting.short_name
+        %li
+          %strong=t(".full_name")
+          = setting.name
+        %li
+          %strong=t(".priority")
+          = setting.priority
+        %li
+          %strong= t(".current_rate")
+          - if setting.currency_rates.current.empty?
+            = t(".missing_current_rate")
+          - else
+            = number_with_precision(setting.current_rate, precision: 2, delimiter: ",")
+        %li
+          .grid-x
+            .cell.small-4
+              %strong= "#{t('.countries')} :"
+              - if !setting.countries.empty?
+                .cell.small-8
+                  - setting.countries.order('name ASC').each do |country|
+                    %p= "#{country.name}"
+              - else
+                .cell.small-12
+                  = t(".no_countries")
+        %li
+          %strong= t(".current_timestamp")
+          - if setting.currency_rates.empty?
+            = t(".missing_current_rate")
+          - else
+            = setting.current_timestamp
+      .cell.small-12
+        = link_to "Delete", "#", class: "cta cta_warning ml5", id: "delete-setting"
+        = link_to "Edit", edit_fund_settings_currency_path(id: setting.id), class: "cta ml5 mb5"
+        = link_to "Update Currency Rate", new_fund_settings_currency_currency_rate_path(currency_id: setting.id), class: "cta ml5 mb5"
+        %a.cta{href: fund_settings_currencies_path, class: "cta cta_grey ml5"} Cancel
+
+      - unless setting.currency_rates.expired.empty?
+        .cell.small-12
+          %h3 Rate history
+          %ul
+            - setting.currency_rates.expired.each do |expired_rate|
+              %li= expired_rate.history_display_name
+
+= render partial: "settings/shared/delete", locals: {setting: setting, setting_name: resource_name}

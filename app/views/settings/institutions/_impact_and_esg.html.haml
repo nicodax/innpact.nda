@@ -1,0 +1,12 @@
+.grid-x.grid-margin-x
+  .cell.small-12
+    %ul#institution_tabs.tabs{"data-tabs" => "", 'data-deep-link' => 'true'}
+      - %w(positive_impact esg principal_adverse_impact).each do |tab_subject|
+        %li.tabs-title{"class" => tab_subject == (params["selected_tab"] || "positive_impact") ? "is-active" : nil}
+          %a{"class" => tab_subject == (params["selected_tab"] || "general") ? "aria-selected" : nil, :href => "##{tab_subject}_tab", "data-tabs-target" => "#{tab_subject}_tab", :data => {element_purpose: "#{tab_subject}_tab"}}
+            = t("settings.institutions.tabs.#{tab_subject}")
+
+    .tabs-content{"data-tabs-content" => "institution_tabs"}
+      - %w(positive_impact esg principal_adverse_impact).each do |tab_subject|
+        .tabs-panel{"id" => "#{tab_subject}_tab", class: tab_subject == (params["selected_tab"] || "positive_impact") ? "is-active table_height" : nil}
+          = render partial: "#{tab_subject}", locals: {institution: setting}

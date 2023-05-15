@@ -1,0 +1,7 @@
+%tr.text-center
+  %th= t("activerecord.attributes.repayment_calendar_lines.repayment_date")
+  %th= t("activerecord.attributes.repayment_calendar_lines.original_amount")
+  %th= t("activerecord.attributes.repayment_calendar_lines.received_amount")
+  %th= t("activerecord.attributes.repayment_calendar_lines.repayment_status")
+  - if type == RepaymentCalendarLine::REPAYMENT_TYPE_PRINCIPAL
+    %th= t("activerecord.attributes.repayment_calendar_lines.provision")

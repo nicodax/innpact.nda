@@ -1,0 +1,54 @@
+- list_pai_environment = institution.try(:last_additional_pais_environment)
+.grid-x.grid-margin-x
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    %h4{id: 'additional_pais_environments'}= t('settings.additional_pais_environments.shared.header.additional_pais_environments_main_title')
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .grid-x
+      - list_pai_environment.each do |pai_environment|
+        - if pai_environment[:as_of] != nil
+          .cell.small-10.medium-10.large-10.grid-x.align-middle
+            .cell.small-12.medium-12.large-12
+              .grid-x
+                .cell.small-4.medium-4.large-4
+                  = t("settings.additional_pais_environments.shared.form.as_of")
+                .cell.auto
+                  = pai_environment.try(:as_of).try(:strftime, "%d/%m/%Y")
+            .cell.small-12.medium-12.large-12
+              .grid-x
+                .cell.small-4.medium-4.large-4
+                  = t("settings.additional_pais_environments.shared.form.environment_pai_reported")
+                .cell.auto
+                  = AdditionalPaisEnvironment.additional_pais_environment_map[pai_environment.try(:environment_pai_reported)]
+            .cell.small-12.medium-12.large-12
+              .grid-x
+                .cell.small-4.medium-4.large-4
+                  = t("settings.additional_pais_environments.shared.form.environment_pai_value")
+                .cell.auto
+                  = format_pai_with_unit(pai_environment.try(:environment_pai_value), AdditionalPaisEnvironment.additional_pai_environment_units_map[pai_environment.try(:environment_pai_reported)])
+            &nbsp
+          .cell.small-2.medium-2.large-2.auto.grid-x.align-middle.cta_center
+            = link_to t('settings.additional_pais_environments.delete.delete'), fund_settings_institution_institution_principal_adverse_delete_environment_pai_path(fund_id: fund.id, institution_id: institution.id, environment_pai_id: pai_environment.id), method: :post, class: 'button alert', data: { confirm: t('settings.additional_pais_environments.delete.delete_confirmation') }
+    &nbsp
+  .cell.small-10.medium-10.large-10.grid-x.align-middle
+    .cell.small-4.medium-4.large-4.grid-x.align-middle
+      %span= t('settings.additional_pais_environments.shared.form.as_of')
+    .cell.small-8.medium-8.large-8.grid-x.align-middle
+      = f.input :as_of, label: false, as: 'date_picker'
+    .cell.small-4.medium-4.large-4.grid-x.align-middle
+      %span= t('settings.additional_pais_environments.shared.form.environment_pai_reported')
+    .cell.small-8.medium-8.large-8.grid-x.align-middle
+      = f.input :environment_pai_reported, label: false, collection: AdditionalPaisEnvironment.additional_pais_environment_options, input_html: { "data-tooltip" => true, :class => "has-tip"}
+    .cell.small-4.medium-4.large-4.grid-x.align-middle
+      %span= t('settings.additional_pais_environments.shared.form.environment_pai_value')
+    .cell.small-8.medium-8.large-8.grid-x.align-top
+      = f.input :environment_pai_value, label: false, as: :string, value: true, checked: false, input_html: { :class => "input-group-field" }
+  .cell.auto.grid-x.align-top.cta_center
+    .cell.auto.cta_center
+      = f.button :button, t('settings.additional_pais_environments.update.add'), type: 'submit', name: 'add_another', value: 'true'
+
+  .cell.small-12.medium-12.large-12.grid-x.align-top
+    &nbsp;
+  .cell.small-12.medium-12.large-12.grid-x.align-top
+    .cell.auto.cta_center
+      = f.submit t('settings.shared.submit'), class: "cta"
+%hr

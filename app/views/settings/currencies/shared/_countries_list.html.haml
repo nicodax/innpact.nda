@@ -1,0 +1,13 @@
+.l-restriction-select.fit-content
+  %strong= "#{t('settings.currencies.shared.countries_list.countries_list')} :"
+  %ul#pools-tabs.tabs{ :data => { :tabs => ''}}
+    %li.tabs-title.is-active
+      %a{ :href => '#countries_list', :aria => { :selected => 'true'}}
+        = t('settings.pools.shared._form.countries')
+  %input.search_field#restriction_search_field{ :type => 'text', :placeholder => 'Search ...'}
+
+  .tabs-content{ :data => { :tabs => { :content => 'pools-tabs'}}}
+    #countries_list.tabs-panel.is-active
+      = f.association :countries, label: false, as: :check_boxes, collection: fund.countries.all.order('name ASC'), :item_wrapper_class => 'restriction'
+
+= javascript_pack_tag 'restriction_tabs'

@@ -1,0 +1,95 @@
+.grid-x.grid-margin-x
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.financial.shared.form.as_of')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :as_of, label: false, as: 'date_picker'
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    &nbsp
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.financial.shared.form.total_assets')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :total_assets, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_total_assets") }
+      .input-group-label= "$"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.financial.shared.form.gross_loan_portfolio')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :gross_loan_portfolio, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_gross_loan_portfolio") }
+      .input-group-label= "$"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.financial.shared.form.provision_for_loss')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :provision_for_loss, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_provision_for_loss") }
+      .input-group-label= "$"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.financial.shared.form.international_liabilities')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :international_liabilities, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_international_liabilities") }
+      .input-group-label= "$"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.financial.shared.form.domestic_liabilities')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :domestic_liabilities, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_domestic_liabilities") }
+      .input-group-label= "$"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.financial.shared.form.deposit_amount')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :deposit_amount, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_deposit_amount") }
+      .input-group-label= "$"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.financial.shared.form.liabilities')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :liabilities, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_liabilities") }
+      .input-group-label= "$"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.financial.shared.form.equity')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :equity, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_equity") }
+      .input-group-label= "$"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    &nbsp
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.financial.shared.form.revenues')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :revenues, label: false, as: "string", as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_revenues") }
+      .input-group-label= "$"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.financial.shared.form.net_income')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :net_income, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field thousand_currencies_formats", :title => t(".tooltip_net_income") }
+      .input-group-label= "$"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.financial.shared.form.net_income_distributed_as_dividends')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :net_income_distributed_as_dividends, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field input-group-field thousand_currencies_formats", :title => t(".tooltip_net_income_distributed_as_dividends") }
+      .input-group-label= "$"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    &nbsp
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.financial.shared.form.npls')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :npls, label: false, as: "string", as: "string", input_html: { :class => "input-group-field cleave_format thousand_currencies_formats" }
+      .input-group-label= "$"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.financial.shared.form.write_off')
+    .cell.small-6.medium-6.large-6.grid-x.align-top
+      = f.input :write_off, label: false, as: "string", input_html: { "data-tooltip" => true, :class => "has-tip input-group-field cleave_format thousand_currencies_formats", :title => t(".tooltip_write_off") }
+      .input-group-label= "$"
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+  &nbsp;
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.auto.cta_center
+      = f.submit t('settings.shared.submit'), class: "cta"

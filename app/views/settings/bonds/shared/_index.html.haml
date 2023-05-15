@@ -1,0 +1,14 @@
+.cell.small-12.medium-4.section_3
+  .mb20
+    %a.cta{href: fund_settings_bonds_path}= t("general.create")
+  %h2= t('activerecord.models.bond.other').capitalize
+  .app-dashboard-search-bar-container
+    -# %input.app-dashboard-search.ml0{:placeholder => "Search", :type => "search"}
+    -#   %i.app-dashboard-search-icon.fa.fa-search.pr30
+    - if !setting_collection.empty?
+      - setting_collection.each do |bond|
+        .mt10.mb10
+          %span.top{bond.description ? { data: {tooltip: ""}} : {}, title: bond.description}
+            %a{href: fund_settings_bond_path(id: bond.id), class: ("bold" if setting&.id == bond.id)}= bond.name
+    - else
+      %p= t(".no_bond_registered_yet")

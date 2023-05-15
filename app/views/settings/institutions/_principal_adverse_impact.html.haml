@@ -1,0 +1,6 @@
+= link_to "Edit", fund_settings_institution_institution_principal_adverse_edit_path(fund_id: fund.id, institution_id: institution.id), class: "cta text-center mb5"
+= render partial: "settings/institutions/principal_adverse_impact/pai_indicators", locals: {institution: setting}
+&nbsp
+= render partial: "settings/institutions/principal_adverse_impact/additional_pais_environment", locals: {institution: setting}
+&nbsp
+= render partial: "settings/institutions/principal_adverse_impact/additional_pais_social", locals: {institution: setting}

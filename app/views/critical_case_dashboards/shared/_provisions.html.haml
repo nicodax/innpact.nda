@@ -1,0 +1,45 @@
+%table{class: "stack unstriped scroll "}
+  %thead
+    %tr
+      %td #{t(".institution")} :
+      %td #{t(".loan")} :
+      %td #{t(".country")} :
+      %td #{t(".region")} :
+      %td #{t(".im_group")} :
+      %td #{t(".restructuring_case")} :
+      %td #{t(".loan_nominal")} :
+      %td #{t(".GPV")} :
+      %td #{t(".NPV")} :
+      %td #{t(".current_provision_amount")} :
+      %td #{t(".percentage_of_provisionning")} :
+      %td #{t(".date_of_last_provision")} :
+
+    - provisions_list.each do |institution, loans|
+      %tbody
+        %tr{:class => "institution_row"}
+          %td= link_to institution.name, fund_settings_institution_path(id: institution.id)
+          %td= loans.length
+          %td= institution.country.name
+          %td= institution.country_group_name
+          %td= institution.im_group.name
+          %td
+          %td
+          %td
+          %td
+          %td
+          %td= institution.formatted_current_provision_percentage
+          %td
+        - loans.each do |loan|
+          %tr{:class => ["hidden-row", "loan_row"]}
+            %td
+            %td= link_to (institution.name + " - " + loan.innpact_loan_id.to_s), fund_loan_path(id: loan.id)
+            %td
+            %td
+            %td= loan.im_group_name
+            %td= loan.restructuring
+            %td= loan.formatted_executed_nominal_amount
+            %td= loan.formatted_gross_position_value_usd
+            %td= loan.formatted_net_position_value_usd
+            %td= loan.formatted_provision_value_usd
+            %td
+            %td=loan.provision_date

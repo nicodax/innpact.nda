@@ -1,0 +1,19 @@
+.nested-fields
+  .grid-x.grid-margin-x
+    .cell.small-2= f.input :repayment_date, label: false, readonly: lock, as: 'date_picker', input_html: {min: Date.today.strftime("%Y-%m-%d"), data: {element_purpose: "repayment_date_input"}}
+    - if lock
+      .cell.small-2= f.input :repayment_type, label: false, readonly: lock, as: :string
+    - else
+      .cell.small-2= f.input :repayment_type, label: false, readonly: lock, as: :select, collection: RepaymentCalendarLine::REPAYMENT_TYPES.map{|type| [t("activerecord.attributes.repayment_calendar_lines.repayment_types.#{type}"), type]}, input_html: { data: {element_purpose: "repayment_type_input"} }
+    .cell.small-2= f.input :original_amount, label: false, readonly: lock, as: "string", input_html: { data: {element_purpose: "status_input original_amount_input"}, class: "loan_repayment_calendar_original_amount thousand_currencies_formats_repayment_date" }
+    .cell.small-2= f.input :received_amount, label: false, readonly: lock, as: "string", input_html: { data: {element_purpose: "status_input received_amount_input"}, class: "loan_repayment_calendar_received_amount thousand_currencies_formats_repayment_date" }
+    - if lock
+      .cell.small-2= f.input :status, label: false, readonly: lock, as: :string
+    - else
+      .cell.small-2= f.input :status, label: false, readonly: lock, as: :select, collection: RepaymentCalendarLine::STATUSES
+    .cell.small-1= f.input :provision, label: false, disabled: true, as: "string", input_html: { data: {element_purpose: "status_input provision_input"}, class: "loan_repayment_calendar_provision thousand_currencies_formats_repayment_date" }
+    - unless lock
+      .cell.small-1
+        = link_to_remove_association t(".remove_repayment_calendar_line"), f, class: "cta cta_warning"
+
+= javascript_pack_tag 'loan_repayment_calendar'

@@ -1,0 +1,24 @@
+.grid-x.grid-margin-x
+  .cell.small-12
+    %h2= t('.repayment_calendar')
+    = f.simple_fields_for loan.repayment_calendar do |rcf|
+      = rcf.error :base
+      .grid-x.grid-margin-x
+        .cell.small-2= t('activerecord.attributes.repayment_calendar_line.repayment_date')
+        .cell.small-2= t('activerecord.attributes.repayment_calendar_line.repayment_type')
+        .cell.small-2= t('activerecord.attributes.repayment_calendar_line.original_amount')
+        .cell.small-2= t('activerecord.attributes.repayment_calendar_line.received_amount')
+        .cell.small-2= t('activerecord.attributes.repayment_calendar_line.status')
+        .cell.small-1= t('activerecord.attributes.repayment_calendar_line.provision')
+      #repayment-calendar-lines
+        = rcf.simple_fields_for :repayment_calendar_lines do |repayment_calendar_line|
+          = render partial: "loans/shared/repayment_calendar_line_fields", locals: {f: repayment_calendar_line, lock: lock}
+        - unless lock
+          .links
+            = link_to_add_association t('.add_repayment_calendar_line'), rcf, :repayment_calendar_lines,
+              partial: "loans/shared/repayment_calendar_line_fields",
+              render_options:  {locals: { lock: lock }},
+              class: "cta mt10 add_repayment_line_button_class",
+              id: "add_repayment_line_button",
+              data: {element_purpose: "add_repayment_line_button"}
+

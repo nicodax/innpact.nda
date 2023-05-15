@@ -1,0 +1,17 @@
+.columns.small-12.medium-12.large-12
+  %ul
+    - @models.each do |model|
+      - unless instance_variable_get("@#{model.pluralize}").empty?
+        %h3= t("activerecord.models.#{model}", count: 2).capitalize
+        %ul{data: {model_name: model}}
+          %li
+            - instance_variable_get("@#{model.pluralize}").each do |record|
+              .row.recycle_row.align-middle.mb10
+                .columns.small-1.medium-1.large-1
+                  %input.mb0.select-item{:type => "checkbox", data: {item_id: record.id, item_class: record.class, selector: model+record.id.to_s}}
+                .columns.small-11.medium-5.large-7
+                  = display_deleted_record(record)
+                .columns.small-6.medium-3.large-2
+                  = link_to "Restore", '#', class: "cta", id: "restore-single-item", data: {action_id: record.id, selector: model+record.id.to_s}
+                .columns.small-6.medium-3.large-2
+                  = link_to "Delete", '#', class: "cta cta_warning", id: "destroy-single-item", data: {action_id: record.id, selector: model+record.id.to_s}

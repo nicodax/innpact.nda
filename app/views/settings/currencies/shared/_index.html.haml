@@ -1,0 +1,32 @@
+%h2= t("settings.shared.currencies")
+.grid-x.grid-margin-x.pt10
+  - if !setting_collection.empty?
+    %table{class: "stack unstriped scroll"}
+      %thead
+        %tr
+          %td #{t(".currency")} :
+          %td #{t(".current_rate")} :
+          %td{:colspan => 250} #{t(".expired_rate")} :
+
+        - setting_collection.each do |currency|
+          %tbody
+            %tr
+              %td= link_to currency.short_name, fund_settings_currency_path(id: currency.id)
+              %td
+                .table__element
+                  - current_rates = currency.current_currency_rates
+                  - if current_rates.any?
+                    = link_to "#{t(".rate")} : #{number_with_precision(current_rates.first.rate, precision: 2, delimiter: ",")}", fund_settings_currency_currency_rate_path(currency_id: currency.id, id: current_rates.first.id)
+                    %span
+                      = l current_rates.first.created_at, format: "%d/%m/%Y"
+                  - else
+                    %span
+                      #{t(".missing_current_rate")}
+              - currency.expired_currency_rates.each do |currency_rate|
+                %td
+                  .table__element
+                    = link_to "#{t(".rate")} : #{number_with_precision(currency_rate.rate, precision: 2, delimiter: ",")}", fund_settings_currency_currency_rate_path(currency_id: currency.id, id: currency_rate.id)
+                    %span
+                      = l currency_rate.created_at, format: "%d/%m/%Y"
+  - else
+    %p= t(".no_currencies_yet")

@@ -1,0 +1,15 @@
+.grid-x
+  .cell.small-12.medium-12.large-12
+    .grid-x.grid-margin-x
+      .cell.small-8.medium-4.large-2
+        %strong Gross exposure
+      .cell.small-4.medium-8.large-10
+        %div= number_to_currency(loans_provision_summary.try(:gross_exposure), unit: "$", format: "%n %u")
+      .cell.small-8.medium-4.large-2
+        %strong Provision amount
+      .cell.small-4.medium-8.large-10
+        %div= number_to_currency(loans_provision_summary.try(:provision_amount), unit: "$", format: "%n %u")
+      .cell.small-8.medium-4.large-2
+        %strong Net exposure
+      .cell.small-4.medium-8.large-10
+        %div= number_to_currency(loans_provision_summary.try(:net_amount), unit: "$", format: "%n %u")

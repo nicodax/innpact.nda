@@ -1,0 +1,16 @@
+#recycle_bin {
+	ul {
+		margin: 0;
+	}
+}
+
+.recycle_row {
+	margin: 0 !important;
+}
+
+#restore-confirmation-modal,
+#destroy-confirmation-modal {
+	&:focus-visible {
+		outline: none;
+	}
+}

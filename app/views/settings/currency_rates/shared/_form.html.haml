@@ -1,0 +1,13 @@
+.grid-x.grid-margin-x
+  = f.hidden_field :created_by,value: current_user.full_name
+  .cell.small-12.medium-6
+    = f.label :currency, currency.short_name
+  .cell.small-12.medium-6
+    = f.label :created_at, currency.created_at.to_s
+  .cell.small-12.medium-6
+    = f.input :rate, as: "string", input_html: { class: "thousand_currencies_formats" }
+  .cell.small-12
+    %a.cta.cta_grey#reset-form Cancel
+    = f.submit "Save", class: "cta ml5"
+    
+= javascript_pack_tag 'cleave_form_format'

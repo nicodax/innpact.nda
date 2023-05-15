@@ -1,0 +1,48 @@
+.grid-x.grid-margin-x.institution_subentity
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    %h4= t('settings.esg_safeguard.shared.header.esg_safeguard_main_title')
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.esg_safeguard.shared.form.as_of')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :as_of, label: false, as: 'date_picker'
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      %span= t('settings.esg_safeguard.shared.form.compliance_with_fund_exclusion_list')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :compliance_with_fund_exclusion_list, label: false, collection: InstitutionEsgSafeguard.safeguard_boolean_options, input_html: { "data-tooltip" => true, :class => "has-tip"}
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle.subtitle
+      %span= t('settings.esg_safeguard.shared.form.compliance_with_international_labour_organization_standards')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :compliance_with_international_labour_organization_standards, label: false, collection: InstitutionEsgSafeguard.safeguard_boolean_options, input_html: { "data-tooltip" => true, :class => "has-tip"}
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle.subtitle
+      %span= t('settings.esg_safeguard.shared.form.compliance_with_international_bill_of_human_rights')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :compliance_with_international_bill_of_human_rights, label: false, collection: InstitutionEsgSafeguard.safeguard_boolean_options, input_html: { "data-tooltip" => true, :class => "has-tip"}
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle.subtitle
+      %span= t('settings.esg_safeguard.shared.form.compliance_with_guiding_principles_on_business_and_human_rights')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :compliance_with_guiding_principles_on_business_and_human_rights, label: false, collection: InstitutionEsgSafeguard.safeguard_boolean_options, input_html: { "data-tooltip" => true, :class => "has-tip"}
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle.subtitle
+      %span= t('settings.esg_safeguard.shared.form.compliance_with_oecd_guidelines_for_multinational_enterprises')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :compliance_with_oecd_guidelines_for_multinational_enterprises, label: false, collection: InstitutionEsgSafeguard.safeguard_boolean_with_na_options, input_html: { "data-tooltip" => true, :class => "has-tip"}
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle.subtitle
+      %span= t('settings.esg_safeguard.shared.form.compliance_with_national_standards_and_law')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :compliance_with_national_standards_and_law, label: false, collection: InstitutionEsgSafeguard.safeguard_boolean_options, input_html: { "data-tooltip" => true, :class => "has-tip"}
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.small-6.medium-6.large-6.grid-x.align-middle.subtitle
+      %span= t('settings.esg_safeguard.shared.form.compliance_with_client_protection_principles')
+    .cell.small-6.medium-6.large-6.grid-x.align-middle
+      = f.input :compliance_with_client_protection_principles, label: false, collection: InstitutionEsgSafeguard.safeguard_boolean_options, input_html: { "data-tooltip" => true, :class => "has-tip"}
+    &nbsp;
+  .cell.small-12.medium-12.large-12.grid-x.align-middle
+    .cell.auto.cta_center
+      = f.submit t('settings.shared.submit'), class: "cta"
+%hr

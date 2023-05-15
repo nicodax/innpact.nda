@@ -1,0 +1,17 @@
+= render partial: "settings/shared/breadcrumb", locals: {intermediate_topics: {}, current_topic: t("covenants")}
+= render partial: "settings/covenants/header"
+%hr
+.grid-x.grid-margin-x
+  = render 'settings/covenants/upload_form'
+  .cell.medium-10.large-9
+    %h2
+      =t("settings.covenants.index.covenant_list")
+    .grid-x.grid-margin-x.grid-margin-y
+      - @institutions.each do |institution|
+        .cell.small-12.medium-6.large-3
+          .institution_card
+            %h3= institution.name
+            %a{href: fund_settings_institution_path(fund_id: fund.id, id: institution.id, anchor: 'covenant_tab'), target: '_blank'}
+              =t('.covenant_title')
+
+= javascript_pack_tag 'covenants'
